@@ -23,24 +23,38 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CvU-KQ-JAO">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CvU-KQ-JAO">
                                 <rect key="frame" x="57" y="196" width="300" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="kyJ-nH-W6c"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Sign in with GitHub">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="githubLoginButtonTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6jH-aC-MJK"/>
+                                    <action selector="signInWithGithubButtonTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6jH-aC-MJK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qfw-Xe-3Mq" userLabel="SignInWithApple">
+                                <rect key="frame" x="57" y="260" width="300" height="44"/>
+                                <state key="normal" image="SignInWithAppleImage"/>
+                                <connections>
+                                    <action selector="signInWithAppleButtonTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bBY-Ow-gCV"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="CvU-KQ-JAO" firstAttribute="trailing" secondItem="Qfw-Xe-3Mq" secondAttribute="trailing" id="Ee6-Te-64u"/>
+                            <constraint firstItem="CvU-KQ-JAO" firstAttribute="leading" secondItem="Qfw-Xe-3Mq" secondAttribute="leading" id="VyD-b7-bGo"/>
                             <constraint firstItem="r2G-y8-gja" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WOG-I7-xMY"/>
                             <constraint firstItem="r2G-y8-gja" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="XLv-lL-Uzj"/>
+                            <constraint firstItem="Qfw-Xe-3Mq" firstAttribute="top" secondItem="CvU-KQ-JAO" secondAttribute="bottom" constant="20" id="eKj-ga-31b"/>
+                            <constraint firstItem="CvU-KQ-JAO" firstAttribute="top" secondItem="r2G-y8-gja" secondAttribute="bottom" constant="61" id="eTm-Gd-ds6"/>
+                            <constraint firstItem="Qfw-Xe-3Mq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="maI-DV-3MM"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -146,10 +160,8 @@
         <image name="1.circle.fill" catalog="system" width="128" height="121"/>
         <image name="2.circle.fill" catalog="system" width="128" height="121"/>
         <image name="3.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="SignInWithAppleImage" width="300" height="44"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
-        <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
