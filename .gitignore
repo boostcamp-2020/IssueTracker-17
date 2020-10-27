@@ -89,6 +89,13 @@ fastlane/test_output
 
 iOSInjectionProject/
 
+<<<<<<< HEAD
 #node_modules
 *node_modules
 *.env
+=======
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
+>>>>>>> b1de00c071aa7728af081dfb519f8f6e9f40bc41
