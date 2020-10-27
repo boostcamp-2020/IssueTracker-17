@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lzU-7h-FsM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,9 +22,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-813" y="-67"/>
+            <point key="canvasLocation" x="-1614" y="478"/>
         </scene>
-        <!--Item 2-->
+        <!--레이블-->
         <scene sceneID="ns9-sy-66T">
             <objects>
                 <viewController id="sFG-1K-IMG" sceneMemberID="viewController">
@@ -33,27 +34,53 @@
                         <viewLayoutGuide key="safeArea" id="gTw-2B-aQG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="1re-cg-SHo"/>
+                    <tabBarItem key="tabBarItem" title="레이블" image="2.circle.fill" catalog="system" id="1re-cg-SHo"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RWA-Ue-xud" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="928" y="451"/>
+            <point key="canvasLocation" x="799" y="477"/>
         </scene>
-        <!--Item 1-->
+        <!--이슈-->
         <scene sceneID="fTQ-mE-TgV">
             <objects>
                 <viewController id="82C-HF-yVU" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ftl-Qb-Htf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFc-pj-SsV">
+                                <rect key="frame" x="367" y="767" width="20" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="plus.circle.fill" catalog="system"/>
+                                <connections>
+                                    <segue destination="Wkw-X8-KjB" kind="show" id="wdB-JW-Rre"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="QJr-hw-gkY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="fyE-dU-zhd"/>
+                    <tabBarItem key="tabBarItem" title="이슈" image="1.circle.fill" catalog="system" id="fyE-dU-zhd"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e1L-oe-PoM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="928" y="-293"/>
+            <point key="canvasLocation" x="799" y="-288"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="FGF-hI-ZNu">
+            <objects>
+                <viewController id="Wkw-X8-KjB" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Y6y-8B-qCO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="YHg-Pe-ylk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LGN-g9-wzU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dXu-1b-zIi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2001" y="-289"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="EFV-u0-6Cu">
@@ -72,9 +99,9 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtR-0N-nNi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="42" y="-36"/>
+            <point key="canvasLocation" x="-523" y="477"/>
         </scene>
-        <!--Item-->
+        <!--마일스톤-->
         <scene sceneID="2C2-x7-BUg">
             <objects>
                 <viewController id="tc2-Es-Mq5" sceneMemberID="viewController">
@@ -84,14 +111,18 @@
                         <viewLayoutGuide key="safeArea" id="GSE-bQ-PJa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="FG2-jx-Zay"/>
+                    <tabBarItem key="tabBarItem" title="마일스톤" image="3.circle.fill" catalog="system" id="FG2-jx-Zay"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfW-y3-a6J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="928" y="1158"/>
+            <point key="canvasLocation" x="799" y="1245"/>
         </scene>
     </scenes>
     <resources>
+        <image name="1.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="2.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="3.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
