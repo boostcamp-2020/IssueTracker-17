@@ -1,8 +1,16 @@
-require('dotenv').config();
-const { user } = require('../../models/sequelize');
+const passport = require('passport');
+const config = require('../../config/config');
+const jwt = require('jsonwebtoken');
 
 function userController() {}
 
-userController.login = (req, res, next) => {};
+userController.github = passport.authenticate('github');
+
+userController.login = (req, res) => {
+    const payload = req.user;
+    jwt.sign(payload, config.jwtSecret, { expiresIn: 3600 }, (err, token) => {
+        res.json({ token: token });
+    });
+};
 
 module.exports = userController;

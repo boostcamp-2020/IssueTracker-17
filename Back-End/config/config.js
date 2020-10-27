@@ -6,6 +6,8 @@ const config = {
     database: process.env.database,
     githubOAuthID: process.env.githubOAuthID,
     githubOAuthSecret: process.env.githubOAuthSecret,
+    callbackURL: process.env.callbackURL,
+    jwtSecret: process.env.jwtSecret,
 };
 
 module.exports = config;
