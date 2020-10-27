@@ -3,11 +3,14 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const passport = require('passport');
-const passportConfig = require('./config/passport');
-const {sequelize} = require('./sequelize/models/index');
+// const passport = require('passport');
+// const passportConfig = require('./config/passport');
+const { sequelize } = require('./models/sequelize');
 
-const userRouter = require('./api/route/user');
+const userRouter = require('./routes/user');
+const labelRouter = require('./routes/label');
+const milestoneRouter = require('./routes/milestone');
+const issueRouter = require('./routes/issue');
 
 const app = express();
 
@@ -19,23 +22,20 @@ app.use(cookieParser());
 
 app.set('view engine', 'html');
 
-// app.use(passport.initialize());
-// passportConfig();
-
 app.use('/user', userRouter);
+app.use('/label', labelRouter);
+app.use('/milestone', milestoneRouter);
+app.use('/issue', issueRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-    // set locals, only providing error in development
+app.use(function (err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    // render the error page
     res.status(err.status || 500);
     res.render('error');
 });
