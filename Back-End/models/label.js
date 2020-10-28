@@ -27,6 +27,46 @@ module.exports = (sequelize, Datatypes) => {
             onDelete: 'cascade',
         });
     };
+    label.get = async () => {
+        const result = await label.findAll({
+            raw: true,
+        });
+        return result;
+    };
+
+    label.insert = async ({ title, contents, color }) => {
+        const result = await label.create({
+            title: title,
+            contents: contents,
+            color: color,
+        });
+        return result;
+    };
+
+    label.change = async ({ id, title, contents, color }) => {
+        const result = await label.update(
+            {
+                title: title,
+                contents: contents,
+                color: color,
+            },
+            {
+                where: {
+                    id: id,
+                },
+            }
+        );
+        return result;
+    };
+
+    label.delete = async ({ id }) => {
+        const result = await label.destroy({
+            where: {
+                id: id,
+            },
+        });
+        return result;
+    };
 
     return label;
 };
