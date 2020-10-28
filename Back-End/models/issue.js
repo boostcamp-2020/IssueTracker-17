@@ -88,5 +88,24 @@ module.exports = (sequelize, Datatypes) => {
         return result;
     };
 
+    issue.insert = async ({
+        userId,
+        milestoneId = null,
+        title,
+        contents,
+        created,
+        status,
+    }) => {
+        const result = await issue.create({
+            user_id: userId,
+            milestone_id: milestoneId,
+            title: title,
+            contents: contents,
+            created: created,
+            status: status,
+        });
+        return result;
+    };
+
     return issue;
 };
