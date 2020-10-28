@@ -8,7 +8,7 @@ module.exports = (sequelize, Datatypes) => {
             },
             milestone_id: {
                 type: Datatypes.INTEGER,
-                allowNull: false,
+                allowNull: true,
             },
             title: {
                 type: Datatypes.STRING(500),
@@ -58,6 +58,34 @@ module.exports = (sequelize, Datatypes) => {
             sourceKey: 'id',
             onDelete: 'cascade',
         });
+    };
+
+    issue.get = async ({ model }) => {
+        const result = await issue.findAll({
+            include: [
+                {
+                    model: model.user,
+                    attributes: ['name'],
+                },
+                {
+                    model: model.milestone,
+                    attributes: ['title'],
+                },
+                {
+                    model: model.has_label,
+                    attributes: {
+                        exclude: ['id', 'issue_id'],
+                    },
+                    include: [
+                        {
+                            model: model.label,
+                        },
+                    ],
+                },
+            ],
+            attributes: ['id', 'title', 'status', 'contents', 'created'],
+        });
+        return result;
     };
 
     return issue;
