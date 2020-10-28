@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		883D89B0254932FE005BDBE4 /* LableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883D89AF254932FE005BDBE4 /* LableViewController.swift */; };
+		883D89B525493372005BDBE4 /* LableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883D89B325493372005BDBE4 /* LableCollectionViewCell.swift */; };
+		883D89B625493372005BDBE4 /* LableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 883D89B425493372005BDBE4 /* LableCollectionViewCell.xib */; };
+		883D89BA2549483C005BDBE4 /* Lable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883D89B92549483C005BDBE4 /* Lable.swift */; };
+		887C0DEB2549769900E5A58A /* UIColor+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887C0DEA2549769900E5A58A /* UIColor+Extention.swift */; };
 		887C633125482F3800579562 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887C633025482F3800579562 /* LoginManager.swift */; };
-		887C63342548304D00579562 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887C63332548304D00579562 /* LoginController.swift */; };
+		887C63342548304D00579562 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887C63332548304D00579562 /* LoginViewController.swift */; };
 		888AAAA52547C1EB0013B974 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888AAAA42547C1EB0013B974 /* AppDelegate.swift */; };
 		888AAAA72547C1EB0013B974 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888AAAA62547C1EB0013B974 /* SceneDelegate.swift */; };
 		888AAAA92547C1EB0013B974 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888AAAA82547C1EB0013B974 /* ViewController.swift */; };
@@ -18,8 +23,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		883D89AF254932FE005BDBE4 /* LableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LableViewController.swift; sourceTree = "<group>"; };
+		883D89B325493372005BDBE4 /* LableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LableCollectionViewCell.swift; sourceTree = "<group>"; };
+		883D89B425493372005BDBE4 /* LableCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LableCollectionViewCell.xib; sourceTree = "<group>"; };
+		883D89B92549483C005BDBE4 /* Lable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lable.swift; sourceTree = "<group>"; };
+		887C0DEA2549769900E5A58A /* UIColor+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extention.swift"; sourceTree = "<group>"; };
 		887C633025482F3800579562 /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
-		887C63332548304D00579562 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		887C63332548304D00579562 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		888AAAA12547C1EB0013B974 /* IssueTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IssueTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		888AAAA42547C1EB0013B974 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		888AAAA62547C1EB0013B974 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,9 +52,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		887C0DE92549765400E5A58A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				887C0DEA2549769900E5A58A /* UIColor+Extention.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		887C632C25482F1100579562 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				883D89B92549483C005BDBE4 /* Lable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -52,6 +71,8 @@
 		887C632D25482F1800579562 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				883D89B325493372005BDBE4 /* LableCollectionViewCell.swift */,
+				883D89B425493372005BDBE4 /* LableCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -59,7 +80,8 @@
 		887C632E25482F1E00579562 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				887C63332548304D00579562 /* LoginController.swift */,
+				887C63332548304D00579562 /* LoginViewController.swift */,
+				883D89AF254932FE005BDBE4 /* LableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -91,6 +113,7 @@
 		888AAAA32547C1EB0013B974 /* IssueTracker */ = {
 			isa = PBXGroup;
 			children = (
+				887C0DE92549765400E5A58A /* Extensions */,
 				88CE729A254874D700E05217 /* IssueTracker.entitlements */,
 				887C632F25482F2600579562 /* Utils */,
 				887C632E25482F1E00579562 /* Controller */,
@@ -167,6 +190,7 @@
 				888AAAB12547C1ED0013B974 /* LaunchScreen.storyboard in Resources */,
 				888AAAAE2547C1ED0013B974 /* Assets.xcassets in Resources */,
 				888AAAAC2547C1EB0013B974 /* Main.storyboard in Resources */,
+				883D89B625493372005BDBE4 /* LableCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,10 +202,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				888AAAA92547C1EB0013B974 /* ViewController.swift in Sources */,
+				883D89B0254932FE005BDBE4 /* LableViewController.swift in Sources */,
 				887C633125482F3800579562 /* LoginManager.swift in Sources */,
+				887C0DEB2549769900E5A58A /* UIColor+Extention.swift in Sources */,
+				883D89B525493372005BDBE4 /* LableCollectionViewCell.swift in Sources */,
 				888AAAA52547C1EB0013B974 /* AppDelegate.swift in Sources */,
 				888AAAA72547C1EB0013B974 /* SceneDelegate.swift in Sources */,
-				887C63342548304D00579562 /* LoginController.swift in Sources */,
+				883D89BA2549483C005BDBE4 /* Lable.swift in Sources */,
+				887C63342548304D00579562 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
