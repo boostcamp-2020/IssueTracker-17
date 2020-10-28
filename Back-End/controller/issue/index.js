@@ -28,7 +28,23 @@ issueController.get = async (req, res) => {
     }
 };
 issueController.detail = (req, res, next) => {};
-issueController.insert = async (req, res) => {};
+issueController.insert = async (req, res) => {
+    const { userId, milestoneId, title, contents, created } = req.body;
+    try {
+        const result = await issue.insert({
+            userId: userId,
+            milestoneId: milestoneId,
+            title: title,
+            contents: contents,
+            created: created,
+            status: 0,
+        });
+        res.status(200).json({ result: true, id: result.id });
+    } catch (e) {
+        console.log(e);
+        res.status(400).json({ result: false });
+    }
+};
 issueController.update = async (req, res) => {};
 issueController.delete = async (req, res) => {
     try {
