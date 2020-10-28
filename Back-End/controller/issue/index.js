@@ -30,6 +30,14 @@ issueController.get = async (req, res) => {
 issueController.detail = (req, res, next) => {};
 issueController.insert = async (req, res) => {};
 issueController.update = async (req, res) => {};
-issueController.delete = async (req, res) => {};
+issueController.delete = async (req, res) => {
+    try {
+        const result = await issue.destroy({ where: { id: req.body.id } });
+        res.status(200).json({ result: result });
+    } catch (e) {
+        console.log(e);
+        res.status(400).json({ result: false });
+    }
+};
 
 module.exports = issueController;
