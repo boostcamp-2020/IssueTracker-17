@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const { user } = require('../../models/sequelize');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
@@ -17,11 +17,11 @@ exports.authentication = async (req, res, next) => {
 
     try {
         const { id } = jwt.verify(token, secret);
-        const user = await User.findOne({ where: { identifier: id } });
-        if (!user) {
+        const result = await user.findOne({ where: { identifier: id } });
+        if (!result) {
             return res.status(401).json(unauthorized);
         }
-        res.locals.user = user.dataValues;
+        res.locals.user = result.dataValues;
     } catch (err) {
         return res.status(401).json(unauthorized);
     }
