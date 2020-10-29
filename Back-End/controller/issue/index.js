@@ -20,6 +20,11 @@ issueController.get = async (req, res) => {
                 data['labels'] = [...data['labels'], label['label']];
             });
             data['has_labels'] = undefined;
+            data['assignees'] = [];
+            data['has_assignees'].forEach((user) => {
+                data['assignees'] = [...data['assignees'], user['user']];
+            });
+            data['has_assignees'] = undefined;
         });
         res.status(200).json({ result: result });
     } catch (e) {
@@ -28,7 +33,6 @@ issueController.get = async (req, res) => {
     }
 };
 issueController.detail = (req, res, next) => {};
-
 
 issueController.update = async (req, res) => {
     const bodyObj = req.body;
@@ -81,6 +85,5 @@ issueController.delete = async (req, res) => {
         res.status(400).json({ result: false });
     }
 };
-
 
 module.exports = issueController;
