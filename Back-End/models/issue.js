@@ -82,6 +82,17 @@ module.exports = (sequelize, Datatypes) => {
                         },
                     ],
                 },
+                {
+                    model: model.has_assignee,
+                    attributes: {
+                        exclude: ['id', 'issue_id'],
+                    },
+                    include: [
+                        {
+                            model: model.user,
+                        },
+                    ],
+                },
             ],
             attributes: ['id', 'title', 'status', 'contents', 'created'],
         });
