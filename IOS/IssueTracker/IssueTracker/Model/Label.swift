@@ -7,7 +7,7 @@
 
 import Foundation
 struct Label {
-    var name: String
-    var description: String
-    var color: String
+    var name = ""
+    var description = ""
+    var color = "#000000"
 }

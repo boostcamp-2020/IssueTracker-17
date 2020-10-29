@@ -7,19 +7,18 @@
 
 import UIKit
 
-class LableCollectionViewCell: UICollectionViewCell {
+class LabelCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var lableName: UILabel!
+    @IBOutlet weak var labelName: UILabel!
     @IBOutlet weak var descriptionLable: UILabel!
-    var lableColor = "" {
+    var labelColor = "" {
         didSet {
-            print(lableColor)
-            lableName.backgroundColor = UIColor().colorWithHexString(hex: lableColor)
+            labelName.backgroundColor = UIColor().colorWithHexString(hex: labelColor)
         }
     }
     var nameText = "" {
         didSet {
-            lableName.text = nameText
+            labelName.text = nameText
         }
     }
     var descriptionText = "" {
@@ -30,7 +29,7 @@ class LableCollectionViewCell: UICollectionViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        lableName.layer.cornerRadius = 8.0
-        lableName.clipsToBounds = true
+        labelName.layer.cornerRadius = 8.0
+        labelName.clipsToBounds = true
     }
 }
