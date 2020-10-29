@@ -53,9 +53,11 @@ commentController.update = async (req, res) => {
 commentController.delete = async (req, res) => {
     const { id } = req.body;
     try {
-        await comment.delete({ id: id });
+        const sql = { where: { id } };
+        await comment.destroy(sql);
         res.status(200).json({ result: true });
     } catch (e) {
+        console.error(e);
         res.status(400).json({ result: false });
     }
 };
