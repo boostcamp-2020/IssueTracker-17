@@ -28,6 +28,9 @@ class LabelDetailViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func saveButtonAction(_ sender: UIButton) {
+        label.name = nameTextField.text ?? ""
+        label.description = descriptionTextField.text ?? ""
+        label.color = colorTextField.text ?? "#000000"
         // TODO: 서버로 데이터 보내기
         self.dismiss(animated: true, completion: nil)
     }
