@@ -29,5 +29,42 @@ module.exports = (sequelize, Datatypes) => {
         });
     };
 
+    has_label.get = async ({ issueId, model }) => {
+        const result = await has_label.findAll({
+            raw: true,
+            include: [
+                {
+                    model: model.label,
+                    attributes: [],
+                },
+            ],
+            where: {
+                issue_id: issueId,
+            },
+            attributes: ['label.title', 'label.contents', 'label.color'],
+        });
+        return result;
+    };
+
+    has_label.insert = async ({ list }) => {
+        const result = await has_label.bulkCreate(list);
+        return result;
+    };
+
+    has_label.change = async ({ id, issueId, labelId }) => {
+        const result = await has_label.update(
+            {
+                issue_id: issueId,
+                label_id: labelId,
+            },
+            {
+                where: {
+                    id: id,
+                },
+            }
+        );
+        return result;
+    };
+
     return has_label;
 };
