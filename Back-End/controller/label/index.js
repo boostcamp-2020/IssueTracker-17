@@ -19,7 +19,7 @@ labelController.insert = async (req, res) => {
             contents: contents,
             color: color,
         });
-        res.status(200).json({ result: true, id: result.id });
+        res.status(200).json({ result: result });
     } catch (e) {
         res.status(400).json({ result: false });
     }
@@ -33,7 +33,7 @@ labelController.update = async (req, res) => {
             contents: contents,
             color: color,
         });
-        res.status(200).json({ result: true, id: result.id });
+        res.status(200).json({ result: result });
     } catch (e) {
         res.status(400).json({ result: false });
     }
@@ -42,7 +42,7 @@ labelController.delete = async (req, res) => {
     const { id } = req.body;
     try {
         const result = await label.delete({ id: id });
-        res.status(200).json({ result: true, id: result.id });
+        res.status(200).json({ result: result });
     } catch (e) {
         res.status(400).json({ result: false });
     }
