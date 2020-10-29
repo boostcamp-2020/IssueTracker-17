@@ -1,3 +1,5 @@
+const { Op } = require('sequelize');
+
 module.exports = (sequelize, Datatypes) => {
     const has_assignee = sequelize.define(
         'has_assignee',
@@ -27,6 +29,33 @@ module.exports = (sequelize, Datatypes) => {
             sourceKey: 'id',
             onDelete: 'cascade',
         });
+    };
+
+    has_assignee.get = async ({ issueId, model }) => {
+        const result = await has_assignee.findAll({
+            raw: true,
+            include: [
+                {
+                    model: model.user,
+                },
+            ],
+            where: {
+                issue_id: issueId,
+            },
+        });
+        return result;
+    };
+
+    has_assignee.delete = async ({ issueId, deleteAssignees }) => {
+        const result = await has_assignee.destroy({
+            where: {
+                issue_id: issueId,
+                user_id: {
+                    [Op.or]: deleteAssignees,
+                },
+            },
+        });
+        return result;
     };
 
     return has_assignee;
