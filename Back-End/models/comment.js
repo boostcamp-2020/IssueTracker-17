@@ -1,21 +1,25 @@
 module.exports = (sequelize, Datatypes) => {
-    const user = sequelize.define(
-        'user',
+    const comment = sequelize.define(
+        'comment',
         {
-            type: {
+            user_id: {
                 type: Datatypes.INTEGER,
                 allowNull: false,
             },
-            identifier: {
-                type: Datatypes.STRING(300),
+            issue_id: {
+                type: Datatypes.INTEGER,
                 allowNull: false,
             },
-            name: {
-                type: Datatypes.STRING(120),
-                allowNull: false,
-            },
-            profile_url: {
+            contents: {
                 type: Datatypes.STRING(1000),
+                allowNull: false,
+            },
+            emoji: {
+                type: Datatypes.STRING(1000),
+                allowNull: false,
+            },
+            created: {
+                type: Datatypes.DATE,
                 allowNull: false,
             },
         },
@@ -24,23 +28,18 @@ module.exports = (sequelize, Datatypes) => {
         }
     );
 
-    user.associate = (models) => {
-        models.user.hasMany(models.comment, {
+    comment.associate = (models) => {
+        models.comment.belongsTo(models.user, {
             foreignKey: 'user_id',
             sourceKey: 'id',
             onDelete: 'cascade',
         });
-        models.user.hasMany(models.issue, {
-            foreignKey: 'user_id',
-            sourceKey: 'id',
-            onDelete: 'cascade',
-        });
-        models.user.hasMany(models.has_assignee, {
-            foreignKey: 'user_id',
+        models.comment.belongsTo(models.issue, {
+            foreignKey: 'issue_id',
             sourceKey: 'id',
             onDelete: 'cascade',
         });
     };
 
-    return user;
+    return comment;
 };
