@@ -162,7 +162,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="issueFilterButton" destination="h5f-1K-hWb" id="AtG-dE-lph"/>
+                        <outlet property="issueFilterButton" destination="h5f-1K-hWb" id="Pt3-vv-R0o"/>
                         <outlet property="issueTableView" destination="XBC-Zg-CtL" id="O9U-QT-plW"/>
                     </connections>
                 </viewController>
