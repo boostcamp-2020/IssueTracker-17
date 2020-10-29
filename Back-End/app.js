@@ -11,6 +11,7 @@ const userRouter = require('./routes/user');
 const labelRouter = require('./routes/label');
 const milestoneRouter = require('./routes/milestone');
 const issueRouter = require('./routes/issue');
+const assigneeRouter = require('./routes/has_assignee');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use('/user', userRouter);
 app.use('/label', labelRouter);
 app.use('/milestone', milestoneRouter);
 app.use('/issue', issueRouter);
+app.use('/assignee', assigneeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
