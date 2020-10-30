@@ -26,8 +26,6 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
             let button = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(tabSelectAllButton))
             self.navigationItem.leftBarButtonItem = button
             
-            print(self.tabBarController?.tabBar.frame.size.height)
-            
             
             self.tabBarController?.tabBar.isHidden = true
             issueTableView.setEditing(true, animated: true)
@@ -105,6 +103,8 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
         })
         return action
     }
+    
+    func tabbar
 }
 
 extension IssueViewController {
