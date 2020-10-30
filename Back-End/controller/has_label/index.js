@@ -5,7 +5,7 @@ const model = require('../../models/sequelize');
 function hasLabelController() {}
 
 hasLabelController.get = async (req, res) => {
-    const { issueId } = req.body;
+    const { issueId } = req.params;
     try {
         const result = await has_label.get({ issueId: issueId, model: model });
         res.status(200).json({ result: result });
