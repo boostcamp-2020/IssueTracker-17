@@ -5,7 +5,7 @@ const model = require('../../models/sequelize');
 const assigneeController = {};
 
 assigneeController.get = async (req, res) => {
-    const { issueId } = req.body;
+    const { issueId } = req.params;
     try {
         const assignees = await hasAssignee.get({
             issueId: issueId,
