@@ -9,7 +9,7 @@ function userController() {}
 userController.github = passport.authenticate('github');
 
 userController.iosLogin = async (req, res) => {
-    const { identifier, name, profile_url, type } = req.body;
+    const { identifier, name, profileUrl, type } = req.body;
     if (!identifier) {
         res.status(401).json({ login: false });
     }
@@ -22,7 +22,7 @@ userController.iosLogin = async (req, res) => {
     let fields = ['type', 'identifier'];
     if (type == loginTypes.GITHUB) {
         payload.name = name;
-        payload.profile_url = profile_url;
+        payload.profile_url = profileUrl;
         fields = [...fields, 'name', 'profile_url'];
     }
 

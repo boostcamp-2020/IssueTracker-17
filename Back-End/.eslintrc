@@ -23,6 +23,8 @@
     ],
 
     "rules": {
+        "no-console": "error",
+        "camelcase": "error",
         "prettier/prettier": [
             "error",
             {

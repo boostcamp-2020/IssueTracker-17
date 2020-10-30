@@ -3,12 +3,12 @@ const { milestone } = require('../../models/sequelize');
 
 function milestoneController() {}
 
-milestoneController.get = async (req, res, next) => {
-    const data = await milestone.findAll();
-    res.status(200).json(data);
+milestoneController.get = async (req, res) => {
+    const result = await milestone.findAll();
+    res.status(200).json({ result: result });
 };
 
-milestoneController.insert = async (req, res, next) => {
+milestoneController.insert = async (req, res) => {
     const { title, contents, until, status } = req.body;
     try {
         const result = await milestone.create({
@@ -17,35 +17,34 @@ milestoneController.insert = async (req, res, next) => {
             until,
             status,
         });
-        res.status(200).json({ result: true, id: result.id });
+        res.status(200).json({ result: result });
     } catch (e) {
         console.error(e);
         res.status(400).json({ result: false });
     }
 };
 
-milestoneController.update = async (req, res, next) => {
+milestoneController.update = async (req, res) => {
     const { id, title, contents, until, status } = req.body;
     const sql = { where: { id } };
     try {
-        console.log(sql);
-        console.log({ title, contents, status });
         let result = await milestone.update({ title, contents, status }, sql);
-        result = result >= 1 ? true : false;
-        res.status(200).json({ result });
+        result = result >= 1;
+        res.status(200).json({ result: result });
     } catch (e) {
+        console.error(e);
         res.status(400).json({ result: false });
     }
 };
-milestoneController.delete = async (req, res, next) => {
+milestoneController.delete = async (req, res) => {
     const { id } = req.body;
     const sql = { where: { id } };
     try {
-        console.log(sql);
         let result = await milestone.destroy(sql);
-        result = result >= 1 ? true : false;
-        res.status(200).json({ result });
+        result = result >= 1;
+        res.status(200).json({ result: result });
     } catch (e) {
+        console.error(e);
         res.status(400).json({ result: false });
     }
 };

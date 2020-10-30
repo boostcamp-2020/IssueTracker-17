@@ -49,9 +49,9 @@ extension LabelViewController: UICollectionViewDelegate, UICollectionViewDataSou
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LabelCollectionViewCell", for: indexPath) as? LabelCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.labelColor = labels[indexPath.row].color
-        cell.nameText = labels[indexPath.row].name
-        cell.descriptionText = labels[indexPath.row].description
+        cell.labelName.backgroundColor = UIColor().colorWithHexString(hex: labels[indexPath.row].color)
+        cell.labelName.text = labels[indexPath.row].name
+        cell.descriptionLable.text = labels[indexPath.row].description
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
