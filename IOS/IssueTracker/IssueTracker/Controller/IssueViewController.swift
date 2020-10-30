@@ -104,7 +104,6 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
         return action
     }
     
-    func tabbar
 }
 
 extension IssueViewController {
