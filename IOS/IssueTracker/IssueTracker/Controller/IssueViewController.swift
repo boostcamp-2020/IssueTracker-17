@@ -11,6 +11,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var issueTableView: UITableView!
     @IBOutlet var issueFilterButton: UIBarButtonItem!
     var selectData: [tempData] = Array()
+    var selectAllCheck: Bool = false
     private let searchController = UISearchController(searchResultsController: nil)
     let data = [tempData.init(title: "테스트1", contents: "테스트1입니다"),
                 tempData.init(title: "테스트2", contents: "테스트2입니다"),
@@ -20,17 +21,34 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         if issueTableView.isEditing {
             issueTableView.setEditing(false, animated: true)
             self.navigationItem.leftBarButtonItem = issueFilterButton
+            self.tabBarController?.tabBar.isHidden = false
         }else{
             let button = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(tabSelectAllButton))
             self.navigationItem.leftBarButtonItem = button
+            
+            
+            self.tabBarController?.tabBar.isHidden = true
             issueTableView.setEditing(true, animated: true)
             issueTableView.allowsMultipleSelectionDuringEditing = true
         }
     }
     
-    @objc func tabSelectAllButton() {
-        print("test")
+    @objc func tabSelectAllButton(_ sender: UIButton) {
+        if selectAllCheck {
+            selectAllCheck = false
+            self.navigationItem.leftBarButtonItem?.title = "Select All"
+            for i in 0..<data.count {
+                self.issueTableView.deselectRow(at: IndexPath(row: i, section: 0), animated: false)
+            }
+        }else{
+            selectAllCheck = true
+            self.navigationItem.leftBarButtonItem?.title = "Deselect All"
+            for i in 0..<data.count {
+                self.issueTableView.selectRow(at: IndexPath(row: i, section: 0), animated: false, scrollPosition: .none)
+            }
+        }
     }
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +103,8 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
         })
         return action
     }
+    
+    func tabbar
 }
 
 extension IssueViewController {
