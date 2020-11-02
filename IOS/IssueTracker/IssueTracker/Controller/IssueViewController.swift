@@ -13,9 +13,9 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     var selectData: [tempData] = Array()
     var selectAllCheck: Bool = false
     private let searchController = UISearchController(searchResultsController: nil)
-    let data = [tempData.init(title: "테스트1", contents: "테스트1입니다"),
-                tempData.init(title: "테스트2", contents: "테스트2입니다"),
-                tempData.init(title: "테스트3", contents: "테스트3입니다")]
+    let data = [tempData.init(title: "이슈1", contents: "테스트1입니다"),
+                tempData.init(title: "이슈2", contents: "테스트2입니다"),
+                tempData.init(title: "이슈3", contents: "테스트3입니다")]
 
     @IBAction func tabTableEditButton(_ sender: UIBarButtonItem) {
         if issueTableView.isEditing {
