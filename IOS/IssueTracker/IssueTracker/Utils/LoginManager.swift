@@ -13,8 +13,8 @@ import AuthenticationServices
 class LoginManager {
     static let shared = LoginManager()
     private init() {}
-    private let githubClientId = ""
-    private let githubClientSecret = ""
+    private let githubClientId = "ad973f593224119b94b4"
+    private let githubClientSecret = "6061dee97853332ddee856b4c32f488b48f6d8c1"
     func requestCodeToGithub() {
         let scope = "repo,user"
         let urlString = "https://github.com/login/oauth/authorize?client_id=\(githubClientId)&scope=\(scope)"
