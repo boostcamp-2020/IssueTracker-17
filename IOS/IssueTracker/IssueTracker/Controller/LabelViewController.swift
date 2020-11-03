@@ -41,7 +41,7 @@ class LabelViewController: UIViewController {
         collectionView.reloadData()
     }
 }
-extension LabelViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+extension LabelViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return labels.count
     }

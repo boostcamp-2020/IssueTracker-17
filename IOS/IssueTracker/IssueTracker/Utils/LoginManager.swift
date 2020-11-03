@@ -10,11 +10,8 @@ import UIKit
 import Network
 
 class LoginManager {
-    
     static let shared = LoginManager()
-    
     private init() {}
-    
     private let githubClientId = ""
     private let githubClientSecret = ""
     func requestCodeToGithub() {
@@ -40,7 +37,7 @@ class LoginManager {
         }
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, _, error in
             guard error == nil else {
                 return
             }
@@ -48,12 +45,14 @@ class LoginManager {
                 return
             }
             //  let accessToken = dic["access_token"] ?? ""
-            guard let json = try! JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
                 print(String(data: data, encoding: .utf8) ?? "Not string?!?")
                 return
             }
             // json["access_token"] access_token 값
-            self.getUser(accessToken: json["access_token"] as! String)
+            if let accessToken = json["access_token"] as? String {
+                self.getUser(accessToken: accessToken)
+            }
         })
         task.resume()
     }
@@ -64,25 +63,24 @@ class LoginManager {
         request.httpMethod = "GET"
         request.addValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
         request.addValue("application/vnd.github.v3+json", forHTTPHeaderField: "Accept")
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, _, error in
             guard error == nil else {
                 return
             }
             guard let data = data else {
                 return
             }
-            guard let json = try! JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
                 print(String(data: data, encoding: .utf8) ?? "Not string?!?")
                 return
             }
             // 프로필 사진 주소
-            print(json["avatar_url"] as! String)
+            print(json["avatar_url"] as? String as Any)
             // 이름 가져오기
-            print(json["name"] as! String)
+            print(json["name"] as? String as Any)
         })
         task.resume()
     }
     func logout() {
     }
-    
 }

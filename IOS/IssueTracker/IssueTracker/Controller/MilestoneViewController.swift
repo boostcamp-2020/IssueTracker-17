@@ -36,7 +36,7 @@ class MilestoneViewController: UIViewController {
         collectionView.reloadData()
     }
 }
-extension MilestoneViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+extension MilestoneViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return milestones.count
     }

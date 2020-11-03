@@ -33,7 +33,7 @@ class MilestoneDetailViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy/MM/dd"
         setValue(milestone: milestone)
     }
-    func setValue(milestone : Milestone){
+    func setValue(milestone: Milestone) {
         nameTextField.text = milestone.name
         descriptionTextField.text = milestone.description
         endDatePicker.date = dateFormatter.date(from: milestone.endDate) ?? Date()

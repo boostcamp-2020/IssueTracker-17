@@ -12,5 +12,3 @@ class FilterIssueViewController: UIViewController {
         super.viewDidLoad()
     }
 }
-
-

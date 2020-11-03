@@ -6,30 +6,30 @@
 //
 import UIKit
 extension UIColor {
-    func colorWithHexString (hex:String) -> UIColor {
+    func colorWithHexString (hex: String) -> UIColor {
         var str = hex
-        if (str.hasPrefix("#")) {
+        if str.hasPrefix("#") {
             str.removeFirst()
         }
-        if (str.count != 6) {
+        if str.count != 6 {
             return .red
         }
-        var r="" ,g="" ,b = ""
-        r = String(str[...str.index(str.startIndex, offsetBy: 1)])
-        g = String(str[str.index(str.startIndex,offsetBy: 2)...str.index(str.index(str.startIndex,offsetBy: 2), offsetBy: 1)])
-        b = String(str[str.index(str.startIndex,offsetBy: 4)...str.index(str.index(str.startIndex,offsetBy: 4), offsetBy: 1)])
-        guard let R = UInt8(r, radix: 16), let G = UInt8(g, radix: 16), let B = UInt8(b, radix: 16) else {
+        var red = "", green = "", blue = ""
+        red = String(str[...str.index(str.startIndex, offsetBy: 1)])
+        green = String(str[str.index(str.startIndex, offsetBy: 2)...str.index(str.index(str.startIndex, offsetBy: 2), offsetBy: 1)])
+        blue = String(str[str.index(str.startIndex, offsetBy: 4)...str.index(str.index(str.startIndex, offsetBy: 4), offsetBy: 1)])
+        guard let redHexValue = UInt8(red, radix: 16), let greenHexValue = UInt8(green, radix: 16), let blueHexValue = UInt8(blue, radix: 16) else {
             return .red
         }
-        return UIColor(red: CGFloat(R) / 255.0, green: CGFloat(G) / 255.0, blue: CGFloat(B) / 255.0, alpha: CGFloat(1.0))
+        return UIColor(red: CGFloat(redHexValue) / 255.0, green: CGFloat(greenHexValue) / 255.0, blue: CGFloat(blueHexValue) / 255.0, alpha: CGFloat(1.0))
     }
     func toHex() -> String? {
         guard let components = cgColor.components, components.count >= 3 else {
             return nil
         }
-        let r = Float(components[0])
-        let g = Float(components[1])
-        let b = Float(components[2])
-        return String(format: "#%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
+        let red = Float(components[0])
+        let green = Float(components[1])
+        let blue = Float(components[2])
+        return String(format: "#%02lX%02lX%02lX", lroundf(red * 255), lroundf(green * 255), lroundf(blue * 255))
     }
 }

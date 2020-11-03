@@ -8,7 +8,6 @@
 import UIKit
 import AuthenticationServices
 class LoginViewController: UIViewController {
-    
     @IBAction func signInWithGithubButtonTouch(_ sender: UIButton) {
         LoginManager.shared.requestCodeToGithub()
     }
@@ -33,7 +32,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             if let email = credential.email {
                 print("Email : \(email)")
             }
-            if let fullName = credential.fullName{
+            if let fullName = credential.fullName {
                 print("Full Name : \(fullName)")
             }
         }
