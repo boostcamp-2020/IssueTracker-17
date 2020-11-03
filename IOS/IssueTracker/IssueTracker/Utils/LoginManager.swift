@@ -8,12 +8,13 @@
 import Foundation
 import UIKit
 import Network
-
+import Alamofire
+import AuthenticationServices
 class LoginManager {
     static let shared = LoginManager()
     private init() {}
-    private let githubClientId = ""
-    private let githubClientSecret = ""
+    private let githubClientId = "ad973f593224119b94b4"
+    private let githubClientSecret = "6061dee97853332ddee856b4c32f488b48f6d8c1"
     func requestCodeToGithub() {
         let scope = "repo,user"
         let urlString = "https://github.com/login/oauth/authorize?client_id=\(githubClientId)&scope=\(scope)"
@@ -23,63 +24,42 @@ class LoginManager {
         }
     }
     func requestAccessTokenToGithub(with code: String) {
-        guard let url = URL(string: "https://github.com/login/oauth/access_token") else {return}
-        let session = URLSession.shared
+        let url = "https://github.com/login/oauth/access_token"
+        let headers: HTTPHeaders = ["Accept" : "application/json"]
         let parameters = ["client_id": githubClientId,
                           "client_secret": githubClientSecret,
                           "code": code]
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
-        } catch let error {
-            print(error.localizedDescription)
+        AF.request(url, method: .post, parameters: parameters, headers: headers).responseJSON(){
+            response in
+            switch response.result {
+            case .success:
+                if let jsonObject = try! response.result.get() as? [String: Any] {
+                    if let accessToken = jsonObject["access_token"] as? String {
+                        self.getUser(accessToken: accessToken)
+                    }
+                }
+            case .failure(let error):
+                print(error)
+                return
+            }
         }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, _, error in
-            guard error == nil else {
-                return
-            }
-            guard let data = data else {
-                return
-            }
-            //  let accessToken = dic["access_token"] ?? ""
-            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                print(String(data: data, encoding: .utf8) ?? "Not string?!?")
-                return
-            }
-            // json["access_token"] access_token 값
-            if let accessToken = json["access_token"] as? String {
-                self.getUser(accessToken: accessToken)
-            }
-        })
-        task.resume()
     }
     func getUser(accessToken: String) {
-        guard let url = URL(string: "https://api.github.com/user") else {return}
-        let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
-        request.addValue("application/vnd.github.v3+json", forHTTPHeaderField: "Accept")
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, _, error in
-            guard error == nil else {
+        let url = "https://api.github.com/user"
+        let headers: HTTPHeaders = ["Authorization" : "token \(accessToken)"]
+        AF.request(url, headers: headers).responseJSON(){
+            response in
+            switch response.result {
+            case .success:
+                if let jsonObject = try! response.result.get() as? [String: Any] {
+                    print(jsonObject["avatar_url"] as! String)
+                    print(jsonObject["name"] as! String)
+                }
+            case .failure(let error):
+                print(error)
                 return
             }
-            guard let data = data else {
-                return
-            }
-            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                print(String(data: data, encoding: .utf8) ?? "Not string?!?")
-                return
-            }
-            // 프로필 사진 주소
-            print(json["avatar_url"] as? String as Any)
-            // 이름 가져오기
-            print(json["name"] as? String as Any)
-        })
-        task.resume()
+        }
     }
     func logout() {
     }
