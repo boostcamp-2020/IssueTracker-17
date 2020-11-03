@@ -13,3 +13,13 @@ struct Milestone {
     var openIssueCount = 0
     var closeIssueCount = 0
 }
+extension Milestone: connectNetworkAble {
+    func Get() {
+    }
+    func Post() {
+    }
+    func Put() {
+    }
+    func Delete() {
+    }
+}

@@ -13,8 +13,11 @@ import AuthenticationServices
 class LoginManager {
     static let shared = LoginManager()
     private init() {}
-    private let githubClientId = "ad973f593224119b94b4"
-    private let githubClientSecret = "6061dee97853332ddee856b4c32f488b48f6d8c1"
+    private let githubClientId = ""
+    private let githubClientSecret = ""
+    private var githubIdentifier = ""
+    private var githubName = ""
+    private var githubProfileUrl = ""
     func requestCodeToGithub() {
         let scope = "repo,user"
         let urlString = "https://github.com/login/oauth/authorize?client_id=\(githubClientId)&scope=\(scope)"
@@ -52,8 +55,16 @@ class LoginManager {
             switch response.result {
             case .success:
                 if let jsonObject = try! response.result.get() as? [String: Any] {
-                    print(jsonObject["avatar_url"] as! String)
-                    print(jsonObject["name"] as! String)
+                    if let id = jsonObject["id"] {
+                        self.githubIdentifier = String(id as! Int64)
+                    }
+                    if let name = jsonObject["name"] as? String {
+                        self.githubName = name
+                    }
+                    if let avatar_url = jsonObject["avatar_url"] as? String {
+                        self.githubProfileUrl = avatar_url
+                    }
+                    self.Post()
                 }
             case .failure(let error):
                 print(error)
@@ -62,5 +73,33 @@ class LoginManager {
         }
     }
     func logout() {
+    }
+}
+extension LoginManager: connectNetworkAble {
+    func Get(){
+        return
+    }
+    func Post() {
+        let headers: HTTPHeaders = ["Content-Type" : "application/x-www-form-urlencoded"]
+        let parameters = ["type": 1,
+                          "identifier": githubIdentifier,
+                          "name": githubName,
+                          "profileUrl": githubProfileUrl] as [String : Any]
+        AF.request(RestApiServerURL.login, method: .post, parameters: parameters, headers: headers).responseString(){
+            response in
+            switch response.result {
+            case .success:
+                print(try! response.result.get())
+            case .failure(let error):
+                print(error)
+                return
+            }
+        }
+    }
+    func Put() {
+        //
+    }
+    func Delete() {
+        //
     }
 }
