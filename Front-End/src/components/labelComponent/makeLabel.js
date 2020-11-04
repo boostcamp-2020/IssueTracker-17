@@ -1,17 +1,19 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useState } from 'react';
 import { PostsContext } from './index';
 
 export function Label(props) {
   const { pushNewLabel } = useContext(PostsContext);
-  const titleRef = useRef('');
-  const contentsRef = useRef('');
-  const colorRef = useRef('');
+  const titleRef = useRef({ value: props.data ? props.data.title : ''});
+  const contentsRef = useRef({ value : props.data ? props.data.contents : ''});
+  const colorRef = useRef({ value :props.data ? props.data.color : ''});
+  const [exTitle, setExTitle] = useState(props.data ? props.data.title : 'Label preview');
 
   function clickChangeEventHandler(e) {
     e.preventDefault();
     if (!e.target.classList.contains('create-btn')) return;
     const key = props.data ? props.data.id : -1;
-    pushNewLabel({ titleRef, contentsRef, colorRef, key, idx: props.idx });
+    const labelWrapper = e.target.closest('.label-wrapper');
+    pushNewLabel({ titleRef, contentsRef, colorRef, key, idx: props.idx, labelWrapper });
   }
 
   function toggleLabelDetailEventHandler(e) {
@@ -21,6 +23,18 @@ export function Label(props) {
     detailForm.classList.toggle('hidden');
   }
 
+  function resetDataEventHandler(e) {
+    e.preventDefault();
+    titleRef.current.value = props.data ? props.data.title : '';
+    contentsRef.current.value = props.data ? props.data.contents : '';
+    colorRef.current.value = props.data ? props.data.color : '';
+    setExTitle(props.data ? props.data.title : 'Label preview');
+    const labelWrapper = e.target.closest('.label-wrapper');
+    props.data
+      ? labelWrapper.querySelector('.input-form').classList.toggle('hidden')
+      : labelWrapper.classList.toggle('hidden');
+  }
+
   return (
     <div
       className={ props.className + '-wrapper label-wrapper' + (props.flag ? ' hidden' : '')}
@@ -28,9 +42,9 @@ export function Label(props) {
       data-key={props.data ? props.data.id : -1}
     >
       <div className={props.className + '-contents label-contents'}>
-        <div>{props.data ? props.data.title : 'Label preview'}</div>
+        <div>{exTitle}</div>
         <div>{props.data ? props.data.contents : undefined}</div>
-        <div className={props.className + '-contents-btn label-contents-btn'}>
+        <div className={props.className + '-contents-btn label-contents-btn'+(props.flag ? ' hidden': '')}>
           <button
             className={props.className + '-edit-btn label-edit-btn'}
             onClick={(e) => toggleLabelDetailEventHandler(e)}
@@ -50,11 +64,24 @@ export function Label(props) {
         <div className={props.className + '-input-wrapper input-wrapper'}>
           <div>
             <div>Label name</div>
-            <input ref={titleRef} defaultValue={props.data ? props.data.title : undefined} type="text" />
+            <input
+              type="text"
+              value={titleRef.current.value}
+              ref={titleRef}
+              onChange={(e) =>
+                e.target.value === ''
+                  ? setExTitle('Label preview')
+                  : setExTitle(e.target.value)
+              }
+            />
           </div>
           <div>
             <div>Description</div>
-            <input ref={contentsRef} defaultValue={props.data ? props.data.contents : undefined} type="text" />
+            <input
+              type="text"
+              defaultValue={contentsRef.current.value}
+              ref={contentsRef}
+            />
           </div>
           <div>
             <div>Color</div>
@@ -74,11 +101,11 @@ export function Label(props) {
                   ></path>
                 </svg>
               </button>
-              <input ref={colorRef} defaultValue={props.data ? props.data.color : undefined} type="text" />
+              <input type="text" ref={colorRef} value={colorRef.current.value} />
             </div>
           </div>
           <div className={props.className + '-input-btns input-btns'}>
-            <button>Cancel</button>
+            <button onClick={(e) => resetDataEventHandler(e)}>Cancel</button>
             <button
               onClick={(e) => clickChangeEventHandler(e)}
               className="create-btn"
