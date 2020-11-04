@@ -47,9 +47,11 @@ function LabelComponent() {
   return (
     <PostsContext.Provider value={{ labelList, dispatch, pushNewLabel }}>
       <div id="label-form">
-        <TopLinks />
-        <LabelCounter />
-        <LabelList />
+        <div id="label-form-wrapper">
+          <TopLinks />
+          <LabelCounter />
+          <LabelList />
+        </div>
       </div>
     </PostsContext.Provider>
   );
