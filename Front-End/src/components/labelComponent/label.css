@@ -1,0 +1,76 @@
+.top-links {
+    margin: 20px 0px;
+}
+
+button.new-label-btn {
+    float: right;
+}
+
+.label-contents {
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.label-contents > div{
+    flex: 1
+}
+
+.label-contents-btn {
+    flex: 3 !important;
+    text-align: right;
+}
+
+.input-wrapper {
+    display: flex;
+}
+
+.input-wrapper > div {
+    flex: 1;
+}
+
+.input-btns {
+    align-self: flex-end;
+    flex: 1.1 !important;
+    text-align: right;
+}
+
+.label-wrapper {
+    border: 1px solid gray;
+}
+
+form {
+    margin: 15px 0px;
+}
+
+.hidden{
+    display: none !important;
+}
+
+form.input-form {
+    margin-bottom: 15px;
+}
+
+.label-counter {
+    display: flex;
+    border: 1px solid gray;
+    border-bottom: none;
+    height: 40px;
+    align-items: center;
+}
+
+.label-counter > div {
+    margin-right: 5px;
+}
+
+.label-contents > div {
+    flex: 1;
+    margin-left: 13px;
+}
+
+.top-links > button {
+    background-color: white;
+    border: 1px solid gray;
+    width: 6%;
+    height: 33px;
+}
