@@ -11,7 +11,7 @@ const initialState = { list: [] };
 function LabelComponent() {
   const [state, dispatch] = useReducer(reducers.labelReducer, initialState);
 
-  function pushNewLabel({ titleRef, contentsRef, colorRef, key, idx }) {
+  function pushNewLabel({ titleRef, contentsRef, colorRef, key, idx, labelWrapper}) {
     if (key === -1) {
       const data = {
         id: 4,
@@ -20,6 +20,7 @@ function LabelComponent() {
         color: colorRef.current.value,
       };
       dispatch({ type: 'push', data: data });
+      labelWrapper.classList.toggle('hidden');
     } else {
       const data = {
         id: key,
@@ -28,6 +29,7 @@ function LabelComponent() {
         color: colorRef.current.value,
       };
       dispatch({ type: 'update', data: data, idx: idx });
+      labelWrapper.querySelector('.input-form').classList.toggle('hidden')
     }
   }
 
