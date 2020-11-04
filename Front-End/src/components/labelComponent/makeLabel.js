@@ -2,11 +2,22 @@ import React, { useRef, useContext, useState } from 'react';
 import { PostsContext } from './index';
 
 export function Label(props) {
-  const { pushNewLabel } = useContext(PostsContext);
+  const { pushNewLabel, dispatch } = useContext(PostsContext);
   const titleRef = useRef({ value: props.data ? props.data.title : ''});
   const contentsRef = useRef({ value : props.data ? props.data.contents : ''});
   const colorRef = useRef({ value :props.data ? props.data.color : ''});
+  const [color, setColor] = useState(props.data ? props.data.color : randomColor());
   const [exTitle, setExTitle] = useState(props.data ? props.data.title : 'Label preview');
+
+  function randomColor() {
+    let text = '';
+    const possible = 'ABCDEF0123456789';
+    Array.from(Array(6)).forEach(() => {
+      text += possible.charAt(Math.floor(Math.random() * possible.length))
+    });
+    console.log('text : ',text);
+    return '#' + text;
+  }
 
   function clickChangeEventHandler(e) {
     e.preventDefault();
@@ -27,12 +38,17 @@ export function Label(props) {
     e.preventDefault();
     titleRef.current.value = props.data ? props.data.title : '';
     contentsRef.current.value = props.data ? props.data.contents : '';
-    colorRef.current.value = props.data ? props.data.color : '';
+    setColor(props.data ? props.data.color : randomColor());
     setExTitle(props.data ? props.data.title : 'Label preview');
     const labelWrapper = e.target.closest('.label-wrapper');
     props.data
       ? labelWrapper.querySelector('.input-form').classList.toggle('hidden')
       : labelWrapper.classList.toggle('hidden');
+  }
+
+  function deleteLabelEventHandler(e) {
+    e.preventDefault();
+    dispatch({ type: 'delete', idx: props.idx});
   }
 
   return (
@@ -42,8 +58,8 @@ export function Label(props) {
       data-key={props.data ? props.data.id : -1}
     >
       <div className={props.className + '-contents label-contents'}>
-        <div>{exTitle}</div>
-        <div>{props.data ? props.data.contents : undefined}</div>
+        <div><div className='extitle' style={{ backgroundColor: color}}>{exTitle}</div></div>
+        <div className="label-contents-text">{props.data ? props.data.contents : undefined}</div>
         <div className={props.className + '-contents-btn label-contents-btn'+(props.flag ? ' hidden': '')}>
           <button
             className={props.className + '-edit-btn label-edit-btn'}
@@ -51,7 +67,10 @@ export function Label(props) {
           >
             Edit
           </button>
-          <button className={props.className + '-delete-btn label-delete-btn'}>
+          <button
+            className={props.className + '-delete-btn label-delete-btn'}
+            onClick={(e) => deleteLabelEventHandler(e)}
+          >
             Delete
           </button>
         </div>
@@ -86,7 +105,13 @@ export function Label(props) {
           <div>
             <div>Color</div>
             <div className={props.className + '-input-color-btn color-btn'}>
-              <button className="refresh-button">
+              <button
+                className="refresh-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setColor(randomColor());
+                }}
+              >
                 <svg
                   className="octicon octicon-sync js-new-label-color-icon text-gray-dark"
                   viewBox="0 0 16 16"
@@ -101,7 +126,7 @@ export function Label(props) {
                   ></path>
                 </svg>
               </button>
-              <input type="text" ref={colorRef} value={colorRef.current.value} />
+              <input type="text" ref={colorRef} value={color} onChange={ (e) => setColor(e.target.value)}/>
             </div>
           </div>
           <div className={props.className + '-input-btns input-btns'}>
@@ -109,6 +134,7 @@ export function Label(props) {
             <button
               onClick={(e) => clickChangeEventHandler(e)}
               className="create-btn"
+              disabled={!titleRef.current.value}
             >
               {props.data ? 'Save Changes' : 'Create label'}
             </button>
