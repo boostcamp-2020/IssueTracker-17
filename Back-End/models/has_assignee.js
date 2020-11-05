@@ -55,7 +55,6 @@ module.exports = (sequelize, Datatypes) => {
                 },
             },
         });
-        console.log(result);
         return result;
     };
 
