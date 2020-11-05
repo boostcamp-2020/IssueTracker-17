@@ -50,7 +50,7 @@ assigneeController.delete = async (req, res) => {
 assigneeController.update = async (req, res) => {
     const { issueId, insertAssignee, deleteAssignee } = req.body;
     try {
-        await hasAssignee.delete({
+        const deleteResult = await hasAssignee.delete({
             issueId: issueId,
             deleteAssignees: deleteAssignee,
         });
@@ -59,7 +59,8 @@ assigneeController.update = async (req, res) => {
             user_id: value,
         }));
         const insertResult = await hasAssignee.bulkCreate(insertObject);
-        res.status(200).json({ result: insertResult });
+        const result = { delete: deleteResult, insert: insertResult.length };
+        res.status(200).json({ result: result });
     } catch (e) {
         console.error(e);
         res.status(400).json({ result: false });
