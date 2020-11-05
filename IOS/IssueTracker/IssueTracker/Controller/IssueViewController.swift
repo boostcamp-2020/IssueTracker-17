@@ -55,6 +55,15 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         configure()
     }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if issueTableView.isEditing {
+            return false
+        }else{
+            return true
+        }
+    }
+    
     private func configure() {
         self.navigationItem.searchController = searchController
         issueTableView.dataSource = self
@@ -133,8 +142,8 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //openDetailView(issue: issues[indexPath.row])
-        //self.selectSelectCell(tableView: tableView, indexPath: indexPath)
-        //print("select", indexPath)
+        self.selectSelectCell(tableView: tableView, indexPath: indexPath)
+        print("select", indexPath)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
