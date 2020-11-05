@@ -63,7 +63,7 @@ module.exports = (sequelize, Datatypes) => {
                 },
             }
         );
-        return result;
+        return result[0];
     };
 
     return has_label;

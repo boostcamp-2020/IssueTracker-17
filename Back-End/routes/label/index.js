@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const labelController = require('../../controller/label');
+const labelController = require('@controller/label');
 
 router.get('/:id?', labelController.get);
 router.post('/', labelController.insert);

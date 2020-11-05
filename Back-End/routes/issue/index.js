@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const issueController = require('../../controller/issue');
+const issueController = require('@controller/issue');
 
 router.get('/:issueId?', issueController.get);
 router.post('/', issueController.insert);
