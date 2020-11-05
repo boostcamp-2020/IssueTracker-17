@@ -27,11 +27,12 @@ module.exports = (sequelize, Datatypes) => {
             onDelete: 'cascade',
         });
     };
-    label.get = async () => {
-        const result = await label.findAll({
+    label.get = async (id) => {
+        const query = {
             raw: true,
-        });
-        return result;
+        };
+        if (id) query.where = { id };
+        return await label.findAll(query);
     };
 
     label.insert = async ({ title, contents, color }) => {
