@@ -8,6 +8,7 @@
 import UIKit
 @available(iOS 14.0, *)
 class LabelDetailViewController: UIViewController {
+    var labelRepository = LabelRepository()
     var label = Label()
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
@@ -20,7 +21,7 @@ class LabelDetailViewController: UIViewController {
     }
     @IBOutlet weak var randomColorButton: UIButton!
     @IBAction func randomColorButtonAction(_ sender: UIButton) {
-        let hex =  String(format: "#%02lX%02lX%02lX", lroundf(Float.random(in: 0...256)), lroundf(Float.random(in: 0...256)), lroundf(Float.random(in: 0...256)))
+        let hex = String(format: "#%02lX%02lX%02lX", lroundf(Float.random(in: 0...256)), lroundf(Float.random(in: 0...256)), lroundf(Float.random(in: 0...256)))
         colorTextField.text = hex
         colorPickerButton.backgroundColor = UIColor().colorWithHexString(hex: hex)
     }
@@ -31,7 +32,16 @@ class LabelDetailViewController: UIViewController {
         label.name = nameTextField.text ?? ""
         label.description = descriptionTextField.text ?? ""
         label.color = colorTextField.text ?? "#000000"
-        // TODO: 서버로 데이터 보내기
+        do {
+            if(label.id == -1) {
+                try labelRepository.insert(item: LabelVO(id: label.id, name: label.name, description: label.description, color: label.color))
+            } else {
+                try labelRepository.update(item: LabelVO(id: label.id, name: label.name, description: label.description, color: label.color))
+            }
+        } catch (let error) {
+            print(error)
+        }
+        NotificationCenter.default.post(name: .saveLabelData, object: nil)
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func resetButtonAction(_ sender: UIButton) {
@@ -47,7 +57,7 @@ class LabelDetailViewController: UIViewController {
         colorPickerButton.layer.borderWidth = 2
         setValue(label: label)
     }
-    func setValue(label : Label){
+    func setValue(label: Label) {
         nameTextField.text = label.name
         descriptionTextField.text = label.description
         colorTextField.text = label.color
@@ -55,7 +65,7 @@ class LabelDetailViewController: UIViewController {
     }
 }
 @available(iOS 14.0, *)
-extension LabelDetailViewController : UIColorPickerViewControllerDelegate {
+extension LabelDetailViewController: UIColorPickerViewControllerDelegate {
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         dismiss(animated: true, completion: nil)
     }
