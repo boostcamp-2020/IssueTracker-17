@@ -7,6 +7,7 @@ export default function App() {
     <BrowserRouter>
       <Switch>
         <Route exac path="/" component={Pages.LabelPage} />
+        <Route exec path="/newIssue" component={Pages.NewIssuePage} />
       </Switch>
     </BrowserRouter>
   );
