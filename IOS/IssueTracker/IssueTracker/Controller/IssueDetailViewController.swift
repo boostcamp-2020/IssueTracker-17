@@ -17,6 +17,7 @@ class IssueDetailViewController: UIViewController {
         // TODO: 이슈 생성 및 저장
         self.dismiss(animated: true)
     }
+    @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var issueContentTextView: IssueContentTextView!
     @IBAction func markdownSegmentedControl(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
