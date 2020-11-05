@@ -1,3 +1,5 @@
+milestoneconst { query } = require('express');
+
 module.exports = (sequelize, Datatypes) => {
     const issue = sequelize.define(
         'issue',
@@ -60,8 +62,8 @@ module.exports = (sequelize, Datatypes) => {
         });
     };
 
-    issue.get = async ({ model }) => {
-        const result = await issue.findAll({
+    issue.get = async ({ model, id, filterQuery }) => {
+        const query = {
             include: [
                 {
                     model: model.user,
@@ -69,7 +71,7 @@ module.exports = (sequelize, Datatypes) => {
                 },
                 {
                     model: model.milestone,
-                    attributes: ['title'],
+                    // attributes: ['title'],
                 },
                 {
                     model: model.has_label,
@@ -93,9 +95,16 @@ module.exports = (sequelize, Datatypes) => {
                         },
                     ],
                 },
+                {
+                    model: model.comment,
+                    attributes: ['user_id'],
+                },
             ],
+            where: filterQuery,
             attributes: ['id', 'title', 'status', 'contents', 'created'],
-        });
+        };
+        if (id) query.where = { id };
+        const result = await issue.findAll(query);
         return result;
     };
 
