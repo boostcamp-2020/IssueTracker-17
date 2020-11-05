@@ -15,9 +15,6 @@ class LoginManager {
     private init() {}
     private let githubClientId = ""
     private let githubClientSecret = ""
-    private var githubIdentifier = ""
-    private var githubName = ""
-    private var githubProfileUrl = ""
     func requestCodeToGithub() {
         let scope = "repo,user"
         let urlString = "https://github.com/login/oauth/authorize?client_id=\(githubClientId)&scope=\(scope)"
@@ -54,17 +51,18 @@ class LoginManager {
             response in
             switch response.result {
             case .success:
+                let user = User()
                 if let jsonObject = try! response.result.get() as? [String: Any] {
                     if let id = jsonObject["id"] {
-                        self.githubIdentifier = String(id as! Int64)
+                        user.identifier = String(id as! Int64)
                     }
                     if let name = jsonObject["name"] as? String {
-                        self.githubName = name
+                        user.name = name
                     }
                     if let avatar_url = jsonObject["avatar_url"] as? String {
-                        self.githubProfileUrl = avatar_url
+                        user.profileUrl = avatar_url
                     }
-                    self.Post()
+                    user.post()
                 }
             case .failure(let error):
                 print(error)
@@ -73,33 +71,5 @@ class LoginManager {
         }
     }
     func logout() {
-    }
-}
-extension LoginManager: connectNetworkAble {
-    func Get(){
-        return
-    }
-    func Post() {
-        let headers: HTTPHeaders = ["Content-Type" : "application/x-www-form-urlencoded"]
-        let parameters = ["type": 1,
-                          "identifier": githubIdentifier,
-                          "name": githubName,
-                          "profileUrl": githubProfileUrl] as [String : Any]
-        AF.request(RestApiServerURL.login, method: .post, parameters: parameters, headers: headers).responseString(){
-            response in
-            switch response.result {
-            case .success:
-                print(try! response.result.get())
-            case .failure(let error):
-                print(error)
-                return
-            }
-        }
-    }
-    func Put() {
-        //
-    }
-    func Delete() {
-        //
     }
 }

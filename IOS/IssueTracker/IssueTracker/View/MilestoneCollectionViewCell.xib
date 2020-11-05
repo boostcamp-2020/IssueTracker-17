@@ -32,7 +32,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LHl-G2-tlH">
                         <rect key="frame" x="20" y="15" width="74" height="17"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="74" id="wem-mu-zPW"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="74" id="wem-mu-zPW"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.37479010219999997" green="0.37509790059999998" blue="0.37483772640000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

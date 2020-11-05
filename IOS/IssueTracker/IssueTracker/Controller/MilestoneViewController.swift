@@ -10,6 +10,8 @@ import UIKit
 class MilestoneViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     var milestones = [Milestone]()
+    let milestoneRepository = MilestoneRepository()
+    private var dateFormatter = DateFormatter()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.delegate = self
@@ -19,9 +21,17 @@ class MilestoneViewController: UIViewController {
         configure()
     }
     func configure() {
+        dateFormatter.dateFormat = "yyyy/MM/dd"
         NotificationCenter.default.addObserver(self, selector: #selector(saveLabelData), name: .saveLabelData, object: nil)
-        milestones.append(Milestone(name: "스프린트2", description: "이번 배포를 위한 스프린트", endDate: "2020/06/19", openIssueCount: 13, closeIssueCount: 23))
-        milestones.append(Milestone(name: "스프린트3", description: "다음 배포를 위한 스프린트", endDate: "2020/06/26", openIssueCount: 0, closeIssueCount: 0))
+        milestoneRepository.getAll {
+            (arrayOfMilestone) in
+            if (arrayOfMilestone != nil) {
+                for mileston in arrayOfMilestone! {
+                    self.milestones.append(mileston.decode())
+                }
+                self.collectionView.reloadData()
+            }
+        }
     }
     func openDetailView(milestone: Milestone) {
         guard let vcName = self.storyboard?.instantiateViewController(withIdentifier: "MilestoneDetailViewController") as? MilestoneDetailViewController else {
@@ -45,7 +55,7 @@ extension MilestoneViewController: UICollectionViewDelegate, UICollectionViewDat
             return UICollectionViewCell()
         }
         cell.nameLabel.text = milestones[indexPath.row].name
-        let date = milestones[indexPath.row].endDate.split(separator: "/")
+        let date = dateFormatter.string(from: milestones[indexPath.row].endDate).split(separator: "/")
         cell.endDateLabel.text = "\(date[0])년 \(date[1])월 \(date[2])일까지"
         cell.descriptionLabel.text = milestones[indexPath.row].description
         let sumIssue = milestones[indexPath.row].openIssueCount + milestones[indexPath.row].closeIssueCount

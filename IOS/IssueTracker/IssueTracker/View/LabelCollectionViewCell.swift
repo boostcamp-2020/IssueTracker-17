@@ -9,7 +9,7 @@ import UIKit
 
 class LabelCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var labelName: UILabel!
-    @IBOutlet weak var descriptionLable: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         labelName.layer.cornerRadius = 8.0
