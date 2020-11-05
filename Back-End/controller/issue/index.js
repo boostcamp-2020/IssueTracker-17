@@ -1,59 +1,59 @@
 require('dotenv').config();
-const { issue } = require('../../models/sequelize');
-const model = require('../../models/sequelize');
+const { issue } = require('@models/sequelize');
+const model = require('@models/sequelize');
 
 function issueController() {}
 
-issueController.get = async (req, res) => {
-    try {
-        const initResult = await issue.get({ model: model });
-        const result = makeGetResult({ result: initResult });
-        res.status(200).json({ result: result });
-    } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
-    }
-};
+issueController.get = async (req, res, next) => {
+    const { issueId } = req.params;
+    const { status, mention, author, labels, milestone, asignee } = req.query;
+    const filterQuery = createFilterQuery({
+        status,
+        mention,
+        author,
+        milestone,
+        asignee,
+    });
 
-issueController.update = async (req, res) => {
-    const bodyObj = req.body;
-    const { id } = bodyObj;
-    const modifyData = makeModifyData({ bodyObj: bodyObj });
     try {
-        await issue.update(modifyData, { where: { id } });
-        res.status(200).json({ result: true });
-    } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
-    }
-};
-
-issueController.insert = async (req, res) => {
-    const { userId, milestoneId, title, contents, created } = req.body;
-    try {
-        const result = await issue.insert({
-            userId: userId,
-            milestoneId: milestoneId,
-            title: title,
-            contents: contents,
-            created: created,
-            status: 0,
+        const initResult = await issue.get({
+            model: model,
+            id: issueId,
+            filterQuery: filterQuery,
         });
-        res.status(200).json({ result: true, id: result.id });
+
+        let result = makeGetResult({ result: initResult });
+
+        if (labels) {
+            const filterLabelList = Array.isArray(labels)
+                ? labels.map((label) => parseInt(label))
+                : [parseInt(labels)];
+            result = getlabelFilteredList(result, filterLabelList);
+        }
+
+        res.status(200).json({ result: result });
     } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
+        next(e);
     }
 };
 
-issueController.delete = async (req, res) => {
-    try {
-        const result = await issue.destroy({ where: { id: req.body.id } });
-        res.status(200).json({ result: result });
-    } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
-    }
+const getlabelFilteredList = (issueList, filterLabelList) => {
+    return issueList.filter((issue) => {
+        const issueLabelList = issue.dataValues.labels.map(
+            (label) => label.dataValues.id
+        );
+        return filterLabelList.every((label) => issueLabelList.includes(label));
+    });
+};
+
+const createFilterQuery = ({ status, mention, author, milestone, asignee }) => {
+    const filterQuery = {};
+    if (status !== undefined) filterQuery['status'] = status;
+    if (mention !== undefined) filterQuery['$comments.user_id$'] = mention;
+    if (author !== undefined) filterQuery['user_id'] = author;
+    if (milestone !== undefined) filterQuery['$milestone.id$'] = milestone;
+    if (asignee !== undefined) filterQuery['$has_assignees.user_id$'] = asignee;
+    return filterQuery;
 };
 
 const makeGetResult = ({ result }) => {
@@ -75,8 +75,47 @@ const makeGetResult = ({ result }) => {
             data['assignees'] = [...data['assignees'], user['user']];
         });
         data['has_assignees'] = undefined;
+        delete data['comments'];
     });
     return result;
+};
+
+issueController.update = async (req, res, next) => {
+    const bodyObj = req.body;
+    const { id } = bodyObj;
+    const modifyData = makeModifyData({ bodyObj: bodyObj });
+    try {
+        await issue.update(modifyData, { where: { id } });
+        res.status(200).json({ result: true });
+    } catch (e) {
+        next(e);
+    }
+};
+
+issueController.insert = async (req, res, next) => {
+    const { userId, milestoneId, title, contents, created } = req.body;
+    try {
+        const result = await issue.insert({
+            userId: userId,
+            milestoneId: milestoneId,
+            title: title,
+            contents: contents,
+            created: created,
+            status: 0,
+        });
+        res.status(200).json({ result: true, id: result.id });
+    } catch (e) {
+        next(e);
+    }
+};
+
+issueController.delete = async (req, res, next) => {
+    try {
+        const result = await issue.destroy({ where: { id: req.body.id } });
+        res.status(200).json({ result: result });
+    } catch (e) {
+        next(e);
+    }
 };
 
 const makeModifyData = ({ bodyObj }) => {
