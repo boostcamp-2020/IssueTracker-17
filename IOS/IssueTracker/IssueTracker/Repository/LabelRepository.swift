@@ -11,7 +11,7 @@ class LabelRepository: Repository {
     typealias VO = LabelVO
     func getAll(finishedCallback: @escaping (_ labels: [VO]?)->Void){
         var labels = [VO]()
-        AF.request(RestApiServerURL.label+"/get").responseJSON() {
+        AF.request(RestApiServerURL.label).responseJSON() {
             response in
             switch response.result {
             case .success:

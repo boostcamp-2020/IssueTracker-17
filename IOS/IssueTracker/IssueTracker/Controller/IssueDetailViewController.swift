@@ -7,6 +7,7 @@
 
 import UIKit
 import MarkdownView
+import Alamofire
 class IssueDetailViewController: UIViewController {
     @IBOutlet weak var navigationItemOutlet: UINavigationItem!
     @IBAction func cancleButton(_ sender: UIBarButtonItem) {
@@ -81,6 +82,23 @@ extension IssueDetailViewController: UIImagePickerControllerDelegate, UINavigati
             return
         }
         pickerView.dismiss(animated: true, completion: nil)
-        // TODO: 서버 전송
+        let url = RestApiServerURL.image
+        let imgData = image.jpegData(compressionQuality: 0.2)!
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(Data("value".utf8), withName: "img")
+            multipartFormData.append(imgData, withName: "img",fileName: "a.jpg", mimeType: "image/jpg")
+        }, to: url).responseJSON() {
+            response in
+            switch response.result {
+            case .success:
+                if let jsonArray = try! response.result.get() as? [String: Any]{
+                    if let imageUrl = jsonArray["result"] as? String {
+                        self.issueContentTextView.text.append(imageUrl)
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

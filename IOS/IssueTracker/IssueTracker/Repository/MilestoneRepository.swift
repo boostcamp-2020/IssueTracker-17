@@ -11,7 +11,7 @@ class MilestoneRepository: Repository {
     typealias VO = MilestoneVO
     func getAll(finishedCallback: @escaping (_ milestones: [VO]?)->Void){
         var milestones = [VO]()
-        AF.request(RestApiServerURL.milestone+"/get", method: .get).responseJSON() {
+        AF.request(RestApiServerURL.milestone, method: .get).responseJSON() {
             response in
             switch response.result {
             case .success:

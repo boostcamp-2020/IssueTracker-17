@@ -25,15 +25,7 @@ class LabelViewController: UIViewController {
     }
     func configure() {
         NotificationCenter.default.addObserver(self, selector: #selector(saveLabelData), name: .saveLabelData, object: nil)
-        labelRepository.getAll {
-            (arrayOfLabel) in
-            if (arrayOfLabel != nil) {
-                for label in arrayOfLabel! {
-                    self.labels.append(label.decode())
-                }
-                self.collectionView.reloadData()
-            }
-        }
+        getLabels()
     }
     func openDetailView(label: Label) {
             guard let vcName = self.storyboard?.instantiateViewController(withIdentifier: "LabelDetailViewController") as? LabelDetailViewController else {
@@ -43,8 +35,21 @@ class LabelViewController: UIViewController {
             vcName.label = label
             self.present(vcName, animated: true, completion: nil)
     }
+    func getLabels() {
+        self.labels.removeAll()
+        labelRepository.getAll {
+            (arrayOfLabel) in
+            if (arrayOfLabel != nil) {
+                for label in arrayOfLabel! {
+                    self.labels.append(label.decode())
+                }
+                self.collectionView.reloadData()
+            }
+        }
+
+    }
     @objc func saveLabelData() {
-        // TODO: Label 서버에서 가져온 후 리로드
+        getLabels()
         collectionView.reloadData()
     }
 }

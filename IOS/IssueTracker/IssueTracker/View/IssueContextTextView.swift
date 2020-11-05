@@ -17,7 +17,7 @@ class IssueContentTextView: UITextView {
     }
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         switch action {
-        case #selector(cut(_:)):
+        case #selector(paste(_:)):
             break
         case #selector(copy(_:)):
             break
