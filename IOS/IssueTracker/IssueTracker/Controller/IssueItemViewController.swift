@@ -8,7 +8,7 @@
 import UIKit
 
 class IssueItemViewController: UIViewController {
-    enum CardState {
+    enum ViewState {
         case expanded
         case collapsed
     }
@@ -16,10 +16,10 @@ class IssueItemViewController: UIViewController {
     var data: [String] = ["댓글1", "댓글2", "댓글3", "댓글4", "댓글5"]
     var issueAddCommentViewController: IssueAddCommentViewController!
     var visualEffectView: UIVisualEffectView!
-    let issueAddCommentViewHeight = 600
-    let issueAddCommentViewHandleAreaHeight = 200
+    var issueAddCommentViewHeight: Int = 0
+    let issueAddCommentViewHandleAreaHeight = 150
     var issueAddCommentViewVisible = false
-    var nextState:CardState {
+    var nextState:ViewState {
         return issueAddCommentViewVisible ? .collapsed : .expanded
     }
     var runningAnimations = [UIViewPropertyAnimator]()
@@ -28,11 +28,16 @@ class IssueItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
+        issueAddCommentViewHeight = Int(self.view.frame.height - 150)
         issueItemCollectionView.delegate = self
         issueItemCollectionView.dataSource = self
         issueItemCollectionView.register(UINib(nibName: "IssueItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "IssueItemCollectionViewCell")
         setupFlowLayout()
         setupIssueAddCommentView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.visualEffectView.isUserInteractionEnabled = false
     }
     
     func setupIssueAddCommentView() {
@@ -44,24 +49,12 @@ class IssueItemViewController: UIViewController {
         self.view.addSubview(issueAddCommentViewController.view)
         issueAddCommentViewController.view.frame = CGRect(x: 0, y: Int(self.view.frame.height) - issueAddCommentViewHandleAreaHeight, width: Int(self.view.bounds.width), height: issueAddCommentViewHeight)
         issueAddCommentViewController.view.clipsToBounds = true
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleCardTap(recognzier:)))
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleCardPan(recognizer:)))
-        issueAddCommentViewController.handleArea.addGestureRecognizer(tapGestureRecognizer)
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleViewPan(recognizer:)))
         issueAddCommentViewController.handleArea.addGestureRecognizer(panGestureRecognizer)
     }
     
     @objc
-    func handleCardTap(recognzier:UITapGestureRecognizer) {
-        switch recognzier.state {
-        case .ended:
-            animateTransitionIfNeeded(state: nextState, duration: 0.9)
-        default:
-            break
-        }
-    }
-    
-    @objc
-    func handleCardPan (recognizer:UIPanGestureRecognizer) {
+    func handleViewPan (recognizer:UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
             startInteractiveTransition(state: nextState, duration: 0.9)
@@ -78,7 +71,7 @@ class IssueItemViewController: UIViewController {
         
     }
     
-    func animateTransitionIfNeeded (state:CardState, duration:TimeInterval) {
+    func animateTransitionIfNeeded (state:ViewState, duration:TimeInterval) {
         if runningAnimations.isEmpty {
             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
@@ -97,7 +90,6 @@ class IssueItemViewController: UIViewController {
             frameAnimator.startAnimation()
             runningAnimations.append(frameAnimator)
             
-            
             let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
                 switch state {
                 case .expanded:
@@ -106,10 +98,8 @@ class IssueItemViewController: UIViewController {
                     self.issueAddCommentViewController.view.layer.cornerRadius = 0
                 }
             }
-            
             cornerRadiusAnimator.startAnimation()
             runningAnimations.append(cornerRadiusAnimator)
-            
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
@@ -118,14 +108,12 @@ class IssueItemViewController: UIViewController {
                     self.visualEffectView.effect = nil
                 }
             }
-            
             blurAnimator.startAnimation()
             runningAnimations.append(blurAnimator)
-            
         }
     }
     
-    func startInteractiveTransition(state:CardState, duration:TimeInterval) {
+    func startInteractiveTransition(state:ViewState, duration:TimeInterval) {
         if runningAnimations.isEmpty {
             animateTransitionIfNeeded(state: state, duration: duration)
         }
@@ -146,10 +134,6 @@ class IssueItemViewController: UIViewController {
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
         }
     }
-    
-    
-    
-    
 }
 
 extension IssueItemViewController: UICollectionViewDelegate, UICollectionViewDataSource {
