@@ -4,7 +4,10 @@ const { milestone } = require('../../models/sequelize');
 function milestoneController() {}
 
 milestoneController.get = async (req, res) => {
-    const result = await milestone.findAll();
+    const { id } = req.params;
+    const query = {};
+    if (id) query.where = { id };
+    const result = await milestone.findAll(query);
     res.status(200).json({ result: result });
 };
 
