@@ -21,9 +21,9 @@ class MilestoneDetailViewController: UIViewController {
         milestone.endDate = endDatePicker.date
         do {
             if milestone.id == -1 {
-                try milestoneRepository.insert(item: MilestoneVO(name: milestone.name, description: milestone.description, endDate: milestone.endDate, id: milestone.id, status: milestone.status))
+                try milestoneRepository.insert(item: milestone.model)
             } else {
-                try milestoneRepository.update(item: MilestoneVO(name: milestone.name, description: milestone.description, endDate: milestone.endDate, id: milestone.id, status: milestone.status))
+                try milestoneRepository.update(item: milestone.model)
             }
         } catch (let error) {
             print(error)

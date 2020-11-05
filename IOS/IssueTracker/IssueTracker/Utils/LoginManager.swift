@@ -15,6 +15,7 @@ class LoginManager {
     private init() {}
     private let githubClientId = ""
     private let githubClientSecret = ""
+    private let userRepository = UserRepository()
     func requestCodeToGithub() {
         let scope = "repo,user"
         let urlString = "https://github.com/login/oauth/authorize?client_id=\(githubClientId)&scope=\(scope)"
@@ -62,7 +63,11 @@ class LoginManager {
                     if let avatar_url = jsonObject["avatar_url"] as? String {
                         user.profileUrl = avatar_url
                     }
-                    user.post()
+                    do {
+                        try self.userRepository.insert(item: user.model)
+                    } catch(let error) {
+                        print(error)
+                    }
                 }
             case .failure(let error):
                 print(error)

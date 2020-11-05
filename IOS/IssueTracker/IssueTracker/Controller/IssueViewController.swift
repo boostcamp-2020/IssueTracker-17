@@ -10,21 +10,12 @@ import UIKit
 class IssueViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var issueTableView: UITableView!
     @IBOutlet var issueFilterButton: UIBarButtonItem!
-    var selectData: [tempData] = Array()
+    var selectData: [Issue] = Array()
     var selectAllCheck: Bool = false
     let toolbar = UIToolbar()
-    
     private let searchController = UISearchController(searchResultsController: nil)
-    let data = [tempData.init(title: "이슈1", contents: "테스트1입니다"),
-                tempData.init(title: "이슈2", contents: "테스트2입니다"),
-                tempData.init(title: "이슈3", contents: "테스트3입니다"),
-                tempData.init(title: "이슈3", contents: "테스트3입니다"),
-                tempData.init(title: "이슈3", contents: "테스트3입니다"),
-                tempData.init(title: "이슈3", contents: "테스트3입니다"),
-                tempData.init(title: "이슈3", contents: "테스트3입니다"),
-                tempData.init(title: "이슈3", contents: "테스트3입니다"),
-                tempData.init(title: "이슈3", contents: "테스트3입니다"),
-                tempData.init(title: "이슈3", contents: "테스트3입니다")]
+    var issues = [Issue]()
+    private let issueRepository = IssueRepository()
 
     @IBAction func tabTableEditButton(_ sender: UIBarButtonItem) {
         if issueTableView.isEditing {
@@ -44,13 +35,13 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         if selectAllCheck {
             selectAllCheck = false
             self.navigationItem.leftBarButtonItem?.title = "Select All"
-            for i in 0..<data.count {
+            for i in 0..<issues.count {
                 self.issueTableView.deselectRow(at: IndexPath(row: i, section: 0), animated: false)
             }
         }else{
             selectAllCheck = true
             self.navigationItem.leftBarButtonItem?.title = "Deselect All"
-            for i in 0..<data.count {
+            for i in 0..<issues.count {
                 self.issueTableView.selectRow(at: IndexPath(row: i, section: 0), animated: false, scrollPosition: .none)
             }
         }
@@ -58,13 +49,30 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configure()
+    }
+    private func configure() {
         self.navigationItem.searchController = searchController
         issueTableView.dataSource = self
         issueTableView.delegate = self
         issueTableView.allowsMultipleSelectionDuringEditing = true
+        getLabels()
         configToolbar()
     }
-    
+    func getLabels() {
+        self.issues.removeAll()
+        issueRepository.getAll {
+            (arrayOfIssue) in
+            if (arrayOfIssue != nil) {
+                for issue in arrayOfIssue! {
+                    self.issues.append(issue.decode())
+                }
+            }
+            self.issueTableView.reloadData()
+        }
+        self.issueTableView.reloadData()
+    }
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
     }
@@ -88,15 +96,15 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
 
 extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return issues.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "IssueViewCustomCell", for: indexPath) as? IssueViewCustomCell else {
             return UITableViewCell()
         }
-        cell.issueTitleLabel.text = data[indexPath.row].title
-        cell.issueContentsLabel.text = data[indexPath.row].contents
+        cell.issueTitleLabel.text = issues[indexPath.row].title
+        cell.issueContentsLabel.text = issues[indexPath.row].contents
         return cell
     }
     
@@ -133,14 +141,9 @@ extension IssueViewController {
         self.selectData.removeAll()
         if let selectTableData = issueTableView.indexPathsForSelectedRows {
             for index in selectTableData {
-                selectData.append(data[index.row])
+                selectData.append(issues[index.row])
             }
         }
         print(selectData)
     }
-}
-
-struct tempData {
-    var title: String
-    var contents: String
 }

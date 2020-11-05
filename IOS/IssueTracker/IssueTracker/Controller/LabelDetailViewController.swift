@@ -34,9 +34,9 @@ class LabelDetailViewController: UIViewController {
         label.color = colorTextField.text ?? "#000000"
         do {
             if(label.id == -1) {
-                try labelRepository.insert(item: LabelVO(id: label.id, name: label.name, description: label.description, color: label.color))
+                try labelRepository.insert(item: label.model)
             } else {
-                try labelRepository.update(item: LabelVO(id: label.id, name: label.name, description: label.description, color: label.color))
+                try labelRepository.update(item: label.model)
             }
         } catch (let error) {
             print(error)

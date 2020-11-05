@@ -12,6 +12,6 @@ extension Date {
         let isoDate = fromIsoDate
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        self = dateFormatter.date(from:isoDate)!
+        self = dateFormatter.date(from:isoDate) ?? Date()
     }
 }

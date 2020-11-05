@@ -26,13 +26,18 @@ class LoginViewController: UIViewController {
 extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let credential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            let user = credential.user
-            print("User : \(user)")
-            if let email = credential.email {
-                print("Email : \(email)")
-            }
+            var userVO = UserVO(type: 2)
+            userVO.identifier = credential.user
             if let fullName = credential.fullName {
-                print("Full Name : \(fullName)")
+                userVO.name = fullName.description
+            } else {
+                userVO.name = "appleUser" + credential.user
+            }
+            let userRepository = UserRepository()
+            do {
+                try userRepository.insert(item: userVO)
+            } catch(let error) {
+                print(error)
             }
         }
     }
