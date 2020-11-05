@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const multer = require('multer');
+const config = require('../../config/addressconfig');
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -13,7 +14,9 @@ const upload = multer({
 });
 
 router.post('/', upload.single('file'), (req, res) => {
-  const uri = `![${req.file.originalname}](${'/image/' + req.file.filename})`;
+  const uri = `![${req.file.originalname}](${
+    config.serverAddress + '/' + config.imageAddress + '/' + req.file.filename
+  })`;
   res.json({ result: uri });
 });
 
