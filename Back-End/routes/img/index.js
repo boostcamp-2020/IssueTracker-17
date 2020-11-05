@@ -13,7 +13,7 @@ const upload = multer({
   }),
 });
 
-router.post('/', upload.single('file'), (req, res) => {
+router.post('/', upload.single('img'), (req, res) => {
   const uri = `![${req.file.originalname}](${
     config.serverAddress + '/' + config.imageAddress + '/' + req.file.filename
   })`;

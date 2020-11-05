@@ -36,7 +36,7 @@ app.use('/issue', issueRouter);
 app.use('/assignee', assigneeRouter);
 app.use('/comment', commentRouter);
 app.use('/has-label', hasLabelRouter);
-app.use('/img', imgRouter);
+app.use('/imageUpload', imgRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
