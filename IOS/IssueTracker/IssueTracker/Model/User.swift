@@ -7,7 +7,8 @@
 
 import Foundation
 import Alamofire
-class User {
+struct User {
+    var id = -1
     var type = 1
     var identifier = ""
     var name = ""

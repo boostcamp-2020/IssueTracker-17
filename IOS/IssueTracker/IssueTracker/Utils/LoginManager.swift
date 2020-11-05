@@ -51,7 +51,7 @@ class LoginManager {
             response in
             switch response.result {
             case .success:
-                let user = User()
+                var user = User()
                 if let jsonObject = try! response.result.get() as? [String: Any] {
                     if let id = jsonObject["id"] {
                         user.identifier = String(id as! Int64)
