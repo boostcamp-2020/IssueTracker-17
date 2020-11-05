@@ -513,16 +513,8 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="새 이슈" id="40h-9W-L5P">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" style="plain" id="fzo-ro-QLJ">
-                                            <connections>
-                                                <action selector="cancleButton:" destination="Wkw-X8-KjB" id="qlF-MV-YqX"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="uh2-pN-QWK">
-                                            <connections>
-                                                <action selector="submitButton:" destination="Wkw-X8-KjB" id="eDv-ln-Quy"/>
-                                            </connections>
-                                        </barButtonItem>
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" style="plain" id="fzo-ro-QLJ"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="uh2-pN-QWK"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -532,9 +524,6 @@
                                     <segment title="마크다운"/>
                                     <segment title="미리보기"/>
                                 </segments>
-                                <connections>
-                                    <action selector="markdownSegmentedControl:" destination="Wkw-X8-KjB" eventType="valueChanged" id="EOd-7c-3b8"/>
-                                </connections>
                             </segmentedControl>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="제목" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ufg-st-Aq0">
                                 <rect key="frame" x="20" y="74" width="374" height="34"/>
@@ -569,10 +558,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LGN-g9-wzU"/>
-                    <connections>
-                        <outlet property="issueContentTextView" destination="Ac6-VJ-S2F" id="jzd-b6-e3W"/>
-                        <outlet property="navigationItemOutlet" destination="40h-9W-L5P" id="mji-Se-arZ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dXu-1b-zIi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -813,6 +798,7 @@
         <image name="multiply" catalog="system" width="128" height="111"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="scribble" catalog="system" width="128" height="118"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
