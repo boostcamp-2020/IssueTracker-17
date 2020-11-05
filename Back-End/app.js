@@ -1,3 +1,4 @@
+require('module-alias/register');
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -47,8 +48,9 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
+    console.error(err.message);
     res.status(err.status || 500);
-    res.render('error');
+    res.json({ result: err.message });
 });
 
 module.exports = app;

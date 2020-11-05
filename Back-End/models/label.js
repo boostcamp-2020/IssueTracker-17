@@ -57,7 +57,7 @@ module.exports = (sequelize, Datatypes) => {
                 },
             }
         );
-        return result;
+        return result[0];
     };
 
     label.delete = async ({ id }) => {

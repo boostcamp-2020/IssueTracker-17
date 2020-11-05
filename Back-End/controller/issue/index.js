@@ -1,14 +1,12 @@
 require('dotenv').config();
-const { issue } = require('../../models/sequelize');
-const model = require('../../models/sequelize');
+const { issue } = require('@models/sequelize');
+const model = require('@models/sequelize');
 
 function issueController() {}
 
-issueController.get = async (req, res) => {
+issueController.get = async (req, res, next) => {
     const { issueId } = req.params;
     const { status, mention, author, labels, milestone, asignee } = req.query;
-    if (req.query) console.log(req.query);
-    //label을 제외한 조건 필터링 query
     const filterQuery = createFilterQuery({
         status,
         mention,
@@ -35,8 +33,7 @@ issueController.get = async (req, res) => {
 
         res.status(200).json({ result: result });
     } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
+        next(e);
     }
 };
 
@@ -83,7 +80,7 @@ const makeGetResult = ({ result }) => {
     return result;
 };
 
-issueController.update = async (req, res) => {
+issueController.update = async (req, res, next) => {
     const bodyObj = req.body;
     const { id } = bodyObj;
     const modifyData = makeModifyData({ bodyObj: bodyObj });
@@ -91,12 +88,11 @@ issueController.update = async (req, res) => {
         await issue.update(modifyData, { where: { id } });
         res.status(200).json({ result: true });
     } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
+        next(e);
     }
 };
 
-issueController.insert = async (req, res) => {
+issueController.insert = async (req, res, next) => {
     const { userId, milestoneId, title, contents, created } = req.body;
     try {
         const result = await issue.insert({
@@ -109,18 +105,16 @@ issueController.insert = async (req, res) => {
         });
         res.status(200).json({ result: true, id: result.id });
     } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
+        next(e);
     }
 };
 
-issueController.delete = async (req, res) => {
+issueController.delete = async (req, res, next) => {
     try {
         const result = await issue.destroy({ where: { id: req.body.id } });
         res.status(200).json({ result: result });
     } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
+        next(e);
     }
 };
 

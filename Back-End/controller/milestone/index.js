@@ -1,17 +1,21 @@
 require('dotenv').config();
-const { milestone } = require('../../models/sequelize');
+const { milestone } = require('@models/sequelize');
 
 function milestoneController() {}
 
-milestoneController.get = async (req, res) => {
+milestoneController.get = async (req, res, next) => {
     const { id } = req.params;
     const query = {};
     if (id) query.where = { id };
-    const result = await milestone.findAll(query);
-    res.status(200).json({ result: result });
+    try {
+        const result = await milestone.findAll(query);
+        res.status(200).json({ result: result});
+    } catch (e) {
+        next(e);
+    }
 };
 
-milestoneController.insert = async (req, res) => {
+milestoneController.insert = async (req, res, next) => {
     const { title, contents, until, status } = req.body;
     try {
         const result = await milestone.create({
@@ -22,33 +26,28 @@ milestoneController.insert = async (req, res) => {
         });
         res.status(200).json({ result: result });
     } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
+        next(e);
     }
 };
 
-milestoneController.update = async (req, res) => {
+milestoneController.update = async (req, res, next) => {
     const { id, title, contents, until, status } = req.body;
     const sql = { where: { id } };
     try {
-        let result = await milestone.update({ title, contents, status }, sql);
-        result = result >= 1;
-        res.status(200).json({ result: result });
+        const result = await milestone.update({ title, contents, status }, sql);
+        res.status(200).json({ result: result[0] });
     } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
+        next(e);
     }
 };
-milestoneController.delete = async (req, res) => {
+milestoneController.delete = async (req, res, next) => {
     const { id } = req.body;
     const sql = { where: { id } };
     try {
-        let result = await milestone.destroy(sql);
-        result = result >= 1;
+        const result = await milestone.destroy(sql);
         res.status(200).json({ result: result });
     } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
+        next(e);
     }
 };
 

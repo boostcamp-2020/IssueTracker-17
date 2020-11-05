@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const multer = require('multer');
-const config = require('../../config/addressconfig');
+const config = require('@config/addressconfig');
 
 const upload = multer({
   storage: multer.diskStorage({

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const assigneeController = require('../../controller/assignee');
+const assigneeController = require('@controller/assignee');
 
 router.get('/:issueId', assigneeController.get);
 router.post('/', assigneeController.insert);

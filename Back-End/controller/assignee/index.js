@@ -1,10 +1,10 @@
-const { has_assignee: hasAssignee } = require('../../models/sequelize');
+const { has_assignee: hasAssignee } = require('@models/sequelize');
 
-const model = require('../../models/sequelize');
+const model = require('@models/sequelize');
 
 const assigneeController = {};
 
-assigneeController.get = async (req, res) => {
+assigneeController.get = async (req, res, next) => {
     const { issueId } = req.params;
     try {
         const assignees = await hasAssignee.get({
@@ -13,12 +13,11 @@ assigneeController.get = async (req, res) => {
         });
         res.status(200).json({ result: assignees });
     } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
+        next(e);
     }
 };
 
-assigneeController.insert = async (req, res) => {
+assigneeController.insert = async (req, res, next) => {
     const { issueId, assigneeId } = req.body;
     try {
         const result = await hasAssignee.create({
@@ -27,11 +26,10 @@ assigneeController.insert = async (req, res) => {
         });
         res.status(200).json({ result: result });
     } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
+        next(e);
     }
 };
-assigneeController.delete = async (req, res) => {
+assigneeController.delete = async (req, res, next) => {
     const { issueId, assigneeId } = req.body;
     try {
         const result = await hasAssignee.destroy({
@@ -42,12 +40,11 @@ assigneeController.delete = async (req, res) => {
         });
         res.status(200).json({ result: result });
     } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
+        next(e);
     }
 };
 
-assigneeController.update = async (req, res) => {
+assigneeController.update = async (req, res, next) => {
     const { issueId, insertAssignee, deleteAssignee } = req.body;
     try {
         const deleteResult = await hasAssignee.delete({
@@ -62,8 +59,7 @@ assigneeController.update = async (req, res) => {
         const result = { delete: deleteResult, insert: insertResult.length };
         res.status(200).json({ result: result });
     } catch (e) {
-        console.error(e);
-        res.status(400).json({ result: false });
+        next(e);
     }
 };
 
