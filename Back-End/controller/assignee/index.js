@@ -22,8 +22,8 @@ assigneeController.insert = async (req, res) => {
     const { issueId, assigneeId } = req.body;
     try {
         const result = await hasAssignee.create({
-            issueId: issueId,
-            userId: assigneeId,
+            issue_id: issueId,
+            user_id: assigneeId,
         });
         res.status(200).json({ result: result });
     } catch (e) {
@@ -36,8 +36,8 @@ assigneeController.delete = async (req, res) => {
     try {
         const result = await hasAssignee.destroy({
             where: {
-                issueId: issueId,
-                userId: assigneeId,
+                issue_id: issueId,
+                user_id: assigneeId,
             },
         });
         res.status(200).json({ result: result });
@@ -55,8 +55,8 @@ assigneeController.update = async (req, res) => {
             deleteAssignees: deleteAssignee,
         });
         const insertObject = insertAssignee.map((value) => ({
-            issueId: issueId,
-            userId: value,
+            issue_id: issueId,
+            user_id: value,
         }));
         const insertResult = await hasAssignee.bulkCreate(insertObject);
         res.status(200).json({ result: insertResult });
