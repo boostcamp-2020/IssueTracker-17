@@ -1,8 +1,14 @@
 import React from 'react';
-import NewIssue from './pages/NewIssue.js';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import * as Pages from './pages';
 
-export default class App extends React.Component {
-  render() {
-    return <NewIssue></NewIssue>;
-  }
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exac path="/" component={Pages.LabelPage} />
+        <Route exec path="/newIssue" component={Pages.NewIssuePage} />
+      </Switch>
+    </BrowserRouter>
+  );
 }

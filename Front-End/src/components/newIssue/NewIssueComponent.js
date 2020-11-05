@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import Avatar from '../components/newIssue/Avatar.js';
-import EditBox from '../components/newIssue/EditBox.js';
-import SelectBox from '../components/newIssue/SelectBox.js';
-import AssigneeRow from '../components/newIssue/AssigneeRow';
-import LabelRow from '../components/newIssue/LabelRow';
-import MilestoneRow from '../components/newIssue/MilestoneRow';
-import PopUpBox from '../components/newIssue/PopUpBox.js';
-import LabelPopUpRow from '../components/newIssue/LabelPopUpRow';
-import AsssigneePopUpRow from '../components/newIssue/AssigneePopUpRow';
-import MilestonePopUpRow from '../components/newIssue/MilestonePopUpRow';
+import Avatar from './Avatar.js';
+import EditBox from './EditBox.js';
+import SelectBox from './SelectBox.js';
+import AssigneeRow from './AssigneeRow';
+import LabelRow from './LabelRow';
+import MilestoneRow from './MilestoneRow';
+import PopUpBox from './PopUpBox.js';
+import LabelPopUpRow from './LabelPopUpRow';
+import AsssigneePopUpRow from './AssigneePopUpRow';
+import MilestonePopUpRow from './MilestonePopUpRow';
 
-const NewIssue = () => {
+const NewIssueComponent = () => {
   const [assignees, setAssignees] = useState([]);
   const [labels, setLabels] = useState([{ labelName: 'testLabel' }]);
   const [milestone, setMilestone] = useState([]);
@@ -58,4 +58,4 @@ const NewIssue = () => {
   );
 };
 
-export default NewIssue;
+export default NewIssueComponent;
