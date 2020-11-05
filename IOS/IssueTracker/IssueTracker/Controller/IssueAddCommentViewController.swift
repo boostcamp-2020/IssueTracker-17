@@ -10,5 +10,4 @@ import UIKit
 class IssueAddCommentViewController: UIViewController {
     @IBOutlet var handleArea: UIView!
     
-    
 }
