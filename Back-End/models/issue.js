@@ -1,5 +1,3 @@
-milestoneconst { query } = require('express');
-
 module.exports = (sequelize, Datatypes) => {
     const issue = sequelize.define(
         'issue',
