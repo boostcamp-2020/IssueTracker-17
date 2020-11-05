@@ -69,7 +69,7 @@ module.exports = (sequelize, Datatypes) => {
                 where: { id },
             }
         );
-        return result;
+        return result[0];
     };
 
     return comment;

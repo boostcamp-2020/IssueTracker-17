@@ -1,5 +1,5 @@
 //
-//  LableViewController.swift
+//  LabelViewController.swift
 //  IssueTracker
 //
 //  Created by 김병인 on 2020/10/28.
@@ -7,12 +7,14 @@
 
 import UIKit
 
+@available(iOS 14.0, *)
 class LabelViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBAction func addLabelButtonAction(_ sender: Any) {
         openDetailView(label: Label())
     }
     var labels = [Label]()
+    private let labelRepository = LabelRepository()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.delegate = self
@@ -23,25 +25,36 @@ class LabelViewController: UIViewController {
     }
     func configure() {
         NotificationCenter.default.addObserver(self, selector: #selector(saveLabelData), name: .saveLabelData, object: nil)
-        labels.append(Label(name: "feature", description: "기능에 대한 레이블입니다.", color: "#BEDBFD"))
-        labels.append(Label(name: "bug", description: "수정할 버그에 대한 레이블입니다.", color: "#F26E6E"))
+        getLabels()
     }
     func openDetailView(label: Label) {
-        if #available(iOS 14.0, *) {
             guard let vcName = self.storyboard?.instantiateViewController(withIdentifier: "LabelDetailViewController") as? LabelDetailViewController else {
                 return
             }
             vcName.modalPresentationStyle = .formSheet
             vcName.label = label
             self.present(vcName, animated: true, completion: nil)
+    }
+    func getLabels() {
+        self.labels.removeAll()
+        labelRepository.getAll {
+            (arrayOfLabel) in
+            if (arrayOfLabel != nil) {
+                for label in arrayOfLabel! {
+                    self.labels.append(label.decode())
+                }
+            }
+            self.collectionView.reloadData()
         }
+        self.collectionView.reloadData()
     }
     @objc func saveLabelData() {
-        // TODO: Label 서버에서 가져온 후 리로드
+        getLabels()
         collectionView.reloadData()
     }
 }
-extension LabelViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+@available(iOS 14.0, *)
+extension LabelViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return labels.count
     }
@@ -51,7 +64,7 @@ extension LabelViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
         cell.labelName.backgroundColor = UIColor().colorWithHexString(hex: labels[indexPath.row].color)
         cell.labelName.text = labels[indexPath.row].name
-        cell.descriptionLable.text = labels[indexPath.row].description
+        cell.descriptionLabel.text = labels[indexPath.row].description
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
