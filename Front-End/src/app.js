@@ -6,8 +6,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exac path="/" component={Pages.LabelPage} />
-        <Route exec path="/newIssue" component={Pages.NewIssuePage} />
+        {/* <Route exac path="/" component={Pages.LabelPage} />
+        <Route exac path="/newIssue" component={Pages.NewIssuePage} /> */}
+        <Route exac path="/" component={Pages.LoginPage} />
       </Switch>
     </BrowserRouter>
   );
