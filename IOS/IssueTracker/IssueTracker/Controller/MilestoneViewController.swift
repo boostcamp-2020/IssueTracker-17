@@ -9,6 +9,9 @@ import UIKit
 
 class MilestoneViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBAction func addLabelButtonAction(_ sender: Any) {
+        openDetailView(milestone: Milestone())
+    }
     var milestones = [Milestone]()
     let milestoneRepository = MilestoneRepository()
     private var dateFormatter = DateFormatter()
@@ -22,16 +25,8 @@ class MilestoneViewController: UIViewController {
     }
     func configure() {
         dateFormatter.dateFormat = "yyyy/MM/dd"
-        NotificationCenter.default.addObserver(self, selector: #selector(saveLabelData), name: .saveLabelData, object: nil)
-        milestoneRepository.getAll {
-            (arrayOfMilestone) in
-            if (arrayOfMilestone != nil) {
-                for mileston in arrayOfMilestone! {
-                    self.milestones.append(mileston.decode())
-                }
-                self.collectionView.reloadData()
-            }
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(saveMilestoneData), name: .saveMilestoneData, object: nil)
+        saveMilestoneData()
     }
     func openDetailView(milestone: Milestone) {
         guard let vcName = self.storyboard?.instantiateViewController(withIdentifier: "MilestoneDetailViewController") as? MilestoneDetailViewController else {
@@ -41,9 +36,17 @@ class MilestoneViewController: UIViewController {
         vcName.milestone = milestone
         self.present(vcName, animated: true, completion: nil)
     }
-    @objc func saveLabelData() {
-        // TODO: Milestone 서버에서 가져온 후 리로드
-        collectionView.reloadData()
+    @objc func saveMilestoneData() {
+        milestones.removeAll()
+        milestoneRepository.getAll {
+            (arrayOfMilestone) in
+            if (arrayOfMilestone != nil) {
+                for mileston in arrayOfMilestone! {
+                    self.milestones.append(mileston.decode())
+                }
+            }
+            self.collectionView.reloadData()
+        }
     }
 }
 extension MilestoneViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

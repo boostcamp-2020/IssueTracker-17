@@ -12,7 +12,7 @@ struct Milestone {
     var endDate = Date()
     var openIssueCount = 0
     var closeIssueCount = 0
-    var id = 0
+    var id = -1
     var status = 1
 }
 extension Milestone {
@@ -20,12 +20,11 @@ extension Milestone {
         return MilestoneVO(name: self.name, description: self.description, endDate: self.endDate, id: self.id, status: self.status)
     }
 }
-
 struct MilestoneVO {
     var name = ""
     var description = ""
     var endDate = Date()
-    var id = 0
+    var id = -1
     var status = 1
 }
 extension MilestoneVO {

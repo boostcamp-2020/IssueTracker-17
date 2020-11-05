@@ -8,6 +8,7 @@
 import UIKit
 class MilestoneDetailViewController: UIViewController {
     var milestone = Milestone()
+    var milestoneRepository = MilestoneRepository()
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var endDatePicker: UIDatePicker!
@@ -18,7 +19,15 @@ class MilestoneDetailViewController: UIViewController {
         milestone.name = nameTextField.text ?? ""
         milestone.description = descriptionTextField.text ?? ""
         milestone.endDate = endDatePicker.date
-        // TODO: 서버로 데이터 보내기
+        do {
+            if milestone.id == -1 {
+                try milestoneRepository.insert(item: MilestoneVO(name: milestone.name, description: milestone.description, endDate: milestone.endDate, id: milestone.id, status: milestone.status))
+            } else {
+                try milestoneRepository.update(item: MilestoneVO(name: milestone.name, description: milestone.description, endDate: milestone.endDate, id: milestone.id, status: milestone.status))
+            }
+        } catch (let error) {
+            print(error)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func resetButtonAction(_ sender: UIButton) {

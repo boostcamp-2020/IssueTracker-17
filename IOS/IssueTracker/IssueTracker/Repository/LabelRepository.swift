@@ -44,7 +44,7 @@ class LabelRepository: Repository {
             response in
             switch response.result {
             case .success:
-                print(try! response.result.get())
+                NotificationCenter.default.post(name: .saveLabelData, object: nil)
             case .failure(let error):
                 print(error)
                 return
@@ -55,12 +55,13 @@ class LabelRepository: Repository {
     func update(item: VO) throws {
         let parameters = ["title": item.name,
                           "contents": item.description,
-                          "color": item.color] as [String : Any]
+                          "color": item.color,
+                          "id": item.id] as [String : Any]
         AF.request(RestApiServerURL.label, method: .put, parameters: parameters).responseString(){
             response in
             switch response.result {
             case .success:
-                print(try! response.result.get())
+                NotificationCenter.default.post(name: .saveLabelData, object: nil)
             case .failure(let error):
                 print(error)
                 return
@@ -74,7 +75,7 @@ class LabelRepository: Repository {
             response in
             switch response.result {
             case .success:
-                print(try! response.result.get())
+                NotificationCenter.default.post(name: .saveLabelData, object: nil)
             case .failure(let error):
                 print(error)
                 return

@@ -502,7 +502,11 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="마일스톤" image="3.circle.fill" catalog="system" id="FG2-jx-Zay"/>
                     <navigationItem key="navigationItem" title="마일스톤" id="Vr5-fe-EWt">
-                        <barButtonItem key="rightBarButtonItem" title="addMilestoneButton" image="plus" catalog="system" id="A8O-DO-xdP"/>
+                        <barButtonItem key="rightBarButtonItem" title="addMilestoneButton" image="plus" catalog="system" id="A8O-DO-xdP">
+                            <connections>
+                                <action selector="addLabelButtonAction:" destination="tc2-Es-Mq5" id="TqL-0W-ZRk"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="oc1-dm-Wfz" id="zOr-QQ-Ekm"/>

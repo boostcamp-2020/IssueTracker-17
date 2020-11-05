@@ -8,6 +8,7 @@
 import UIKit
 @available(iOS 14.0, *)
 class LabelDetailViewController: UIViewController {
+    var labelRepository = LabelRepository()
     var label = Label()
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
@@ -31,7 +32,16 @@ class LabelDetailViewController: UIViewController {
         label.name = nameTextField.text ?? ""
         label.description = descriptionTextField.text ?? ""
         label.color = colorTextField.text ?? "#000000"
-        // TODO: 서버로 데이터 보내기
+        do {
+            if(label.id == -1) {
+                try labelRepository.insert(item: LabelVO(id: label.id, name: label.name, description: label.description, color: label.color))
+            } else {
+                try labelRepository.update(item: LabelVO(id: label.id, name: label.name, description: label.description, color: label.color))
+            }
+        } catch (let error) {
+            print(error)
+        }
+        NotificationCenter.default.post(name: .saveLabelData, object: nil)
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func resetButtonAction(_ sender: UIButton) {

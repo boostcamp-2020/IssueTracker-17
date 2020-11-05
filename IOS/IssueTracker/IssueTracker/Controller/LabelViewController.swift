@@ -43,10 +43,10 @@ class LabelViewController: UIViewController {
                 for label in arrayOfLabel! {
                     self.labels.append(label.decode())
                 }
-                self.collectionView.reloadData()
             }
+            self.collectionView.reloadData()
         }
-
+        self.collectionView.reloadData()
     }
     @objc func saveLabelData() {
         getLabels()

@@ -46,7 +46,7 @@ class MilestoneRepository: Repository {
             response in
             switch response.result {
             case .success:
-                print(try! response.result.get())
+                NotificationCenter.default.post(name: .saveMilestoneData, object: nil)
             case .failure(let error):
                 print(error)
                 return
@@ -64,7 +64,7 @@ class MilestoneRepository: Repository {
             response in
             switch response.result {
             case .success:
-                print(try! response.result.get())
+                NotificationCenter.default.post(name: .saveMilestoneData, object: nil)
             case .failure(let error):
                 print(error)
                 return
@@ -78,7 +78,7 @@ class MilestoneRepository: Repository {
             response in
             switch response.result {
             case .success:
-                print(try! response.result.get())
+                NotificationCenter.default.post(name: .saveMilestoneData, object: nil)
             case .failure(let error):
                 print(error)
                 return
