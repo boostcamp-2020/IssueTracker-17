@@ -5,14 +5,82 @@ const model = require('../../models/sequelize');
 function issueController() {}
 
 issueController.get = async (req, res) => {
+    const { issueId } = req.params;
+    const { status, mention, author, labels, milestone, asignee } = req.query;
+    if (req.query) console.log(req.query);
+    //label을 제외한 조건 필터링 query
+    const filterQuery = createFilterQuery({
+        status,
+        mention,
+        author,
+        milestone,
+        asignee,
+    });
+
     try {
-        const initResult = await issue.get({ model: model });
-        const result = makeGetResult({ result: initResult });
+        const initResult = await issue.get({
+            model: model,
+            id: issueId,
+            filterQuery: filterQuery,
+        });
+
+        let result = makeGetResult({ result: initResult });
+
+        if (labels) {
+            const filterLabelList = Array.isArray(labels)
+                ? labels.map((label) => parseInt(label))
+                : [parseInt(labels)];
+            result = getlabelFilteredList(result, filterLabelList);
+        }
+
         res.status(200).json({ result: result });
     } catch (e) {
         console.error(e);
         res.status(400).json({ result: false });
     }
+};
+
+const getlabelFilteredList = (issueList, filterLabelList) => {
+    return issueList.filter((issue) => {
+        const issueLabelList = issue.dataValues.labels.map(
+            (label) => label.dataValues.id
+        );
+        return filterLabelList.every((label) => issueLabelList.includes(label));
+    });
+};
+
+const createFilterQuery = ({ status, mention, author, milestone, asignee }) => {
+    const filterQuery = {};
+    if (status !== undefined) filterQuery['status'] = status;
+    if (mention !== undefined) filterQuery['$comments.user_id$'] = mention;
+    if (author !== undefined) filterQuery['user_id'] = author;
+    if (milestone !== undefined) filterQuery['$milestone.id$'] = milestone;
+    if (asignee !== undefined) filterQuery['$has_assignees.user_id$'] = asignee;
+    return filterQuery;
+};
+
+const makeGetResult = ({ result }) => {
+    result.forEach((issueDataValue) => {
+        let data = issueDataValue['dataValues'];
+        data['userName'] = data['user']['name'];
+        data['milestoneTitle'] = data['milstone']
+            ? data['milstone']['title']
+            : data['milstone'];
+        data['user'] = undefined;
+        data['milestone'] = undefined;
+        data['labels'] = [];
+        data['has_labels'].forEach((label) => {
+            data['labels'] = [...data['labels'], label['label']];
+        });
+        data['has_labels'] = undefined;
+        data['assignees'] = [];
+        data['has_assignees'].forEach((user) => {
+            data['assignees'] = [...data['assignees'], user['user']];
+        });
+        data['has_assignees'] = undefined;
+        delete data['comments'];
+    });
+    return result;
 };
 
 issueController.update = async (req, res) => {
@@ -54,29 +122,6 @@ issueController.delete = async (req, res) => {
         console.error(e);
         res.status(400).json({ result: false });
     }
-};
-
-const makeGetResult = ({ result }) => {
-    result.forEach((issueDataValue) => {
-        let data = issueDataValue['dataValues'];
-        data['userName'] = data['user']['name'];
-        data['milestoneTitle'] = data['milstone']
-            ? data['milstone']['title']
-            : data['milstone'];
-        data['user'] = undefined;
-        data['milestone'] = undefined;
-        data['labels'] = [];
-        data['has_labels'].forEach((label) => {
-            data['labels'] = [...data['labels'], label['label']];
-        });
-        data['has_labels'] = undefined;
-        data['assignees'] = [];
-        data['has_assignees'].forEach((user) => {
-            data['assignees'] = [...data['assignees'], user['user']];
-        });
-        data['has_assignees'] = undefined;
-    });
-    return result;
 };
 
 const makeModifyData = ({ bodyObj }) => {

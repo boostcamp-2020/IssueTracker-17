@@ -9,6 +9,7 @@ function userController() {}
 userController.github = passport.authenticate('github');
 
 userController.iosLogin = async (req, res) => {
+    console.log(req.body);
     const { identifier, name, profileUrl, type } = req.body;
     if (!identifier) {
         res.status(401).json({ login: false });
@@ -26,6 +27,7 @@ userController.iosLogin = async (req, res) => {
         fields = [...fields, 'name', 'profile_url'];
     }
 
+    console.log(payload);
     if (!result) {
         await user.create(payload, {
             fields: fields,

@@ -4,8 +4,10 @@ const { label } = require('../../models/sequelize');
 function labelController() {}
 
 labelController.get = async (req, res) => {
+    const { id } = req.params;
+
     try {
-        const result = await label.get();
+        const result = await label.get(id);
         res.status(200).json({ result: result });
     } catch (e) {
         res.status(400).json({ result: false });
