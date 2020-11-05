@@ -35,6 +35,8 @@
 		AA40D1142553BF6A005B4835 /* IssueHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D1132553BF6A005B4835 /* IssueHeaderCollectionViewCell.swift */; };
 		AA40D1182553C7B0005B4835 /* IssueItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA40D1172553C7B0005B4835 /* IssueItemCollectionViewCell.xib */; };
 		AA40D11B2553CA12005B4835 /* IssueItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D11A2553CA12005B4835 /* IssueItemCollectionViewCell.swift */; };
+		AA40D11E2553F588005B4835 /* IssueAddCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D11D2553F588005B4835 /* IssueAddCommentViewController.swift */; };
+		AA40D1212553F899005B4835 /* IssueAddCommentSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA40D1202553F899005B4835 /* IssueAddCommentSubView.xib */; };
 		C7550947C277D05AA9585F58 /* Pods_IssueTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A4A5002355131BC4134A0A /* Pods_IssueTracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +74,8 @@
 		AA40D1132553BF6A005B4835 /* IssueHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA40D1172553C7B0005B4835 /* IssueItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IssueItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		AA40D11A2553CA12005B4835 /* IssueItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		AA40D11D2553F588005B4835 /* IssueAddCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueAddCommentViewController.swift; sourceTree = "<group>"; };
+		AA40D1202553F899005B4835 /* IssueAddCommentSubView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IssueAddCommentSubView.xib; sourceTree = "<group>"; };
 		B32F95B86BFF9EC06BFAFAEC /* Pods-IssueTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssueTracker.debug.xcconfig"; path = "Target Support Files/Pods-IssueTracker/Pods-IssueTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +136,7 @@
 				AA40D1132553BF6A005B4835 /* IssueHeaderCollectionViewCell.swift */,
 				AA40D1172553C7B0005B4835 /* IssueItemCollectionViewCell.xib */,
 				AA40D11A2553CA12005B4835 /* IssueItemCollectionViewCell.swift */,
+				AA40D1202553F899005B4835 /* IssueAddCommentSubView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 				8850A79C254B065D00039E76 /* MilestoneViewController.swift */,
 				8850A7A2254B151600039E76 /* MilestoneDetailViewController.swift */,
 				AA40D1102553BBD0005B4835 /* IssueItemViewController.swift */,
+				AA40D11D2553F588005B4835 /* IssueAddCommentViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -261,6 +267,7 @@
 				888AAAB12547C1ED0013B974 /* LaunchScreen.storyboard in Resources */,
 				AA40D1182553C7B0005B4835 /* IssueItemCollectionViewCell.xib in Resources */,
 				88901AA4254AFD0A00C2A613 /* MilestoneCollectionViewCell.xib in Resources */,
+				AA40D1212553F899005B4835 /* IssueAddCommentSubView.xib in Resources */,
 				888AAAAE2547C1ED0013B974 /* Assets.xcassets in Resources */,
 				888AAAAC2547C1EB0013B974 /* Main.storyboard in Resources */,
 				883D89B625493372005BDBE4 /* LabelCollectionViewCell.xib in Resources */,
@@ -327,6 +334,7 @@
 				883D89B0254932FE005BDBE4 /* LabelViewController.swift in Sources */,
 				887C633125482F3800579562 /* LoginManager.swift in Sources */,
 				88C7403A254A933F0053200B /* NotificationName+Extention.swift in Sources */,
+				AA40D11E2553F588005B4835 /* IssueAddCommentViewController.swift in Sources */,
 				887C0DEB2549769900E5A58A /* UIColor+Extention.swift in Sources */,
 				88901AA3254AFD0A00C2A613 /* MilestoneCollectionViewCell.swift in Sources */,
 				883D89B525493372005BDBE4 /* LabelCollectionViewCell.swift in Sources */,
