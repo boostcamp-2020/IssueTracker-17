@@ -8,15 +8,19 @@
 import UIKit
 
 class IssueViewController: UIViewController, UISearchBarDelegate {
+    
     @IBOutlet weak var issueTableView: UITableView!
     @IBOutlet var issueFilterButton: UIBarButtonItem!
+    @IBAction func addIssueButtonAction(_ sender: Any) {
+        openDetailView(issue: Issue())
+    }
     var selectData: [Issue] = Array()
     var selectAllCheck: Bool = false
     let toolbar = UIToolbar()
     private let searchController = UISearchController(searchResultsController: nil)
     var issues = [Issue]()
     private let issueRepository = IssueRepository()
-
+    
     @IBAction func tabTableEditButton(_ sender: UIBarButtonItem) {
         if issueTableView.isEditing {
             issueTableView.setEditing(false, animated: true)
@@ -56,10 +60,11 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         issueTableView.dataSource = self
         issueTableView.delegate = self
         issueTableView.allowsMultipleSelectionDuringEditing = true
-        getLabels()
+        NotificationCenter.default.addObserver(self, selector: #selector(saveIssueData), name: .saveIssueData, object: nil)
+        getIssue()
         configToolbar()
     }
-    func getLabels() {
+    func getIssue() {
         self.issues.removeAll()
         issueRepository.getAll {
             (arrayOfIssue) in
@@ -72,7 +77,14 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         }
         self.issueTableView.reloadData()
     }
-
+    func openDetailView(issue: Issue) {
+        guard let vcName = self.storyboard?.instantiateViewController(withIdentifier: "IssueDetailViewController") as? IssueDetailViewController else {
+            return
+        }
+        vcName.modalPresentationStyle = .formSheet
+        vcName.issue = issue
+        self.present(vcName, animated: true, completion: nil)
+    }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
     }
@@ -81,7 +93,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         self.view.addSubview(toolbar)
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let button = UIBarButtonItem(title: "tset", style: .plain, target: nil, action: nil)
-   
+        
         toolbar.setItems([flexibleSpace, button], animated: true)
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         toolbar.topAnchor.constraint(equalTo: issueTableView.bottomAnchor).isActive = true
@@ -89,8 +101,12 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         //toolbar.bottomAnchor.constraint(equalToSystemSpacingBelow: self.view.bottomAnchor, multiplier: 0).isActive = true
         toolbar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         toolbar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
-       // toolbar.items = [flexibleSpace, button]
-
+        // toolbar.items = [flexibleSpace, button]
+        
+    }
+    @objc func saveIssueData() {
+        getIssue()
+        issueTableView.reloadData()
     }
 }
 
@@ -113,8 +129,9 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selectSelectCell(tableView: tableView, indexPath: indexPath)
-        print("select", indexPath)
+        openDetailView(issue: issues[indexPath.row])
+        //self.selectSelectCell(tableView: tableView, indexPath: indexPath)
+        //print("select", indexPath)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

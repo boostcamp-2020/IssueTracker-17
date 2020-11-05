@@ -461,7 +461,7 @@
                                     <imageReference key="image" image="plus.circle.fill" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Wkw-X8-KjB" kind="modal" id="cqP-cP-VfK"/>
+                                    <action selector="addIssueButtonAction:" destination="82C-HF-yVU" eventType="touchUpInside" id="qYA-bj-f5a"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -498,16 +498,16 @@
             </objects>
             <point key="canvasLocation" x="798.55072463768124" y="-288.61607142857139"/>
         </scene>
-        <!--Issue Detail View Controller-->
+        <!--IssueDetailViewController-->
         <scene sceneID="FGF-hI-ZNu">
             <objects>
-                <viewController id="Wkw-X8-KjB" customClass="IssueDetailViewController" customModule="IssueTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="IssueDetailViewController" storyboardIdentifier="IssueDetailViewController" title="IssueDetailViewController" id="Wkw-X8-KjB" customClass="IssueDetailViewController" customModule="IssueTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y6y-8B-qCO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRH-1w-Bji">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="n3q-fh-AOY"/>
                                 </constraints>
@@ -527,7 +527,7 @@
                                 </items>
                             </navigationBar>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Laa-yN-J3q">
-                                <rect key="frame" x="20" y="116" width="374" height="32"/>
+                                <rect key="frame" x="20" y="160" width="374" height="32"/>
                                 <segments>
                                     <segment title="마크다운"/>
                                     <segment title="미리보기"/>
@@ -537,7 +537,7 @@
                                 </connections>
                             </segmentedControl>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="제목" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ufg-st-Aq0">
-                                <rect key="frame" x="20" y="74" width="374" height="34"/>
+                                <rect key="frame" x="20" y="118" width="374" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="y8W-yv-FWe"/>
                                 </constraints>
@@ -629,7 +629,7 @@
                     <navigationItem key="navigationItem" title="마일스톤" id="Vr5-fe-EWt">
                         <barButtonItem key="rightBarButtonItem" title="addMilestoneButton" image="plus" catalog="system" id="A8O-DO-xdP">
                             <connections>
-                                <action selector="addLabelButtonAction:" destination="tc2-Es-Mq5" id="TqL-0W-ZRk"/>
+                                <action selector="addMilestoneButtonAction:" destination="tc2-Es-Mq5" id="TqL-0W-ZRk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

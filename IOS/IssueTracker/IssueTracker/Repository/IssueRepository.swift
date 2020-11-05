@@ -11,7 +11,7 @@ class IssueRepository: Repository {
     typealias VO = IssueVO
     func getAll(finishedCallback: @escaping (_ issue: [VO]?)->Void){
         var issues = [VO]()
-        AF.request(RestApiServerURL.label).responseJSON() {
+        AF.request(RestApiServerURL.issue).responseJSON() {
             response in
             switch response.result {
             case .success:
@@ -62,12 +62,12 @@ class IssueRepository: Repository {
     func insert(item: VO) throws {
         var parameters = ["userId": 1, //TODO: Login 후 ID 넘겨주기
                           "title": item.title,
-                          "contentes": item.contents,
+                          "contents": item.contents,
                           "created": item.created] as [String : Any]
         if item.milestoneId != -1 {
             parameters["milestoneId"] = item.milestoneId
         }
-        AF.request(RestApiServerURL.issue, method: .post, parameters: parameters).responseString() {
+        AF.request(RestApiServerURL.issue, method: .post, parameters: parameters).responseJSON() {
             response in
             switch response.result {
             case .success:

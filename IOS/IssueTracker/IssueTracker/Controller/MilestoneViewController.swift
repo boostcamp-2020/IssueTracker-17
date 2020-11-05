@@ -9,7 +9,7 @@ import UIKit
 
 class MilestoneViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBAction func addLabelButtonAction(_ sender: Any) {
+    @IBAction func addMilestoneButtonAction(_ sender: Any) {
         openDetailView(milestone: Milestone())
     }
     var milestones = [Milestone]()

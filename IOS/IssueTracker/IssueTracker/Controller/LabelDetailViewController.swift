@@ -41,7 +41,6 @@ class LabelDetailViewController: UIViewController {
         } catch (let error) {
             print(error)
         }
-        NotificationCenter.default.post(name: .saveLabelData, object: nil)
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func resetButtonAction(_ sender: UIButton) {

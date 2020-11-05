@@ -14,8 +14,18 @@ class IssueDetailViewController: UIViewController {
         self.dismiss(animated: true)
     }
     @IBAction func submitButton(_ sender: Any) {
-        // TODO: 이슈 생성 및 저장
-        self.dismiss(animated: true)
+        issue.title = titleTextField.text ?? ""
+        issue.contents = issueContentTextView.text ?? ""
+        do {
+            if issue.id == -1 {
+                try issueRepository.insert(item: issue.model)
+            } else {
+                try issueRepository.update(item: issue.model)
+            }
+        } catch (let error) {
+            print(error)
+        }
+        self.dismiss(animated: true, completion: nil)
     }
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var issueContentTextView: IssueContentTextView!
@@ -36,6 +46,8 @@ class IssueDetailViewController: UIViewController {
         super.viewDidLoad()
         configure()
     }
+    var issue = Issue()
+    private let issueRepository = IssueRepository()
     private var pickerView = UIImagePickerController()
     private var markdownPreview: MarkdownView? {
         willSet {
@@ -54,9 +66,14 @@ class IssueDetailViewController: UIViewController {
     private func configure() {
         pickerView.delegate = self
         self.navigationItem.largeTitleDisplayMode = .automatic
-        navigationItemOutlet.title = "새 이슈!"
+        navigationItemOutlet.title = issue.id == -1 ? "새 이슈" : "#\(issue.id)"
         registerMenu()
         configureIssueContentTextView()
+        setValue(issue: issue)
+    }
+    func setValue(issue: Issue) {
+        titleTextField.text = issue.title
+        issueContentTextView.text = issue.contents
     }
     private func showMarkdownPreview() {
         markdownPreview = MarkdownView()
