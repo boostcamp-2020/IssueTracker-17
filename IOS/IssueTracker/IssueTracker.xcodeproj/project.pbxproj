@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -30,7 +30,11 @@
 		AA40D0EF2549B3B7005B4835 /* IssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D0EE2549B3B7005B4835 /* IssueViewController.swift */; };
 		AA40D0F32549CFA9005B4835 /* IssueViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D0F22549CFA9005B4835 /* IssueViewCustomCell.swift */; };
 		AA40D0F6254AA85F005B4835 /* NewIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D0F5254AA85F005B4835 /* NewIssueViewController.swift */; };
-		AA40D0F9254AA8AB005B4835 /* FilterIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D0F8254AA8AB005B4835 /* FilterIssueViewController.swift */; };
+		AA40D0F9254AA8AB005B4835 /* IssueFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D0F8254AA8AB005B4835 /* IssueFilterViewController.swift */; };
+		AA40D1112553BBD0005B4835 /* IssueItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D1102553BBD0005B4835 /* IssueItemViewController.swift */; };
+		AA40D1142553BF6A005B4835 /* IssueHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D1132553BF6A005B4835 /* IssueHeaderCollectionViewCell.swift */; };
+		AA40D1182553C7B0005B4835 /* IssueItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA40D1172553C7B0005B4835 /* IssueItemCollectionViewCell.xib */; };
+		AA40D11B2553CA12005B4835 /* IssueItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D11A2553CA12005B4835 /* IssueItemCollectionViewCell.swift */; };
 		C7550947C277D05AA9585F58 /* Pods_IssueTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A4A5002355131BC4134A0A /* Pods_IssueTracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,7 +67,11 @@
 		AA40D0EE2549B3B7005B4835 /* IssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueViewController.swift; sourceTree = "<group>"; };
 		AA40D0F22549CFA9005B4835 /* IssueViewCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueViewCustomCell.swift; sourceTree = "<group>"; };
 		AA40D0F5254AA85F005B4835 /* NewIssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewIssueViewController.swift; sourceTree = "<group>"; };
-		AA40D0F8254AA8AB005B4835 /* FilterIssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterIssueViewController.swift; sourceTree = "<group>"; };
+		AA40D0F8254AA8AB005B4835 /* IssueFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueFilterViewController.swift; sourceTree = "<group>"; };
+		AA40D1102553BBD0005B4835 /* IssueItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueItemViewController.swift; sourceTree = "<group>"; };
+		AA40D1132553BF6A005B4835 /* IssueHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
+		AA40D1172553C7B0005B4835 /* IssueItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IssueItemCollectionViewCell.xib; sourceTree = "<group>"; };
+		AA40D11A2553CA12005B4835 /* IssueItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		B32F95B86BFF9EC06BFAFAEC /* Pods-IssueTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssueTracker.debug.xcconfig"; path = "Target Support Files/Pods-IssueTracker/Pods-IssueTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,7 +101,6 @@
 				B32F95B86BFF9EC06BFAFAEC /* Pods-IssueTracker.debug.xcconfig */,
 				A11BA265FD9C6759697BCF49 /* Pods-IssueTracker.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -122,6 +129,9 @@
 				88901AA2254AFD0A00C2A613 /* MilestoneCollectionViewCell.xib */,
 				883D89B325493372005BDBE4 /* LabelCollectionViewCell.swift */,
 				883D89B425493372005BDBE4 /* LabelCollectionViewCell.xib */,
+				AA40D1132553BF6A005B4835 /* IssueHeaderCollectionViewCell.swift */,
+				AA40D1172553C7B0005B4835 /* IssueItemCollectionViewCell.xib */,
+				AA40D11A2553CA12005B4835 /* IssueItemCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -132,12 +142,13 @@
 				AA40D0EE2549B3B7005B4835 /* IssueViewController.swift */,
 				AA40D0F22549CFA9005B4835 /* IssueViewCustomCell.swift */,
 				AA40D0F5254AA85F005B4835 /* NewIssueViewController.swift */,
-				AA40D0F8254AA8AB005B4835 /* FilterIssueViewController.swift */,
+				AA40D0F8254AA8AB005B4835 /* IssueFilterViewController.swift */,
 				887C63332548304D00579562 /* LoginViewController.swift */,
 				883D89AF254932FE005BDBE4 /* LabelViewController.swift */,
 				889EEC73254A90BF009CED1C /* LabelDetailViewController.swift */,
 				8850A79C254B065D00039E76 /* MilestoneViewController.swift */,
 				8850A7A2254B151600039E76 /* MilestoneDetailViewController.swift */,
+				AA40D1102553BBD0005B4835 /* IssueItemViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -248,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				888AAAB12547C1ED0013B974 /* LaunchScreen.storyboard in Resources */,
+				AA40D1182553C7B0005B4835 /* IssueItemCollectionViewCell.xib in Resources */,
 				88901AA4254AFD0A00C2A613 /* MilestoneCollectionViewCell.xib in Resources */,
 				888AAAAE2547C1ED0013B974 /* Assets.xcassets in Resources */,
 				888AAAAC2547C1EB0013B974 /* Main.storyboard in Resources */,
@@ -305,12 +317,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8850A7A0254B070C00039E76 /* Milestone.swift in Sources */,
+				AA40D1142553BF6A005B4835 /* IssueHeaderCollectionViewCell.swift in Sources */,
 				AA40D0EF2549B3B7005B4835 /* IssueViewController.swift in Sources */,
 				AA40D0F6254AA85F005B4835 /* NewIssueViewController.swift in Sources */,
 				8850A7A3254B151600039E76 /* MilestoneDetailViewController.swift in Sources */,
 				AA40D0F32549CFA9005B4835 /* IssueViewCustomCell.swift in Sources */,
 				888AAAA92547C1EB0013B974 /* ViewController.swift in Sources */,
-				AA40D0F9254AA8AB005B4835 /* FilterIssueViewController.swift in Sources */,
+				AA40D0F9254AA8AB005B4835 /* IssueFilterViewController.swift in Sources */,
 				883D89B0254932FE005BDBE4 /* LabelViewController.swift in Sources */,
 				887C633125482F3800579562 /* LoginManager.swift in Sources */,
 				88C7403A254A933F0053200B /* NotificationName+Extention.swift in Sources */,
@@ -320,9 +333,11 @@
 				888AAAA52547C1EB0013B974 /* AppDelegate.swift in Sources */,
 				8850A79D254B065D00039E76 /* MilestoneViewController.swift in Sources */,
 				888AAAA72547C1EB0013B974 /* SceneDelegate.swift in Sources */,
+				AA40D11B2553CA12005B4835 /* IssueItemCollectionViewCell.swift in Sources */,
 				883D89BA2549483C005BDBE4 /* Label.swift in Sources */,
 				889EEC74254A90BF009CED1C /* LabelDetailViewController.swift in Sources */,
 				887C63342548304D00579562 /* LoginViewController.swift in Sources */,
+				AA40D1112553BBD0005B4835 /* IssueItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
