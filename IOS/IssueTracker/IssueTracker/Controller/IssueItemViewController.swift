@@ -134,6 +134,15 @@ class IssueItemViewController: UIViewController {
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
         }
     }
+    //openDetailView(issue: issues[indexPath.row])
+    func openDetailView(issue: Issue) {
+        guard let vcName = self.storyboard?.instantiateViewController(withIdentifier: "IssueDetailViewController") as? IssueDetailViewController else {
+            return
+        }
+        vcName.modalPresentationStyle = .formSheet
+        vcName.issue = issue
+        self.present(vcName, animated: true, completion: nil)
+    }
 }
 
 extension IssueItemViewController: UICollectionViewDelegate, UICollectionViewDataSource {

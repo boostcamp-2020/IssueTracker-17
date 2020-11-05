@@ -71,12 +71,14 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
             if (arrayOfIssue != nil) {
                 for issue in arrayOfIssue! {
                     self.issues.append(issue.decode())
+                    print(self.issues)
                 }
             }
             self.issueTableView.reloadData()
         }
         self.issueTableView.reloadData()
     }
+    
     func openDetailView(issue: Issue) {
         guard let vcName = self.storyboard?.instantiateViewController(withIdentifier: "IssueDetailViewController") as? IssueDetailViewController else {
             return
@@ -85,6 +87,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         vcName.issue = issue
         self.present(vcName, animated: true, completion: nil)
     }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
     }
@@ -92,7 +95,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     func configToolbar() {
         self.view.addSubview(toolbar)
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        let button = UIBarButtonItem(title: "tset", style: .plain, target: nil, action: nil)
+        let button = UIBarButtonItem(title: "선택 이슈 닫기", style: .plain, target: nil, action: nil)
         
         toolbar.setItems([flexibleSpace, button], animated: true)
         toolbar.translatesAutoresizingMaskIntoConstraints = false
@@ -125,11 +128,11 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 80
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        openDetailView(issue: issues[indexPath.row])
+        //openDetailView(issue: issues[indexPath.row])
         //self.selectSelectCell(tableView: tableView, indexPath: indexPath)
         //print("select", indexPath)
     }
