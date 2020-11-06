@@ -174,13 +174,13 @@
 			children = (
 				88E2A30525546041009E1968 /* IssueDetailViewController.swift */,
 				AA40D0EE2549B3B7005B4835 /* IssueViewController.swift */,
+				AA40D14525543B4C005B4835 /* IssueItemViewController.swift */,
 				AA40D13725543A3E005B4835 /* IssueFilterViewController.swift */,
 				887C63332548304D00579562 /* LoginViewController.swift */,
 				883D89AF254932FE005BDBE4 /* LabelViewController.swift */,
 				889EEC73254A90BF009CED1C /* LabelDetailViewController.swift */,
 				8850A79C254B065D00039E76 /* MilestoneViewController.swift */,
 				AA40D14225543B25005B4835 /* IssueAddCommentViewController.swift */,
-				AA40D14525543B4C005B4835 /* IssueItemViewController.swift */,
 				8850A7A2254B151600039E76 /* MilestoneDetailViewController.swift */,
 			);
 			path = Controller;
