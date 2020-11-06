@@ -26,25 +26,109 @@
                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zdH-o6-PVp">
-                    <rect key="frame" x="14" y="60" width="263" height="43"/>
+                    <rect key="frame" x="14" y="60" width="283" height="43"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="댓글 추가"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ysb-tk-XzS">
-                    <rect key="frame" x="298" y="60" width="43" height="43"/>
+                    <rect key="frame" x="314" y="60" width="43" height="43"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
                     <state key="normal" image="control" catalog="system"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dee-ku-Eg4">
-                    <rect key="frame" x="341" y="60" width="43" height="43"/>
+                    <rect key="frame" x="357" y="60" width="43" height="43"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
                     <state key="normal" image="chevron.down" catalog="system"/>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="담당자" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBN-w8-j1K">
+                    <rect key="frame" x="14" y="145" width="58" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lNJ-oQ-a06">
+                    <rect key="frame" x="370" y="142" width="30" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Edit"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8lE-bK-48X">
+                    <rect key="frame" x="370" y="350" width="30" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Edit"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQJ-Yd-Jy2">
+                    <rect key="frame" x="370" y="499" width="30" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Edit"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="레이블" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJH-RV-j1i">
+                    <rect key="frame" x="14" y="353" width="58" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="마일스톤" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tLB-7P-oWp">
+                    <rect key="frame" x="14" y="502" width="77" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="APG-k2-tAb">
+                    <rect key="frame" x="14" y="403" width="386" height="51"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJr-IJ-xv5">
+                            <rect key="frame" x="0.0" y="1" width="386" height="48"/>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="jSe-Wk-iE2" firstAttribute="trailing" secondItem="tJr-IJ-xv5" secondAttribute="trailing" id="3RJ-wB-h3D"/>
+                        <constraint firstItem="tJr-IJ-xv5" firstAttribute="top" secondItem="jSe-Wk-iE2" secondAttribute="top" constant="1" id="7np-oQ-PnO"/>
+                        <constraint firstItem="jSe-Wk-iE2" firstAttribute="bottom" secondItem="tJr-IJ-xv5" secondAttribute="bottom" constant="2" id="Q3i-xK-F17"/>
+                        <constraint firstItem="tJr-IJ-xv5" firstAttribute="leading" secondItem="jSe-Wk-iE2" secondAttribute="leading" id="Z7e-jz-FpM"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="z7d-N4-zCT"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="jSe-Wk-iE2"/>
+                </scrollView>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7gS-IB-6qK">
+                    <rect key="frame" x="14" y="195" width="386" height="113"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYg-VS-xXU">
+                            <rect key="frame" x="0.0" y="1" width="386" height="110"/>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="48U-wf-H1k" firstAttribute="trailing" secondItem="jYg-VS-xXU" secondAttribute="trailing" id="0c4-v3-WRC"/>
+                        <constraint firstItem="jYg-VS-xXU" firstAttribute="leading" secondItem="48U-wf-H1k" secondAttribute="leading" id="ByC-SA-Ex0"/>
+                        <constraint firstItem="jYg-VS-xXU" firstAttribute="top" secondItem="48U-wf-H1k" secondAttribute="top" constant="1" id="p70-5c-vED"/>
+                        <constraint firstItem="48U-wf-H1k" firstAttribute="bottom" secondItem="jYg-VS-xXU" secondAttribute="bottom" constant="2" id="pHi-gb-E2M"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="Z8u-Tl-Snm"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="48U-wf-H1k"/>
+                </scrollView>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dVn-25-JUY">
+                    <rect key="frame" x="14" y="554" width="386" height="76"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZA-AH-y9Z">
+                            <rect key="frame" x="8" y="8" width="174" height="26"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="W33-Ag-tDU"/>
             <color key="backgroundColor" systemColor="systemGray6Color"/>
@@ -54,6 +138,9 @@
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="control" catalog="system" width="128" height="72"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

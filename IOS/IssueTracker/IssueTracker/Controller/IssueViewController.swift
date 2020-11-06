@@ -73,6 +73,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         getIssue()
         configToolbar()
     }
+    
     func getIssue() {
         self.issues.removeAll()
         issueRepository.getAll {
@@ -162,7 +163,6 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
         })
         return action
     }
-    
 }
 
 extension IssueViewController {
@@ -173,6 +173,5 @@ extension IssueViewController {
                 selectData.append(issues[index.row])
             }
         }
-        print(selectData)
     }
 }

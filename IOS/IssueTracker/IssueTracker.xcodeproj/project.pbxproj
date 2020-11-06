@@ -154,6 +154,7 @@
 		887C632D25482F1800579562 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AA40D0F22549CFA9005B4835 /* IssueViewCustomCell.swift */,
 				88901AA1254AFD0A00C2A613 /* MilestoneCollectionViewCell.swift */,
 				88901AA2254AFD0A00C2A613 /* MilestoneCollectionViewCell.xib */,
 				AA40D15125543B83005B4835 /* IssueAddCommentSubView.xib */,
@@ -173,7 +174,6 @@
 			children = (
 				88E2A30525546041009E1968 /* IssueDetailViewController.swift */,
 				AA40D0EE2549B3B7005B4835 /* IssueViewController.swift */,
-				AA40D0F22549CFA9005B4835 /* IssueViewCustomCell.swift */,
 				AA40D13725543A3E005B4835 /* IssueFilterViewController.swift */,
 				887C63332548304D00579562 /* LoginViewController.swift */,
 				883D89AF254932FE005BDBE4 /* LabelViewController.swift */,
