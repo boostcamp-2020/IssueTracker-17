@@ -7,6 +7,7 @@ const logger = require('morgan');
 const passport = require('passport');
 const passportConfig = require('./config/passport');
 const { sequelize } = require('./models/sequelize');
+const cors = require('cors');
 
 const userRouter = require('./routes/user');
 const labelRouter = require('./routes/label');
@@ -18,6 +19,7 @@ const hasLabelRouter = require('./routes/has_label');
 const imgRouter = require('./routes/img');
 
 const app = express();
+app.use(cors());
 
 sequelize.sync();
 app.use(logger('dev'));
@@ -25,6 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
+
 app.use(passport.initialize());
 passportConfig();
 

@@ -15,10 +15,10 @@ userController.iosLogin = async (req, res, next) => {
     }
     try {
         const result = await user.findOne({
-            where: { identifier: identifier, type: type},
+            where: { identifier: identifier, type: type },
         });
 
-        let payload = { type: type, identifier: identifier};
+        let payload = { type: type, identifier: identifier };
         let fields = ['type', 'identifier'];
         if (type == loginTypes.GITHUB) {
             payload.name = name;
@@ -41,7 +41,7 @@ userController.iosLogin = async (req, res, next) => {
 userController.login = (req, res) => {
     const payload = req.user;
     jwt.sign(payload, config.jwtSecret, { expiresIn: 3600 }, (err, token) => {
-        res.json({ token: token });
+        res.redirect(`http://localhost:8080/login?token=${token}`);
     });
 };
 
