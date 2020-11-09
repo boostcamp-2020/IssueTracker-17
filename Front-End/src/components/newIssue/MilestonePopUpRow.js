@@ -1,12 +1,26 @@
 import React from 'react';
+import styled from 'styled-components';
 
-const AssigneeRow = ({ row }) => {
+const MilestoneRow = styled.div`
+  padding: 5px 0;
+  padding-left: 20px;
+  border-bottom: 1px solid #dddddd;
+`;
+const MilestoneName = styled.div`
+  font-weight: 600;
+`;
+const MilestoneDue = styled.div`
+  font-size: 11px;
+  padding-top: 5px;
+`;
+
+const MilestonePopUpRow = ({ row }) => {
   return (
-    <div className="popupbox__milestone">
-      <div className="popupbox__milestoneName">{row.name}</div>
-      <div className="popupbox__milestoneDue">{row.dueDate}</div>
-    </div>
+    <MilestoneRow>
+      <MilestoneName>{row.milestoneName}</MilestoneName>
+      <MilestoneDue>No due date</MilestoneDue>
+    </MilestoneRow>
   );
 };
 
-export default AssigneeRow;
+export default MilestonePopUpRow;

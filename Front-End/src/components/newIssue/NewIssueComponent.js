@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditBox from './EditBox.js';
 import SelectBox from './SelectBox.js';
 import AssigneeRow from './AssigneeRow';
 import LabelRow from './LabelRow';
 import MilestoneRow from './MilestoneRow';
-import PopUpBox from './PopUpBox.js';
-import LabelPopUpRow from './LabelPopUpRow';
-import AsssigneePopUpRow from './AssigneePopUpRow';
-import MilestonePopUpRow from './MilestonePopUpRow';
 import styled from 'styled-components';
 
 const NewIssueContainer = styled.div`
@@ -42,11 +38,16 @@ const NewIssueComponent = () => {
   ]);
   const [labels, setLabels] = useState([
     { labelName: 'testLabel', color: '#abcdef' },
+    { labelName: 'testLabel2', color: '#a23dc4' },
   ]);
-  const [milestone, setMilestone] = useState([]);
-  const [assigneePopUp, setassigneePopUp] = useState();
-  const [labelPopUp, setlabelPopUp] = useState();
-  const [milestonePopUp, setmilestoneePopUp] = useState();
+  const [milestone, setMilestone] = useState([
+    { milestoneName: 'milestone_test', status: 70 },
+  ]);
+  const [assigneePopUp, setassigneePopUp] = useState('none');
+  const [labelPopUp, setlabelPopUp] = useState('none');
+  const [milestonePopUp, setmilestoneePopUp] = useState('none');
+
+  useEffect();
 
   return (
     <NewIssueContainer>
@@ -57,35 +58,23 @@ const NewIssueComponent = () => {
           WrappedComponent={AssigneeRow}
           title="Assignees"
           rows={assignees}
+          popUp={assigneePopUp}
           setPopUp={setassigneePopUp}
         />
         <SelectBox
           WrappedComponent={LabelRow}
           title="Labels"
           rows={labels}
+          popUp={labelPopUp}
           setPopUp={setlabelPopUp}
         />
         <SelectBox
           WrappedComponent={MilestoneRow}
           title="Milestone"
           rows={milestone}
+          popUp={milestonePopUp}
           setPopUp={setmilestoneePopUp}
         />
-        <PopUpBox
-          WrappedComponent={AsssigneePopUpRow}
-          className={assigneePopUp}
-          rows={[]}
-        ></PopUpBox>
-        <PopUpBox
-          WrappedComponent={LabelPopUpRow}
-          className={labelPopUp}
-          rows={[]}
-        ></PopUpBox>
-        <PopUpBox
-          WrappedComponent={MilestonePopUpRow}
-          className={milestonePopUp}
-          rows={[]}
-        ></PopUpBox>
       </SelectboxesContiainer>
     </NewIssueContainer>
   );

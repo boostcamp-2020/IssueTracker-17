@@ -8,7 +8,7 @@ const Avatar = styled.img`
 `;
 
 const SelectBoxAssignee = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   display: flex;
   justify-content: start;
 `;
