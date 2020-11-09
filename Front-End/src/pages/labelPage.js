@@ -1,5 +1,5 @@
 import React from 'react';
-import LabelComponent from '../components/labelComponent';
+import { LabelComponent } from 'Components';
 
 function LabelPage() {
   return (
