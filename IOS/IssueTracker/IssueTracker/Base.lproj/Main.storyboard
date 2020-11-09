@@ -804,6 +804,52 @@
             </objects>
             <point key="canvasLocation" x="1685.5072463768117" y="1244.8660714285713"/>
         </scene>
+        <!--commentAddController-->
+        <scene sceneID="Prq-tC-fDU">
+            <objects>
+                <viewController restorationIdentifier="commentAddController" storyboardIdentifier="commentAddController" title="commentAddController" id="GCa-6X-tPc" customClass="IssueDetailViewController" customModule="IssueTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4bP-U8-DDm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yiU-bH-uQd">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="JqK-cj-faI"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="댓글 달기" id="Bb2-rc-jdC">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" style="plain" id="qFE-Zf-NKa"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="aBh-o5-qBq"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Lb2-Ij-NiF">
+                                <rect key="frame" x="20" y="88" width="374" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="3n5-pE-crT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Lb2-Ij-NiF" firstAttribute="top" secondItem="yiU-bH-uQd" secondAttribute="bottom" id="24O-A6-XeA"/>
+                            <constraint firstItem="Lb2-Ij-NiF" firstAttribute="centerX" secondItem="3n5-pE-crT" secondAttribute="centerX" id="CE4-p6-UCE"/>
+                            <constraint firstItem="3n5-pE-crT" firstAttribute="trailing" secondItem="Lb2-Ij-NiF" secondAttribute="trailing" constant="20" id="G9c-yu-I4l"/>
+                            <constraint firstItem="Lb2-Ij-NiF" firstAttribute="leading" secondItem="3n5-pE-crT" secondAttribute="leading" constant="20" id="S1B-si-XnH"/>
+                            <constraint firstAttribute="trailing" secondItem="yiU-bH-uQd" secondAttribute="trailing" id="SEq-tQ-JYK"/>
+                            <constraint firstItem="yiU-bH-uQd" firstAttribute="leading" secondItem="4bP-U8-DDm" secondAttribute="leading" id="r7Z-An-FRH"/>
+                            <constraint firstItem="yiU-bH-uQd" firstAttribute="top" secondItem="3n5-pE-crT" secondAttribute="top" id="s8q-li-jJa"/>
+                            <constraint firstItem="3n5-pE-crT" firstAttribute="bottom" secondItem="Lb2-Ij-NiF" secondAttribute="bottom" id="tOm-Gg-HNv"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B8M-tf-P42" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2573.913043478261" y="-1055.3571428571429"/>
+        </scene>
     </scenes>
     <resources>
         <image name="1.circle.fill" catalog="system" width="128" height="121"/>
