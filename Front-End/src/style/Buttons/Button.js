@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 export const Button = styled.button`
@@ -22,4 +21,13 @@ export const GrayButton = styled(Button)`
   color: black;
   background-color: #f5f5f5;
   border-color: rgba(27, 31, 35, 0.15);
+`;
+
+export const LabelMilestoneButton = styled(Button)`
+  background-color: white;
+  height: 33px;
+  border: 1px solid darkgray;
+  font-size: 16px;
+  padding: 0px;
+  width: 50%;
 `;

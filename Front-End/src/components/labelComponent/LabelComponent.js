@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { TopLinks } from './topLink';
+import { TopLinks } from './LabelMilestoneNewButton/topLink';
 import { LabelCounter } from './labelCounter';
 import { LabelList } from './labelList';
 import * as reducers from '../../reducer';
