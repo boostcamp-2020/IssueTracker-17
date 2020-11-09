@@ -7,9 +7,9 @@
 
 import Alamofire
 struct Milestone {
-    var name = ""
-    var description = ""
-    var endDate = Date()
+    var title = ""
+    var contents = ""
+    var until = Date()
     var openIssueCount = 0
     var closeIssueCount = 0
     var id = -1
@@ -17,18 +17,16 @@ struct Milestone {
 }
 extension Milestone {
     var model: MilestoneVO {
-        return MilestoneVO(name: self.name, description: self.description, endDate: self.endDate, id: self.id, status: self.status)
+        return MilestoneVO(title: self.title, contents: self.contents, until: until.getString(), id: self.id, status: self.status)
     }
 }
 struct MilestoneVO : Codable {
-    var name = ""
-    var description = ""
-    var endDate = Date()
+    var title,contents,until: String
     var id = -1
-    var status = 1
+    var status: Int
 }
 extension MilestoneVO {
     func decode() -> Milestone {
-        return Milestone(name: name, description: description, endDate: endDate, openIssueCount: 0, closeIssueCount: 0, id: id, status: status)
+        return Milestone(title: title, contents: contents, until: until.getDate(), openIssueCount: 0, closeIssueCount: 0, id: id, status: status)
     }
 }

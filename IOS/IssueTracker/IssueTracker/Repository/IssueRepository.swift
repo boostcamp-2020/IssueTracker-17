@@ -23,7 +23,7 @@ class IssueRepository: Repository {
                             vo.title = jsonObject["title"] as! String
                             vo.status = jsonObject["status"] as? Int ?? 0
                             vo.contents = jsonObject["contents"] as! String
-                            vo.created.convert(fromIsoDate: jsonObject["created"] as? String ?? "")
+                            vo.created = (jsonObject["created"] as? String ?? "").getDate()
                             vo.userName = jsonObject["userName"] as? String ?? ""
                             if let labelObjectArray = jsonArray["labels"] as? [[String: Any]] {
                                 for labelObject in labelObjectArray{

@@ -11,24 +11,17 @@ class MilestoneRepository: Repository {
     typealias VO = MilestoneVO
     func getAll(finishedCallback: @escaping (_ milestones: [VO]?)->Void){
         var milestones = [VO]()
-        AF.request(RestApiServerURL.milestone, method: .get).responseJSON() {
+        AF.request(RestApiServerURL.milestone, method: .get).responseData() {
             response in
             switch response.result {
             case .success:
-                if let jsonArray = try! response.result.get() as? [String: Any] {
-                    if let jsonObjectArray = jsonArray["result"] as? [[String: Any]] {
-                        for jsonObject in jsonObjectArray{
-                            var milestoneVO = VO()
-                            milestoneVO.name = jsonObject["title"] as! String
-                            milestoneVO.description = jsonObject["contents"] as! String
-                            milestoneVO.endDate.convert(fromIsoDate: jsonObject["until"] as! String)
-                            milestoneVO.id = jsonObject["id"] as! Int
-                            milestoneVO.status = jsonObject["status"] as! Int
-                            milestones.append(milestoneVO)
-                        }
-                        finishedCallback(milestones)
-                    }
+                print(String(decoding:try! response.result.get(), as: UTF8.self))
+                if let decodeData = try? JSONDecoder().decode(ResultResponse<VO>.self, from: response.result.get()) {
+                    milestones = decodeData.result
+                } else {
+                    
                 }
+                finishedCallback(milestones)
             case .failure(let error):
                 print(error)
             }
@@ -38,9 +31,9 @@ class MilestoneRepository: Repository {
         return nil
     }
     func insert(item: VO) throws {
-        let parameters = ["title": item.name,
-                          "contents": item.description,
-                          "until": item.endDate,
+        let parameters = ["title": item.title,
+                          "contents": item.contents,
+                          "until": item.until,
                           "status": item.status] as [String : Any]
         AF.request(RestApiServerURL.milestone, method: .post, parameters: parameters).responseString(){
             response in
@@ -55,9 +48,9 @@ class MilestoneRepository: Repository {
     }
     
     func update(item: VO) throws {
-        let parameters = ["title": item.name,
-                          "contents": item.description,
-                          "until": item.endDate,
+        let parameters = ["title": item.title,
+                          "contents": item.contents,
+                          "until": item.until,
                           "status": item.status,
                           "id": item.id] as [String : Any]
         AF.request(RestApiServerURL.milestone, method: .put, parameters: parameters).responseString(){

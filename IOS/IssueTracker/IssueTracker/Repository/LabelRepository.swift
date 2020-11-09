@@ -9,15 +9,13 @@ import Foundation
 import Alamofire
 class LabelRepository: Repository {
     typealias VO = LabelVO
-    let decoder = JSONDecoder()
     func getAll(finishedCallback: @escaping (_ labels: [VO]?)->Void){
         var labels = [VO]()
         AF.request(RestApiServerURL.label).responseData() {
             response in
             switch response.result {
             case .success:
-                let data = try! response.result.get() as Data
-                if let decodeData = try? self.decoder.decode(ResultResponse<VO>.self, from: data) {
+                if let decodeData = try? JSONDecoder().decode(ResultResponse<VO>.self, from: response.result.get()) {
                     labels = decodeData.result
                 } else {
                     
@@ -46,7 +44,6 @@ class LabelRepository: Repository {
             }
         }
     }
-    
     func update(item: VO) throws {
         let parameters = ["title": item.title,
                           "contents": item.contents,

@@ -57,10 +57,10 @@ extension MilestoneViewController: UICollectionViewDelegate, UICollectionViewDat
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MilestoneCollectionViewCell", for: indexPath) as? MilestoneCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.nameLabel.text = milestones[indexPath.row].name
-        let date = dateFormatter.string(from: milestones[indexPath.row].endDate).split(separator: "/")
+        cell.nameLabel.text = milestones[indexPath.row].title
+        let date = dateFormatter.string(from: milestones[indexPath.row].until).split(separator: "/")
         cell.endDateLabel.text = "\(date[0])년 \(date[1])월 \(date[2])일까지"
-        cell.descriptionLabel.text = milestones[indexPath.row].description
+        cell.descriptionLabel.text = milestones[indexPath.row].contents
         let sumIssue = milestones[indexPath.row].openIssueCount + milestones[indexPath.row].closeIssueCount
         if sumIssue != 0 {
             let percent = Int(round((Float(milestones[indexPath.row].closeIssueCount) / Float(sumIssue)) * 100))

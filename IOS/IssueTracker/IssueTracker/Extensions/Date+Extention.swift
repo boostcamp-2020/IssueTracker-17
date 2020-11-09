@@ -8,10 +8,16 @@
 import Foundation
 
 extension Date {
-    mutating func convert(fromIsoDate: String){
-        let isoDate = fromIsoDate
+    func getString() -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        self = dateFormatter.date(from:isoDate) ?? Date()
+        return dateFormatter.string(from: self) 
+    }
+}
+extension String {
+    func getDate() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        return dateFormatter.date(from: self) ?? Date()
     }
 }
