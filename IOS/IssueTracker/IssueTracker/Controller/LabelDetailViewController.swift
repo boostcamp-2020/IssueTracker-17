@@ -29,8 +29,8 @@ class LabelDetailViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func saveButtonAction(_ sender: UIButton) {
-        label.name = nameTextField.text ?? ""
-        label.description = descriptionTextField.text ?? ""
+        label.title = nameTextField.text ?? ""
+        label.contents = descriptionTextField.text ?? ""
         label.color = colorTextField.text ?? "#000000"
         do {
             if(label.id == -1) {
@@ -57,8 +57,8 @@ class LabelDetailViewController: UIViewController {
         setValue(label: label)
     }
     func setValue(label: Label) {
-        nameTextField.text = label.name
-        descriptionTextField.text = label.description
+        nameTextField.text = label.title
+        descriptionTextField.text = label.contents
         colorTextField.text = label.color
         colorPickerButton.backgroundColor = UIColor().colorWithHexString(hex: label.color)
     }

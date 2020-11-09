@@ -38,6 +38,7 @@
 		88E2A30625546041009E1968 /* IssueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E2A30525546041009E1968 /* IssueDetailViewController.swift */; };
 		88E2A30E25546C23009E1968 /* IssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E2A30D25546C23009E1968 /* IssueRepository.swift */; };
 		88E2A31125546E92009E1968 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E2A31025546E92009E1968 /* UserRepository.swift */; };
+		88F8E96525590AB6005B9F22 /* ResultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F8E96425590AB6005B9F22 /* ResultResponse.swift */; };
 		AA40D0EF2549B3B7005B4835 /* IssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D0EE2549B3B7005B4835 /* IssueViewController.swift */; };
 		AA40D0F32549CFA9005B4835 /* IssueViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D0F22549CFA9005B4835 /* IssueViewCustomCell.swift */; };
 		AA40D13825543A3E005B4835 /* IssueFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D13725543A3E005B4835 /* IssueFilterViewController.swift */; };
@@ -87,6 +88,7 @@
 		88E2A30525546041009E1968 /* IssueDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueDetailViewController.swift; sourceTree = "<group>"; };
 		88E2A30D25546C23009E1968 /* IssueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueRepository.swift; sourceTree = "<group>"; };
 		88E2A31025546E92009E1968 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		88F8E96425590AB6005B9F22 /* ResultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultResponse.swift; sourceTree = "<group>"; };
 		A11BA265FD9C6759697BCF49 /* Pods-IssueTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssueTracker.release.xcconfig"; path = "Target Support Files/Pods-IssueTracker/Pods-IssueTracker.release.xcconfig"; sourceTree = "<group>"; };
 		AA40D0EE2549B3B7005B4835 /* IssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueViewController.swift; sourceTree = "<group>"; };
 		AA40D0F22549CFA9005B4835 /* IssueViewCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueViewCustomCell.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				8850A79F254B070C00039E76 /* Milestone.swift */,
 				886910D82551A123009D0F96 /* User.swift */,
 				88AEA8F7255282D200C934B3 /* Issue.swift */,
+				88F8E96425590AB6005B9F22 /* ResultResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				AA40D13825543A3E005B4835 /* IssueFilterViewController.swift in Sources */,
 				88AEA8F525527FC900C934B3 /* LabelRepository.swift in Sources */,
 				88AEA8DF25525A6500C934B3 /* Date+Extention.swift in Sources */,
+				88F8E96525590AB6005B9F22 /* ResultResponse.swift in Sources */,
 				88E2A31125546E92009E1968 /* UserRepository.swift in Sources */,
 				883D89B0254932FE005BDBE4 /* LabelViewController.swift in Sources */,
 				8896A4012553BB87003B3C05 /* IssueContextTextView.swift in Sources */,

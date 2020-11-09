@@ -16,9 +16,9 @@ class MilestoneDetailViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func saveButtonAction(_ sender: UIButton) {
-        milestone.name = nameTextField.text ?? ""
-        milestone.description = descriptionTextField.text ?? ""
-        milestone.endDate = endDatePicker.date
+        milestone.title = nameTextField.text ?? ""
+        milestone.contents = descriptionTextField.text ?? ""
+        milestone.until = endDatePicker.date
         do {
             if milestone.id == -1 {
                 try milestoneRepository.insert(item: milestone.model)
@@ -41,8 +41,8 @@ class MilestoneDetailViewController: UIViewController {
         setValue(milestone: milestone)
     }
     func setValue(milestone: Milestone) {
-        nameTextField.text = milestone.name
-        descriptionTextField.text = milestone.description
-        endDatePicker.date = milestone.endDate
+        nameTextField.text = milestone.title
+        descriptionTextField.text = milestone.contents
+        endDatePicker.date = milestone.until
     }
 }

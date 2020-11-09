@@ -63,8 +63,8 @@ extension LabelViewController: UICollectionViewDelegate, UICollectionViewDataSou
             return UICollectionViewCell()
         }
         cell.labelName.backgroundColor = UIColor().colorWithHexString(hex: labels[indexPath.row].color)
-        cell.labelName.text = labels[indexPath.row].name
-        cell.descriptionLabel.text = labels[indexPath.row].description
+        cell.labelName.text = labels[indexPath.row].title
+        cell.descriptionLabel.text = labels[indexPath.row].contents
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
