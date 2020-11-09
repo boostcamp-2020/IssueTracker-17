@@ -32,6 +32,10 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
             self.tabBarController?.tabBar.isHidden = true
             issueTableView.setEditing(true, animated: true)
             issueTableView.allowsMultipleSelectionDuringEditing = true
+           // let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+            let button2 = UIBarButtonItem(title: "선택 이슈 닫기", style: .plain, target: self, action: nil)
+            
+            toolbar.setItems([button2], animated: true)
         }
     }
     
@@ -110,16 +114,16 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     func configToolbar() {
         self.view.addSubview(toolbar)
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        let button = UIBarButtonItem(title: "선택 이슈 닫기", style: .plain, target: nil, action: nil)
+        let button = UIBarButtonItem(title: "선택 이슈 닫기", style: .plain, target: self, action: nil)
         
-        toolbar.setItems([flexibleSpace, button], animated: true)
+       // toolbar.setItems([flexibleSpace, button], animated: true)
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         toolbar.topAnchor.constraint(equalTo: issueTableView.bottomAnchor).isActive = true
         toolbar.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         //toolbar.bottomAnchor.constraint(equalToSystemSpacingBelow: self.view.bottomAnchor, multiplier: 0).isActive = true
         toolbar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         toolbar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
-        // toolbar.items = [flexibleSpace, button]
+     //   toolbar.items = [flexibleSpace, button]
         
     }
     @objc func saveIssueData() {
@@ -147,7 +151,6 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //openDetailView(issue: issues[indexPath.row])
         self.selectSelectCell(tableView: tableView, indexPath: indexPath)
         print("select", indexPath)
     }

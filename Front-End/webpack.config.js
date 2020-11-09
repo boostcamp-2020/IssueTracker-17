@@ -8,6 +8,14 @@ module.exports = {
     path: path.join(__dirname, '/dist'),
     filename: 'index_bundle.js',
   },
+  resolve: {
+    alias: {
+      Components: path.resolve(__dirname, './src/components'),
+      Reducer: path.resolve(__dirname, './src/reducer/'),
+      Style: path.resolve(__dirname, './src/style/'),
+      '@': path.resolve(__dirname, './src/'),
+    },
+  },
   module: {
     rules: [
       {

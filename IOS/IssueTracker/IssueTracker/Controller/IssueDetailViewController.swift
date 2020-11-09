@@ -9,6 +9,7 @@ import UIKit
 import MarkdownView
 import Alamofire
 class IssueDetailViewController: UIViewController {
+    var activeTextFieldYPosition: CGFloat = 0.0
     @IBOutlet weak var navigationItemOutlet: UINavigationItem!
     @IBAction func cancleButton(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true)
@@ -70,6 +71,10 @@ class IssueDetailViewController: UIViewController {
         registerMenu()
         configureIssueContentTextView()
         setValue(issue: issue)
+        titleTextField.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
     }
     func setValue(issue: Issue) {
         titleTextField.text = issue.title
@@ -92,7 +97,21 @@ class IssueDetailViewController: UIViewController {
             self.present(self.pickerView, animated: true, completion: nil)
         }
     }
-    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let distanceBetweenSelectedTextFieldAndKeyboard = self.view.frame.height - activeTextFieldYPosition - keyboardSize.height
+            if distanceBetweenSelectedTextFieldAndKeyboard < 0 {
+                UIView.animate(withDuration: 0.4) {
+                    self.view.transform = CGAffineTransform(translationX: 0.0, y: distanceBetweenSelectedTextFieldAndKeyboard)
+                }
+            }
+        }
+    }
+    @objc func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.4) {
+            self.view.transform = .identity
+        }
+    }
 }
 extension IssueDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -119,4 +138,16 @@ extension IssueDetailViewController: UIImagePickerControllerDelegate, UINavigati
             }
         }
     }
+}
+extension IssueDetailViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextFieldYPosition = textField.frame.origin.y + textField.frame.height
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+         self.view.endEditing(true)
+   }
 }
