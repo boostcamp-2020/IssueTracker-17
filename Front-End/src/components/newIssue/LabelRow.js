@@ -7,6 +7,7 @@ const Label = styled.div`
   padding: 5px 10px;
   font-weight: 600;
   border-radius: 12px;
+  margin-bottom: 5px;
 `;
 
 const LabelRow = ({ row }) => {
