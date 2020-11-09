@@ -28,7 +28,7 @@ extension Issue {
         for assigne in self.assignees {
             assigneVOArray.append(assigne.model)
         }
-        return IssueVO(id: id, title: title, status: status, contents: contents, created: created, userName: userName, milestoneId: milestoneId, labelVOArray: labelVOArray, assigneVOArray: assigneVOArray)
+        return IssueVO(id: id, title: title, status: status, contents: contents, created: created.getString(), userName: userName, labels: labelVOArray, assignees: assigneVOArray)
     }
 }
 struct IssueVO : Codable {
@@ -36,23 +36,22 @@ struct IssueVO : Codable {
     var title = ""
     var status = 0
     var contents = ""
-    var created = Date()
+    var created = ""
     var userName = ""
-    var milestoneId = -1
-    var labelVOArray = [LabelVO]()
-    var assigneVOArray = [UserVO]()
+    var labels = [LabelVO]()
+    var assignees = [UserVO]()
 }
 extension IssueVO {
     func decode() -> Issue {
-        var labels = [Label]()
-        for label in labelVOArray {
-            labels.append(label.decode())
+        var labelArray = [Label]()
+        for labelObject in labels {
+            labelArray.append(labelObject.decode())
         }
-        var assignees = [User]()
-        for assigne in assigneVOArray {
-            assignees.append(assigne.decode())
+        var assigneArray = [User]()
+        for assigne in assignees {
+            assigneArray.append(assigne.decode())
         }
-        return Issue(id: id, title: title, status: status, contents: contents, created: created, userName: userName, milestoneId: milestoneId, labels: labels, assignees: assignees)
+        return Issue(id: id, title: title, status: status, contents: contents, created: created.getDate(), userName: userName, labels: labelArray, assignees: assigneArray)
         
     }
 }

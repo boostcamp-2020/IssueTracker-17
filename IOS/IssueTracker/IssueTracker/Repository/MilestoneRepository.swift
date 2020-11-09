@@ -15,7 +15,6 @@ class MilestoneRepository: Repository {
             response in
             switch response.result {
             case .success:
-                print(String(decoding:try! response.result.get(), as: UTF8.self))
                 if let decodeData = try? JSONDecoder().decode(ResultResponse<VO>.self, from: response.result.get()) {
                     milestones = decodeData.result
                 } else {
