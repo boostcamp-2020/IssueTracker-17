@@ -17,9 +17,9 @@ class IssueRepository: Repository {
             case .success:
                 let str = String(decoding: try! response.result.get(), as: UTF8.self)
                 print(str)
-                let decodeData = try! JSONDecoder().decode(ResultResponse<VO>.self, from: response.result.get())
+                if let decodeData = try? JSONDecoder().decode(ResultResponse<VO>.self, from: response.result.get()) {
                     issues = decodeData.result
-                
+                }
                 finishedCallback(issues)
             case .failure(let error):
                 print(error)
