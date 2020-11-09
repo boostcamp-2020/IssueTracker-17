@@ -1,20 +1,6 @@
 import React from 'react';
 import LoginForm from './LoginForm';
-import styled, { createGlobalStyle } from 'styled-components';
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100vh;
-    font-family: Helvetica, Arial, sans-serif;
-  }
-  #app {
-    width: 100%;
-    height: 100%;
-  }
-`;
+import styled from 'styled-components';
 
 const LoginContainer = styled.div`
   width: 100%;

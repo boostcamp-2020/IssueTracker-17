@@ -1,12 +1,30 @@
 import React from 'react';
-import Avatar from './Avatar';
+import styled from 'styled-components';
+
+const Avatar = styled.img`
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+`;
+
+const SelectBoxAssignee = styled.div`
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: start;
+`;
+const SelectBoxAssigneeName = styled.div`
+  padding-left: 5px;
+  line-height: 20px;
+  font-weight: 600;
+  color: #24292e;
+`;
 
 const AssigneeRow = ({ row }) => {
   return (
-    <div className="selectbox__assignee">
-      <Avatar></Avatar>
-      <div className="assignee__assigneeName">{row.name}</div>
-    </div>
+    <SelectBoxAssignee>
+      <Avatar src={row.avatarUrl}></Avatar>
+      <SelectBoxAssigneeName>{row.name}</SelectBoxAssigneeName>
+    </SelectBoxAssignee>
   );
 };
 
