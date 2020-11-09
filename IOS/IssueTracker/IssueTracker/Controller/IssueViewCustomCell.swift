@@ -10,4 +10,7 @@ import UIKit
 class IssueViewCustomCell: UITableViewCell {
     @IBOutlet weak var issueTitleLabel: UILabel!
     @IBOutlet weak var issueContentsLabel: UILabel!
+    
+    
+    
 }

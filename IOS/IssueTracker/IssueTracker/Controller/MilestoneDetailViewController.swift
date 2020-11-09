@@ -8,7 +8,7 @@
 import UIKit
 class MilestoneDetailViewController: UIViewController {
     var milestone = Milestone()
-    var milestoneRepository = MilestoneRepository()
+    private let dateFormatter = DateFormatter()
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var endDatePicker: UIDatePicker!
@@ -18,16 +18,8 @@ class MilestoneDetailViewController: UIViewController {
     @IBAction func saveButtonAction(_ sender: UIButton) {
         milestone.name = nameTextField.text ?? ""
         milestone.description = descriptionTextField.text ?? ""
-        milestone.endDate = endDatePicker.date
-        do {
-            if milestone.id == -1 {
-                try milestoneRepository.insert(item: milestone.model)
-            } else {
-                try milestoneRepository.update(item: milestone.model)
-            }
-        } catch (let error) {
-            print(error)
-        }
+        milestone.endDate = dateFormatter.string(from: endDatePicker.date)
+        // TODO: 서버로 데이터 보내기
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func resetButtonAction(_ sender: UIButton) {
@@ -38,11 +30,12 @@ class MilestoneDetailViewController: UIViewController {
         configure()
     }
     func configure() {
+        dateFormatter.dateFormat = "yyyy/MM/dd"
         setValue(milestone: milestone)
     }
-    func setValue(milestone: Milestone) {
+    func setValue(milestone : Milestone){
         nameTextField.text = milestone.name
         descriptionTextField.text = milestone.description
-        endDatePicker.date = milestone.endDate
+        endDatePicker.date = dateFormatter.date(from: milestone.endDate) ?? Date()
     }
 }

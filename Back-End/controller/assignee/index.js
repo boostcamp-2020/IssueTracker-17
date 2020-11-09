@@ -1,10 +1,10 @@
-const { has_assignee: hasAssignee } = require('@models/sequelize');
+const { has_assignee: hasAssignee } = require('../../models/sequelize');
 
-const model = require('@models/sequelize');
+const model = require('../../models/sequelize');
 
 const assigneeController = {};
 
-assigneeController.get = async (req, res, next) => {
+assigneeController.get = async (req, res) => {
     const { issueId } = req.params;
     try {
         const assignees = await hasAssignee.get({
@@ -13,53 +13,56 @@ assigneeController.get = async (req, res, next) => {
         });
         res.status(200).json({ result: assignees });
     } catch (e) {
-        next(e);
+        console.error(e);
+        res.status(400).json({ result: false });
     }
 };
 
-assigneeController.insert = async (req, res, next) => {
+assigneeController.insert = async (req, res) => {
     const { issueId, assigneeId } = req.body;
     try {
         const result = await hasAssignee.create({
-            issue_id: issueId,
-            user_id: assigneeId,
+            issueId: issueId,
+            userId: assigneeId,
         });
         res.status(200).json({ result: result });
     } catch (e) {
-        next(e);
+        console.error(e);
+        res.status(400).json({ result: false });
     }
 };
-assigneeController.delete = async (req, res, next) => {
+assigneeController.delete = async (req, res) => {
     const { issueId, assigneeId } = req.body;
     try {
         const result = await hasAssignee.destroy({
             where: {
-                issue_id: issueId,
-                user_id: assigneeId,
+                issueId: issueId,
+                userId: assigneeId,
             },
         });
         res.status(200).json({ result: result });
     } catch (e) {
-        next(e);
+        console.error(e);
+        res.status(400).json({ result: false });
     }
 };
 
-assigneeController.update = async (req, res, next) => {
+assigneeController.update = async (req, res) => {
     const { issueId, insertAssignee, deleteAssignee } = req.body;
     try {
-        const deleteResult = await hasAssignee.delete({
+        await hasAssignee.delete({
             issueId: issueId,
             deleteAssignees: deleteAssignee,
         });
         const insertObject = insertAssignee.map((value) => ({
-            issue_id: issueId,
-            user_id: value,
+            issueId: issueId,
+            userId: value,
         }));
         const insertResult = await hasAssignee.bulkCreate(insertObject);
-        const result = { delete: deleteResult, insert: insertResult.length };
-        res.status(200).json({ result: result });
+        res.status(200).json({ result: insertResult });
     } catch (e) {
-        next(e);
+        console.error(e);
+        res.status(400).json({ result: false });
     }
 };
 

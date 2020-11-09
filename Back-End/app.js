@@ -1,7 +1,6 @@
-require('module-alias/register');
 const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
+//const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
@@ -15,7 +14,6 @@ const issueRouter = require('./routes/issue');
 const assigneeRouter = require('./routes/has_assignee');
 const commentRouter = require('./routes/comment');
 const hasLabelRouter = require('./routes/has_label');
-const imgRouter = require('./routes/img');
 
 const app = express();
 
@@ -24,7 +22,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(__dirname + '/public'));
+
 app.use(passport.initialize());
 passportConfig();
 
@@ -37,7 +35,6 @@ app.use('/issue', issueRouter);
 app.use('/assignee', assigneeRouter);
 app.use('/comment', commentRouter);
 app.use('/has-label', hasLabelRouter);
-app.use('/imageUpload', imgRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -48,9 +45,8 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-    console.error(err.message);
     res.status(err.status || 500);
-    res.json({ result: err.message });
+    res.render('error');
 });
 
 module.exports = app;

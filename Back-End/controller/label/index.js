@@ -1,19 +1,17 @@
 require('dotenv').config();
-const { label } = require('@models/sequelize');
+const { label } = require('../../models/sequelize');
 
 function labelController() {}
 
-labelController.get = async (req, res, next) => {
-    const { id } = req.params;
-
+labelController.get = async (req, res) => {
     try {
-        const result = await label.get(id);
+        const result = await label.get();
         res.status(200).json({ result: result });
     } catch (e) {
-        next(e);
+        res.status(400).json({ result: false });
     }
 };
-labelController.insert = async (req, res, next) => {
+labelController.insert = async (req, res) => {
     const { title, contents, color } = req.body;
     try {
         const result = await label.insert({
@@ -23,10 +21,10 @@ labelController.insert = async (req, res, next) => {
         });
         res.status(200).json({ result: result });
     } catch (e) {
-        next(e);
+        res.status(400).json({ result: false });
     }
 };
-labelController.update = async (req, res, next) => {
+labelController.update = async (req, res) => {
     const { id, title, contents, color } = req.body;
     try {
         const result = await label.change({
@@ -37,16 +35,16 @@ labelController.update = async (req, res, next) => {
         });
         res.status(200).json({ result: result });
     } catch (e) {
-        next(e);
+        res.status(400).json({ result: false });
     }
 };
-labelController.delete = async (req, res, next) => {
+labelController.delete = async (req, res) => {
     const { id } = req.body;
     try {
         const result = await label.delete({ id: id });
         res.status(200).json({ result: result });
     } catch (e) {
-        next(e);
+        res.status(400).json({ result: false });
     }
 };
 

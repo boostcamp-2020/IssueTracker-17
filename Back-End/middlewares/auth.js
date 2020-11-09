@@ -1,6 +1,6 @@
-const { user } = require('@models/sequelize');
+const { user } = require('../../models/sequelize');
 const jwt = require('jsonwebtoken');
-const config = require('@config/config');
+const config = require('../config/config');
 
 exports.authentication = async (req, res, next) => {
     const { token } = req.Authorization;

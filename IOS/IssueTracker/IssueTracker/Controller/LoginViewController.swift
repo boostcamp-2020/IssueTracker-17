@@ -8,6 +8,7 @@
 import UIKit
 import AuthenticationServices
 class LoginViewController: UIViewController {
+    
     @IBAction func signInWithGithubButtonTouch(_ sender: UIButton) {
         LoginManager.shared.requestCodeToGithub()
     }
@@ -21,23 +22,19 @@ class LoginViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
     }
 }
 extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let credential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            var userVO = UserVO(type: 2)
-            userVO.identifier = credential.user
-            if let fullName = credential.fullName {
-                userVO.name = fullName.description
-            } else {
-                userVO.name = "appleUser" + credential.user
+            let user = credential.user
+            print("User : \(user)")
+            if let email = credential.email {
+                print("Email : \(email)")
             }
-            let userRepository = UserRepository()
-            do {
-                try userRepository.insert(item: userVO)
-            } catch(let error) {
-                print(error)
+            if let fullName = credential.fullName{
+                print("Full Name : \(fullName)")
             }
         }
     }

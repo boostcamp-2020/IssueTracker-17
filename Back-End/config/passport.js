@@ -1,11 +1,11 @@
 const passport = require('passport');
 
 const passportGithub = require('passport-github2');
-const { user } = require('@models/sequelize');
+const { user } = require('../models/sequelize');
 const GitHubStrategy = passportGithub.Strategy;
 
-const config = require('@config/config');
-const loginTypes = require('@config/logintypes');
+const config = require('../config/config');
+const loginTypes = require('../config/logintypes');
 
 const githubStrategyCallback = async (
     accessToken,

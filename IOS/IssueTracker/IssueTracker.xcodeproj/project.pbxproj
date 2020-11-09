@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,10 +14,7 @@
 		8850A79D254B065D00039E76 /* MilestoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8850A79C254B065D00039E76 /* MilestoneViewController.swift */; };
 		8850A7A0254B070C00039E76 /* Milestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8850A79F254B070C00039E76 /* Milestone.swift */; };
 		8850A7A3254B151600039E76 /* MilestoneDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8850A7A2254B151600039E76 /* MilestoneDetailViewController.swift */; };
-		886910D52551A0D2009D0F96 /* UIColor+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886910D32551A0D2009D0F96 /* UIColor+Extention.swift */; };
-		886910D62551A0D2009D0F96 /* NotificationName+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886910D42551A0D2009D0F96 /* NotificationName+Extention.swift */; };
-		886910D92551A123009D0F96 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886910D82551A123009D0F96 /* User.swift */; };
-		886910DF2551A91F009D0F96 /* RestApiServerURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886910DE2551A91F009D0F96 /* RestApiServerURL.swift */; };
+		887C0DEB2549769900E5A58A /* UIColor+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887C0DEA2549769900E5A58A /* UIColor+Extention.swift */; };
 		887C633125482F3800579562 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887C633025482F3800579562 /* LoginManager.swift */; };
 		887C63342548304D00579562 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887C63332548304D00579562 /* LoginViewController.swift */; };
 		888AAAA52547C1EB0013B974 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888AAAA42547C1EB0013B974 /* AppDelegate.swift */; };
@@ -28,31 +25,15 @@
 		888AAAB12547C1ED0013B974 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 888AAAAF2547C1ED0013B974 /* LaunchScreen.storyboard */; };
 		88901AA3254AFD0A00C2A613 /* MilestoneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88901AA1254AFD0A00C2A613 /* MilestoneCollectionViewCell.swift */; };
 		88901AA4254AFD0A00C2A613 /* MilestoneCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88901AA2254AFD0A00C2A613 /* MilestoneCollectionViewCell.xib */; };
-		8896A4012553BB87003B3C05 /* IssueContextTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8896A4002553BB87003B3C05 /* IssueContextTextView.swift */; };
 		889EEC74254A90BF009CED1C /* LabelDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889EEC73254A90BF009CED1C /* LabelDetailViewController.swift */; };
-		88AEA8DF25525A6500C934B3 /* Date+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AEA8DE25525A6500C934B3 /* Date+Extention.swift */; };
-		88AEA8E325525D1A00C934B3 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AEA8E225525D1A00C934B3 /* Repository.swift */; };
-		88AEA8EC25525F6500C934B3 /* MilestoneRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AEA8EB25525F6500C934B3 /* MilestoneRepository.swift */; };
-		88AEA8F525527FC900C934B3 /* LabelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AEA8F425527FC900C934B3 /* LabelRepository.swift */; };
-		88AEA8F8255282D200C934B3 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AEA8F7255282D200C934B3 /* Issue.swift */; };
-		88E2A30625546041009E1968 /* IssueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E2A30525546041009E1968 /* IssueDetailViewController.swift */; };
-		88E2A30E25546C23009E1968 /* IssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E2A30D25546C23009E1968 /* IssueRepository.swift */; };
-		88E2A31125546E92009E1968 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E2A31025546E92009E1968 /* UserRepository.swift */; };
+		88C7403A254A933F0053200B /* NotificationName+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C74039254A933F0053200B /* NotificationName+Extention.swift */; };
 		AA40D0EF2549B3B7005B4835 /* IssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D0EE2549B3B7005B4835 /* IssueViewController.swift */; };
 		AA40D0F32549CFA9005B4835 /* IssueViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D0F22549CFA9005B4835 /* IssueViewCustomCell.swift */; };
-		AA40D13825543A3E005B4835 /* IssueFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D13725543A3E005B4835 /* IssueFilterViewController.swift */; };
-		AA40D14325543B25005B4835 /* IssueAddCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D14225543B25005B4835 /* IssueAddCommentViewController.swift */; };
-		AA40D14625543B4C005B4835 /* IssueItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D14525543B4C005B4835 /* IssueItemViewController.swift */; };
-		AA40D14C25543B7F005B4835 /* IssueItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D14825543B7F005B4835 /* IssueItemCollectionViewCell.swift */; };
-		AA40D14D25543B7F005B4835 /* IssueHeaderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA40D14925543B7F005B4835 /* IssueHeaderCollectionViewCell.xib */; };
-		AA40D14E25543B7F005B4835 /* IssueHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D14A25543B7F005B4835 /* IssueHeaderCollectionViewCell.swift */; };
-		AA40D14F25543B7F005B4835 /* IssueItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA40D14B25543B7F005B4835 /* IssueItemCollectionViewCell.xib */; };
-		AA40D15225543B83005B4835 /* IssueAddCommentSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA40D15125543B83005B4835 /* IssueAddCommentSubView.xib */; };
-		C7550947C277D05AA9585F58 /* Pods_IssueTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A4A5002355131BC4134A0A /* Pods_IssueTracker.framework */; };
+		AA40D0F6254AA85F005B4835 /* NewIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D0F5254AA85F005B4835 /* NewIssueViewController.swift */; };
+		AA40D0F9254AA8AB005B4835 /* FilterIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D0F8254AA8AB005B4835 /* FilterIssueViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		49A4A5002355131BC4134A0A /* Pods_IssueTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IssueTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		883D89AF254932FE005BDBE4 /* LabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewController.swift; sourceTree = "<group>"; };
 		883D89B325493372005BDBE4 /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		883D89B425493372005BDBE4 /* LabelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -60,10 +41,7 @@
 		8850A79C254B065D00039E76 /* MilestoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneViewController.swift; sourceTree = "<group>"; };
 		8850A79F254B070C00039E76 /* Milestone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Milestone.swift; sourceTree = "<group>"; };
 		8850A7A2254B151600039E76 /* MilestoneDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneDetailViewController.swift; sourceTree = "<group>"; };
-		886910D32551A0D2009D0F96 /* UIColor+Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extention.swift"; sourceTree = "<group>"; };
-		886910D42551A0D2009D0F96 /* NotificationName+Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extention.swift"; sourceTree = "<group>"; };
-		886910D82551A123009D0F96 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		886910DE2551A91F009D0F96 /* RestApiServerURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApiServerURL.swift; sourceTree = "<group>"; };
+		887C0DEA2549769900E5A58A /* UIColor+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extention.swift"; sourceTree = "<group>"; };
 		887C633025482F3800579562 /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		887C63332548304D00579562 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		888AAAA12547C1EB0013B974 /* IssueTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IssueTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,29 +54,13 @@
 		888AAAB22547C1ED0013B974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88901AA1254AFD0A00C2A613 /* MilestoneCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MilestoneCollectionViewCell.swift; sourceTree = "<group>"; };
 		88901AA2254AFD0A00C2A613 /* MilestoneCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MilestoneCollectionViewCell.xib; sourceTree = "<group>"; };
-		8896A4002553BB87003B3C05 /* IssueContextTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueContextTextView.swift; sourceTree = "<group>"; };
 		889EEC73254A90BF009CED1C /* LabelDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelDetailViewController.swift; sourceTree = "<group>"; };
-		88AEA8DE25525A6500C934B3 /* Date+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extention.swift"; sourceTree = "<group>"; };
-		88AEA8E225525D1A00C934B3 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
-		88AEA8EB25525F6500C934B3 /* MilestoneRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneRepository.swift; sourceTree = "<group>"; };
-		88AEA8F425527FC900C934B3 /* LabelRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRepository.swift; sourceTree = "<group>"; };
-		88AEA8F7255282D200C934B3 /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
+		88C74039254A933F0053200B /* NotificationName+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extention.swift"; sourceTree = "<group>"; };
 		88CE729A254874D700E05217 /* IssueTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IssueTracker.entitlements; sourceTree = "<group>"; };
-		88E2A30525546041009E1968 /* IssueDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueDetailViewController.swift; sourceTree = "<group>"; };
-		88E2A30D25546C23009E1968 /* IssueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueRepository.swift; sourceTree = "<group>"; };
-		88E2A31025546E92009E1968 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
-		A11BA265FD9C6759697BCF49 /* Pods-IssueTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssueTracker.release.xcconfig"; path = "Target Support Files/Pods-IssueTracker/Pods-IssueTracker.release.xcconfig"; sourceTree = "<group>"; };
 		AA40D0EE2549B3B7005B4835 /* IssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueViewController.swift; sourceTree = "<group>"; };
 		AA40D0F22549CFA9005B4835 /* IssueViewCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueViewCustomCell.swift; sourceTree = "<group>"; };
-		AA40D13725543A3E005B4835 /* IssueFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueFilterViewController.swift; sourceTree = "<group>"; };
-		AA40D14225543B25005B4835 /* IssueAddCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueAddCommentViewController.swift; sourceTree = "<group>"; };
-		AA40D14525543B4C005B4835 /* IssueItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueItemViewController.swift; sourceTree = "<group>"; };
-		AA40D14825543B7F005B4835 /* IssueItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueItemCollectionViewCell.swift; sourceTree = "<group>"; };
-		AA40D14925543B7F005B4835 /* IssueHeaderCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IssueHeaderCollectionViewCell.xib; sourceTree = "<group>"; };
-		AA40D14A25543B7F005B4835 /* IssueHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
-		AA40D14B25543B7F005B4835 /* IssueItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IssueItemCollectionViewCell.xib; sourceTree = "<group>"; };
-		AA40D15125543B83005B4835 /* IssueAddCommentSubView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IssueAddCommentSubView.xib; sourceTree = "<group>"; };
-		B32F95B86BFF9EC06BFAFAEC /* Pods-IssueTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssueTracker.debug.xcconfig"; path = "Target Support Files/Pods-IssueTracker/Pods-IssueTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		AA40D0F5254AA85F005B4835 /* NewIssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewIssueViewController.swift; sourceTree = "<group>"; };
+		AA40D0F8254AA8AB005B4835 /* FilterIssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterIssueViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,36 +68,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7550947C277D05AA9585F58 /* Pods_IssueTracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		02C7360B47450B9B9B55E3FD /* Frameworks */ = {
+		887C0DE92549765400E5A58A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				49A4A5002355131BC4134A0A /* Pods_IssueTracker.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3ACAA1954DAB5714EFF646B7 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B32F95B86BFF9EC06BFAFAEC /* Pods-IssueTracker.debug.xcconfig */,
-				A11BA265FD9C6759697BCF49 /* Pods-IssueTracker.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		886910D22551A0D2009D0F96 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				886910D32551A0D2009D0F96 /* UIColor+Extention.swift */,
-				886910D42551A0D2009D0F96 /* NotificationName+Extention.swift */,
-				88AEA8DE25525A6500C934B3 /* Date+Extention.swift */,
+				887C0DEA2549769900E5A58A /* UIColor+Extention.swift */,
+				88C74039254A933F0053200B /* NotificationName+Extention.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -145,8 +88,6 @@
 			children = (
 				883D89B92549483C005BDBE4 /* Label.swift */,
 				8850A79F254B070C00039E76 /* Milestone.swift */,
-				886910D82551A123009D0F96 /* User.swift */,
-				88AEA8F7255282D200C934B3 /* Issue.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -156,14 +97,8 @@
 			children = (
 				88901AA1254AFD0A00C2A613 /* MilestoneCollectionViewCell.swift */,
 				88901AA2254AFD0A00C2A613 /* MilestoneCollectionViewCell.xib */,
-				AA40D15125543B83005B4835 /* IssueAddCommentSubView.xib */,
-				AA40D14A25543B7F005B4835 /* IssueHeaderCollectionViewCell.swift */,
-				AA40D14925543B7F005B4835 /* IssueHeaderCollectionViewCell.xib */,
-				AA40D14825543B7F005B4835 /* IssueItemCollectionViewCell.swift */,
-				AA40D14B25543B7F005B4835 /* IssueItemCollectionViewCell.xib */,
 				883D89B325493372005BDBE4 /* LabelCollectionViewCell.swift */,
 				883D89B425493372005BDBE4 /* LabelCollectionViewCell.xib */,
-				8896A4002553BB87003B3C05 /* IssueContextTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -171,16 +106,10 @@
 		887C632E25482F1E00579562 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				88E2A30525546041009E1968 /* IssueDetailViewController.swift */,
-				AA40D0EE2549B3B7005B4835 /* IssueViewController.swift */,
-				AA40D0F22549CFA9005B4835 /* IssueViewCustomCell.swift */,
-				AA40D13725543A3E005B4835 /* IssueFilterViewController.swift */,
 				887C63332548304D00579562 /* LoginViewController.swift */,
 				883D89AF254932FE005BDBE4 /* LabelViewController.swift */,
 				889EEC73254A90BF009CED1C /* LabelDetailViewController.swift */,
 				8850A79C254B065D00039E76 /* MilestoneViewController.swift */,
-				AA40D14225543B25005B4835 /* IssueAddCommentViewController.swift */,
-				AA40D14525543B4C005B4835 /* IssueItemViewController.swift */,
 				8850A7A2254B151600039E76 /* MilestoneDetailViewController.swift */,
 			);
 			path = Controller;
@@ -190,7 +119,6 @@
 			isa = PBXGroup;
 			children = (
 				887C633025482F3800579562 /* LoginManager.swift */,
-				886910DE2551A91F009D0F96 /* RestApiServerURL.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -200,8 +128,6 @@
 			children = (
 				888AAAA32547C1EB0013B974 /* IssueTracker */,
 				888AAAA22547C1EB0013B974 /* Products */,
-				3ACAA1954DAB5714EFF646B7 /* Pods */,
-				02C7360B47450B9B9B55E3FD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,10 +142,9 @@
 		888AAAA32547C1EB0013B974 /* IssueTracker */ = {
 			isa = PBXGroup;
 			children = (
-				88AEA8EA25525F5A00C934B3 /* Repository */,
-				88AEA8E125525D0A00C934B3 /* Protocols */,
+				AA40D0ED2549B35F005B4835 /* Controller */,
+				887C0DE92549765400E5A58A /* Extensions */,
 				88CE729A254874D700E05217 /* IssueTracker.entitlements */,
-				886910D22551A0D2009D0F96 /* Extensions */,
 				887C632F25482F2600579562 /* Utils */,
 				887C632E25482F1E00579562 /* Controller */,
 				887C632D25482F1800579562 /* View */,
@@ -235,23 +160,15 @@
 			path = IssueTracker;
 			sourceTree = "<group>";
 		};
-		88AEA8E125525D0A00C934B3 /* Protocols */ = {
+		AA40D0ED2549B35F005B4835 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				88AEA8E225525D1A00C934B3 /* Repository.swift */,
+				AA40D0EE2549B3B7005B4835 /* IssueViewController.swift */,
+				AA40D0F22549CFA9005B4835 /* IssueViewCustomCell.swift */,
+				AA40D0F5254AA85F005B4835 /* NewIssueViewController.swift */,
+				AA40D0F8254AA8AB005B4835 /* FilterIssueViewController.swift */,
 			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
-		88AEA8EA25525F5A00C934B3 /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				88AEA8EB25525F6500C934B3 /* MilestoneRepository.swift */,
-				88AEA8F425527FC900C934B3 /* LabelRepository.swift */,
-				88E2A30D25546C23009E1968 /* IssueRepository.swift */,
-				88E2A31025546E92009E1968 /* UserRepository.swift */,
-			);
-			path = Repository;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,12 +178,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 888AAAB52547C1ED0013B974 /* Build configuration list for PBXNativeTarget "IssueTracker" */;
 			buildPhases = (
-				08FF553A22CFF3372C5C00EE /* [CP] Check Pods Manifest.lock */,
 				888AAA9D2547C1EB0013B974 /* Sources */,
 				888AAA9E2547C1EB0013B974 /* Frameworks */,
 				888AAA9F2547C1EB0013B974 /* Resources */,
-				92AD05D4958D855CB0E9CD25 /* [CP] Embed Pods Frameworks */,
-				88DE2E0A25516841000461E3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -317,74 +231,12 @@
 				888AAAB12547C1ED0013B974 /* LaunchScreen.storyboard in Resources */,
 				88901AA4254AFD0A00C2A613 /* MilestoneCollectionViewCell.xib in Resources */,
 				888AAAAE2547C1ED0013B974 /* Assets.xcassets in Resources */,
-				AA40D14F25543B7F005B4835 /* IssueItemCollectionViewCell.xib in Resources */,
-				AA40D14D25543B7F005B4835 /* IssueHeaderCollectionViewCell.xib in Resources */,
-				AA40D15225543B83005B4835 /* IssueAddCommentSubView.xib in Resources */,
 				888AAAAC2547C1EB0013B974 /* Main.storyboard in Resources */,
 				883D89B625493372005BDBE4 /* LabelCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		08FF553A22CFF3372C5C00EE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-IssueTracker-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		88DE2E0A25516841000461E3 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# ${PODS_ROOT}/SwiftLint/swiftlint\n";
-		};
-		92AD05D4958D855CB0E9CD25 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IssueTracker/Pods-IssueTracker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IssueTracker/Pods-IssueTracker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IssueTracker/Pods-IssueTracker-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		888AAA9D2547C1EB0013B974 /* Sources */ = {
@@ -393,37 +245,23 @@
 			files = (
 				8850A7A0254B070C00039E76 /* Milestone.swift in Sources */,
 				AA40D0EF2549B3B7005B4835 /* IssueViewController.swift in Sources */,
-				88AEA8F8255282D200C934B3 /* Issue.swift in Sources */,
+				AA40D0F6254AA85F005B4835 /* NewIssueViewController.swift in Sources */,
 				8850A7A3254B151600039E76 /* MilestoneDetailViewController.swift in Sources */,
 				AA40D0F32549CFA9005B4835 /* IssueViewCustomCell.swift in Sources */,
 				888AAAA92547C1EB0013B974 /* ViewController.swift in Sources */,
-				88AEA8EC25525F6500C934B3 /* MilestoneRepository.swift in Sources */,
-				AA40D14E25543B7F005B4835 /* IssueHeaderCollectionViewCell.swift in Sources */,
-				AA40D13825543A3E005B4835 /* IssueFilterViewController.swift in Sources */,
-				88AEA8F525527FC900C934B3 /* LabelRepository.swift in Sources */,
-				88AEA8DF25525A6500C934B3 /* Date+Extention.swift in Sources */,
-				88E2A31125546E92009E1968 /* UserRepository.swift in Sources */,
+				AA40D0F9254AA8AB005B4835 /* FilterIssueViewController.swift in Sources */,
 				883D89B0254932FE005BDBE4 /* LabelViewController.swift in Sources */,
-				8896A4012553BB87003B3C05 /* IssueContextTextView.swift in Sources */,
-				886910DF2551A91F009D0F96 /* RestApiServerURL.swift in Sources */,
-				88E2A30625546041009E1968 /* IssueDetailViewController.swift in Sources */,
-				886910D92551A123009D0F96 /* User.swift in Sources */,
-				88AEA8E325525D1A00C934B3 /* Repository.swift in Sources */,
-				AA40D14625543B4C005B4835 /* IssueItemViewController.swift in Sources */,
 				887C633125482F3800579562 /* LoginManager.swift in Sources */,
+				88C7403A254A933F0053200B /* NotificationName+Extention.swift in Sources */,
+				887C0DEB2549769900E5A58A /* UIColor+Extention.swift in Sources */,
 				88901AA3254AFD0A00C2A613 /* MilestoneCollectionViewCell.swift in Sources */,
 				883D89B525493372005BDBE4 /* LabelCollectionViewCell.swift in Sources */,
 				888AAAA52547C1EB0013B974 /* AppDelegate.swift in Sources */,
-				886910D52551A0D2009D0F96 /* UIColor+Extention.swift in Sources */,
 				8850A79D254B065D00039E76 /* MilestoneViewController.swift in Sources */,
 				888AAAA72547C1EB0013B974 /* SceneDelegate.swift in Sources */,
-				88E2A30E25546C23009E1968 /* IssueRepository.swift in Sources */,
 				883D89BA2549483C005BDBE4 /* Label.swift in Sources */,
-				AA40D14C25543B7F005B4835 /* IssueItemCollectionViewCell.swift in Sources */,
 				889EEC74254A90BF009CED1C /* LabelDetailViewController.swift in Sources */,
-				AA40D14325543B25005B4835 /* IssueAddCommentViewController.swift in Sources */,
 				887C63342548304D00579562 /* LoginViewController.swift in Sources */,
-				886910D62551A0D2009D0F96 /* NotificationName+Extention.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,7 +338,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -555,7 +393,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -567,7 +405,6 @@
 		};
 		888AAAB62547C1ED0013B974 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B32F95B86BFF9EC06BFAFAEC /* Pods-IssueTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -589,7 +426,6 @@
 		};
 		888AAAB72547C1ED0013B974 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A11BA265FD9C6759697BCF49 /* Pods-IssueTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
