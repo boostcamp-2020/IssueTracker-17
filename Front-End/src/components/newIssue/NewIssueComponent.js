@@ -47,8 +47,6 @@ const NewIssueComponent = () => {
   const [labelPopUp, setlabelPopUp] = useState('none');
   const [milestonePopUp, setmilestoneePopUp] = useState('none');
 
-  useEffect();
-
   return (
     <NewIssueContainer>
       <Avatar src="" />

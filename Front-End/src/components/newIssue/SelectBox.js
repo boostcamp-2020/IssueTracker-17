@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { GearSvg } from './svg';
 import SelectBoxList from './SelectBoxList';
@@ -58,10 +58,21 @@ const getValues = (title) => {
 };
 
 const SelectBox = ({ WrappedComponent, rows, title, popUp, setPopUp }) => {
+  const popupElement = useRef(null);
   const values = getValues(title);
   const setVisible = () => {
     setPopUp('block');
   };
+
+  const onClickOutsideHandler = (event) => {
+    if (popUp === 'block' && !popupElement.current.contains(event.target)) {
+      setPopUp('none');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', onClickOutsideHandler);
+  });
 
   return (
     <SelectBoxContainer>
@@ -75,6 +86,7 @@ const SelectBox = ({ WrappedComponent, rows, title, popUp, setPopUp }) => {
         WrappedComponent={WrappedComponent}
       />
       <PopUpBox
+        el={popupElement}
         popupTitle={values.popupTitle}
         WrappedComponent={values.component}
         popup={popUp}
