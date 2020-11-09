@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Hih-dC-2cs">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -478,7 +477,7 @@
                                             <outlet property="issueLabelLabel" destination="wHx-JX-F6d" id="wXP-hR-acC"/>
                                             <outlet property="issueMilestoneLabel" destination="zN1-iG-2k7" id="qYB-5R-jM9"/>
                                             <outlet property="issueTitleLabel" destination="DJ6-wE-rMp" id="zOd-Yf-Jkp"/>
-                                            <segue destination="n2u-QE-fdL" kind="show" id="aJX-Jw-4at"/>
+                                            <segue destination="n2u-QE-fdL" kind="show" id="JqJ-LH-Hma"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -505,7 +504,7 @@
                             <constraint firstItem="QJr-hw-gkY" firstAttribute="trailing" secondItem="XBC-Zg-CtL" secondAttribute="trailing" id="74u-t8-fM6"/>
                             <constraint firstItem="QJr-hw-gkY" firstAttribute="trailing" secondItem="ZFc-pj-SsV" secondAttribute="trailing" constant="20" id="C1j-tv-HeY"/>
                             <constraint firstItem="XBC-Zg-CtL" firstAttribute="leading" secondItem="QJr-hw-gkY" secondAttribute="leading" id="JLR-wF-Zru"/>
-                            <constraint firstItem="QJr-hw-gkY" firstAttribute="bottom" secondItem="XBC-Zg-CtL" secondAttribute="bottom" id="MEH-Vk-gHu"/>
+                            <constraint firstItem="QJr-hw-gkY" firstAttribute="bottom" secondItem="XBC-Zg-CtL" secondAttribute="bottom" priority="100" id="MEH-Vk-gHu"/>
                             <constraint firstItem="QJr-hw-gkY" firstAttribute="bottom" secondItem="ZFc-pj-SsV" secondAttribute="bottom" constant="15" id="Nxi-6L-jNU"/>
                         </constraints>
                     </view>
@@ -621,6 +620,9 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yHM-Fo-sbe">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="82C-HF-yVU" kind="relationship" relationship="rootViewController" id="afV-Tx-dS3"/>
                     </connections>
