@@ -17,9 +17,9 @@ class IssueRepository: Repository {
             case .success:
                 let str = String(decoding: try! response.result.get(), as: UTF8.self)
                 print(str)
-                let decodeData = try! JSONDecoder().decode(ResultResponse<VO>.self, from: response.result.get())
+                if let decodeData = try? JSONDecoder().decode(ResultResponse<VO>.self, from: response.result.get()) {
                     issues = decodeData.result
-                
+                }
                 finishedCallback(issues)
             case .failure(let error):
                 print(error)
@@ -30,7 +30,7 @@ class IssueRepository: Repository {
         return nil
     }
     func insert(item: VO) throws {
-        var parameters = ["userId": 1, //TODO: Login 후 ID 넘겨주기
+        let parameters = ["userId": 1, //TODO: Login 후 ID 넘겨주기
                           "title": item.title,
                           "contents": item.contents,
                           "created": item.created] as [String : Any]
@@ -46,7 +46,7 @@ class IssueRepository: Repository {
         }
     }
     func update(item: VO) throws {
-        var parameters = ["id": item.id,
+        let parameters = ["id": item.id,
                           "title": item.title,
                           "contentes": item.contents,
                           "created": item.created,
