@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Milestone = styled.div``;
-const MilestoneName = styled.div``;
+
 const MilestoneRow = ({ row }) => {
   return (
     <Milestone>
-      <ProgressBar></ProgressBar>
-      <MilestoneName>{row.milestoneName}</MilestoneName>
+      {/* <ProgressBar></ProgressBar> */}
+      {/* <MilestoneName>{row.milestoneName}</MilestoneName> */}
     </Milestone>
   );
 };
