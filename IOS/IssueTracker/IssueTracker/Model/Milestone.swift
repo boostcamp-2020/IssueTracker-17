@@ -20,7 +20,7 @@ extension Milestone {
         return MilestoneVO(name: self.name, description: self.description, endDate: self.endDate, id: self.id, status: self.status)
     }
 }
-struct MilestoneVO {
+struct MilestoneVO : Codable {
     var name = ""
     var description = ""
     var endDate = Date()

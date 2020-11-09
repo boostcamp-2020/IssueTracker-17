@@ -28,11 +28,11 @@ class IssueRepository: Repository {
                             if let labelObjectArray = jsonArray["labels"] as? [[String: Any]] {
                                 for labelObject in labelObjectArray{
                                     var labelVO = LabelVO()
-                                    labelVO.name = labelObject["title"] as! String
-                                    labelVO.description = labelObject["contents"] as! String
+                                    labelVO.title = labelObject["title"] as! String
+                                    labelVO.contents = labelObject["contents"] as! String
                                     labelVO.color = labelObject["color"] as! String
                                     labelVO.id = labelObject["id"] as! Int
-                                    vo.labels.append(labelVO.decode())
+                                    vo.labelVOArray.append(labelVO)
                                 }
                             }
                             if let assigneObjectArray = jsonArray["assignees"] as? [[String: Any]] {
@@ -43,7 +43,7 @@ class IssueRepository: Repository {
                                     userVO.identifier = assigneObject["identifier"] as! String
                                     userVO.name = assigneObject["name"] as! String
                                     userVO.profileUrl = assigneObject["profile_url"] as! String
-                                    vo.assignees.append(userVO.decode())
+                                    vo.assigneVOArray.append(userVO)
                                 }
                             }
                             issues.append(vo)

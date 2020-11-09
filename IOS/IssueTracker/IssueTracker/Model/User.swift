@@ -19,7 +19,7 @@ extension User {
         return UserVO(id: id, type: type, identifier: identifier, name: name, profileUrl: profileUrl)
     }
 }
-struct UserVO {
+struct UserVO : Codable {
     var id = -1
     var type = 1
     var identifier = ""
