@@ -600,7 +600,6 @@
                             <constraint firstItem="fRH-1w-Bji" firstAttribute="top" secondItem="YHg-Pe-ylk" secondAttribute="top" id="yfp-9i-IdQ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="LGN-g9-wzU"/>
                     <connections>
                         <outlet property="issueContentTextView" destination="Ac6-VJ-S2F" id="Mwq-pr-aGo"/>
                         <outlet property="navigationItemOutlet" destination="40h-9W-L5P" id="aT2-TX-CZD"/>
@@ -838,6 +837,63 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Icd-pS-KWU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1685.5072463768117" y="1244.8660714285713"/>
+        </scene>
+        <!--CommentAddViewController-->
+        <scene sceneID="8YX-5G-aO9">
+            <objects>
+                <viewController restorationIdentifier="CommentAddViewController" storyboardIdentifier="CommentAddViewController" title="CommentAddViewController" id="eu5-dd-IcY" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KJk-Kb-5aq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g27-p2-2Qd">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Hk6-qA-atV"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="댓글 쓰기" id="Wmz-dm-FFs">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" style="plain" id="oTc-oU-AXF">
+                                            <connections>
+                                                <action selector="cancleButton:" destination="eu5-dd-IcY" id="FOR-Ui-Q7b"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="ySA-rN-N54">
+                                            <connections>
+                                                <action selector="submitButton:" destination="eu5-dd-IcY" id="xgz-fb-XD4"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1Gf-gX-cAV" customClass="IssueContentTextView" customModule="IssueTracker" customModuleProvider="target">
+                                <rect key="frame" x="20" y="88" width="374" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="TDL-Ig-0mZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="1Gf-gX-cAV" firstAttribute="leading" secondItem="TDL-Ig-0mZ" secondAttribute="leading" constant="20" id="1Ww-oI-bgR"/>
+                            <constraint firstItem="1Gf-gX-cAV" firstAttribute="top" secondItem="g27-p2-2Qd" secondAttribute="bottom" symbolic="YES" id="58u-GW-q11"/>
+                            <constraint firstItem="g27-p2-2Qd" firstAttribute="top" secondItem="TDL-Ig-0mZ" secondAttribute="top" id="5Wc-R3-GzC"/>
+                            <constraint firstAttribute="trailing" secondItem="g27-p2-2Qd" secondAttribute="trailing" id="AGy-93-vCm"/>
+                            <constraint firstItem="g27-p2-2Qd" firstAttribute="leading" secondItem="KJk-Kb-5aq" secondAttribute="leading" id="JJc-PI-7MJ"/>
+                            <constraint firstItem="TDL-Ig-0mZ" firstAttribute="trailing" secondItem="1Gf-gX-cAV" secondAttribute="trailing" constant="20" id="NNB-9M-uJJ"/>
+                            <constraint firstItem="TDL-Ig-0mZ" firstAttribute="bottom" secondItem="1Gf-gX-cAV" secondAttribute="bottom" id="dOb-OE-Tlh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="issueContentTextView" destination="1Gf-gX-cAV" id="ALs-qN-oUe"/>
+                        <outlet property="navigationItemOutlet" destination="Wmz-dm-FFs" id="hYY-Yr-5cq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BEK-xH-20p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2481" y="-1055"/>
         </scene>
     </scenes>
     <resources>
