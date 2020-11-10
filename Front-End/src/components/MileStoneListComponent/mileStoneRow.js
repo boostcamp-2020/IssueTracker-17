@@ -4,6 +4,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { ProgressBar } from './ProgressBar';
 
+const makeDateStrFormat = (date) => {
+  const options = {
+    // weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  return new Date(date).toLocaleDateString('en-US', options);
+};
+
 const RowContainer = styled.div`
   padding: 5px;
   border-bottom: 1px solid rgb(225 228 232);
@@ -28,7 +38,7 @@ export const MileStoneRow = (props) => {
       <MileStoneContainer>
         <h2>{title}</h2>
         <div>{contents}</div>
-        <div>{until}</div>
+        <div>{'Due by ' + makeDateStrFormat(until)}</div>
       </MileStoneContainer>
       <ProgressContainer>
         <ProgressBar width="70%"></ProgressBar>
