@@ -24,7 +24,6 @@ const LoginTitle = styled.div`
 const LoginComponent = () => {
   return (
     <LoginContainer>
-      <GlobalStyle />
       <LoginTitle>이슈 트래커</LoginTitle>
       <LoginForm></LoginForm>
     </LoginContainer>
