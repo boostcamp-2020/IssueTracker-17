@@ -30,9 +30,17 @@ const ProgressContainer = styled.div`
 `;
 
 export const MileStoneRow = (props) => {
-  const { title, contents, until } = props.data;
-  const opened = 10;
-  const closed = 7;
+  const { title, contents, until, issues } = props.data;
+  let opened = 0;
+  let closed = 0;
+
+  issues.forEach((issue) => {
+    issue.status === 0 ? (opened += 1) : (closed += 1);
+  });
+
+  const progress =
+    opened + closed === 0 ? 0 : (closed / (opened + closed)) * 100;
+
   return (
     <RowContainer>
       <MileStoneContainer>
@@ -41,9 +49,9 @@ export const MileStoneRow = (props) => {
         <div>{'Due by ' + makeDateStrFormat(until)}</div>
       </MileStoneContainer>
       <ProgressContainer>
-        <ProgressBar width="70%"></ProgressBar>
+        <ProgressBar width={progress + '%'}></ProgressBar>
         <div>
-          70% complete {opened} opened {closed} closed
+          {progress} %complete {opened} opened {closed} closed
         </div>
         <button>edit</button> <button>close</button> <button>delete</button>
       </ProgressContainer>

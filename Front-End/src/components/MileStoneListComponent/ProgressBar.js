@@ -15,7 +15,7 @@ const OuterProgressBar = styled.span`
 const InnerProgressBar = styled.span`
   outline: 2px solid transparent;
   background-color: #2c974b;
-  width: ${(props) => (props.width ? '70%' : '0%')};
+  width: ${(props) => (props.width ? props.width : '0%')};
 `;
 
 export const ProgressBar = (props) => {
