@@ -29,6 +29,16 @@ const ProgressContainer = styled.div`
   width: 50%;
 `;
 
+const Btn = styled.button`
+  border: none;
+  color: ${(props) => (props.color ? props.color : 'blue')};
+`;
+
+const onEdit = () => {};
+const onClose = () => {};
+const onDelete = () => {};
+
+
 export const MileStoneRow = (props) => {
   const { title, contents, until, issues } = props.data;
   let opened = 0;
@@ -53,7 +63,7 @@ export const MileStoneRow = (props) => {
         <div>
           {progress} %complete {opened} opened {closed} closed
         </div>
-        <button>edit</button> <button>close</button> <button>delete</button>
+        <Btn>edit</Btn> <Btn>close</Btn> <Btn color="red">delete</Btn>
       </ProgressContainer>
     </RowContainer>
   );
