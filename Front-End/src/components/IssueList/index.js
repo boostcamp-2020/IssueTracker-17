@@ -6,6 +6,8 @@ import { getLabelList } from '../../api/labelTranscation';
 import { NavBar } from '../../style/Layout/Layout';
 import { LabelButton, MilestoneButton } from 'Components/common/';
 import { FilterBarComponent } from './FilterBar';
+import { IssueList } from './issueList';
+
 const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
@@ -23,6 +25,13 @@ const GlobalStyle = createGlobalStyle`
     border:1px solid black;
   }
 `;
+const TopMenuBar = styled.div`
+  display: flex;
+  border: none;
+  height: 40px;
+  padding: 5px;
+  justify-content: space-between;
+`;
 
 const IssueContainer = styled.div`
   width: 85%;
@@ -35,18 +44,19 @@ const ListHeader = styled.div`
   border-bottom: none;
   height: 40px;
   padding: 5px;
-  justify-content: space-evenly;
+  justify-content: space-between;
   background-color: #f4f4f4;
 `;
 const ListContainer = styled.div`
   border: 1px solid rgb(225 228 232);
 `;
 
-const TopMenuBar = styled.div`
+const AllSelectChkboxArea = styled.div`
+  width: 50%;
+`;
+const FilterSelectArea = styled.div`
   display: flex;
-  border: none;
-  height: 40px;
-  padding: 5px;
+  width: 45%;
   justify-content: space-between;
 `;
 
@@ -79,15 +89,21 @@ const IssueListComponent = () => {
       </TopMenuBar>
 
       <ListHeader>
-        <input type="checkbox"></input>
-        <div>Author</div>
-        <div>Label</div>
-        <div>Projects</div>
-        <div>MileStones</div>
-        <div>Assignee</div>
-        <div>Sort</div>
+        <AllSelectChkboxArea>
+          <input type="checkbox"></input>
+        </AllSelectChkboxArea>
+        <FilterSelectArea>
+          <div>Author</div>
+          <div>Label</div>
+          <div>Projects</div>
+          <div>MileStones</div>
+          <div>Assignee</div>
+          <div>Sort</div>
+        </FilterSelectArea>
       </ListHeader>
-      <ListContainer></ListContainer>
+      <ListContainer>
+        <IssueList issueList={issueList}></IssueList>
+      </ListContainer>
     </IssueContainer>
   );
 };
