@@ -48,7 +48,7 @@ userController.login = (req, res) => {
 userController.getUsers = async (req, res, next) => {
     try {
         const users = await user.findAll();
-        res.status(200).json(JSON.stringify(users));
+        res.status(200).json(users);
     } catch (e) {
         next(e);
     }

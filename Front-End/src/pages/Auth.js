@@ -1,6 +1,6 @@
 import React from 'react';
 import jwt from 'jsonwebtoken';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 function Auth(props) {
   const query = props.location.search.split('=');

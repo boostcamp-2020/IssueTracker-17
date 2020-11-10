@@ -11,7 +11,7 @@ const Label = styled.div`
 `;
 
 const LabelRow = ({ row }) => {
-  return <Label bgc={row.color}>{row.labelName}</Label>;
+  return <Label bgc={row.color}>{row.title}</Label>;
 };
 
 export default LabelRow;

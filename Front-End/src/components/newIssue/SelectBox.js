@@ -57,7 +57,14 @@ const getValues = (title) => {
   }
 };
 
-const SelectBox = ({ WrappedComponent, rows, title, popUp, setPopUp }) => {
+const SelectBox = ({
+  WrappedComponent,
+  rows,
+  setRows,
+  title,
+  popUp,
+  setPopUp,
+}) => {
   const popupElement = useRef(null);
   const selectBoxHeaderElement = useRef(null);
   const values = getValues(title);
@@ -86,7 +93,7 @@ const SelectBox = ({ WrappedComponent, rows, title, popUp, setPopUp }) => {
       </SelectBoxHeader>
       <SelectBoxList
         title={title}
-        rows={rows}
+        rows={rows.filter((value) => value.checked)}
         WrappedComponent={WrappedComponent}
       />
       <PopUpBox
@@ -94,7 +101,8 @@ const SelectBox = ({ WrappedComponent, rows, title, popUp, setPopUp }) => {
         popupTitle={values.popupTitle}
         WrappedComponent={values.component}
         popup={popUp}
-        rows={[]}
+        rows={rows}
+        setRows={setRows}
       ></PopUpBox>
     </SelectBoxContainer>
   );
