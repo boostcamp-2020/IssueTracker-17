@@ -114,6 +114,8 @@ const EditBox = () => {
     setContent(e.target.value);
   };
 
+  const uploadFile = () => {};
+
   useEffect(() => {
     if (debouncedContent || debouncedContent === '') {
       setNumCharacters(debouncedContent.length);
@@ -131,7 +133,9 @@ const EditBox = () => {
           placeholder="Leave a comment"
           onChange={updateContent}
         />
-        <FileUploader>Attatch files by selecting here</FileUploader>
+        <FileUploader onClick={uploadFile}>
+          Attatch files by selecting here
+        </FileUploader>
         <NumCharacters>{numCharacters} Characters</NumCharacters>
       </TabContainer>
       <ButtonContainer>

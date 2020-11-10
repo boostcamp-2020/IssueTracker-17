@@ -25,9 +25,9 @@ const PopupTitle = styled.div`
 `;
 const PopupList = styled.div``;
 
-const PopUpBox = ({ popupTitle, WrappedComponent, popup, rows }) => {
+const PopUpBox = ({ popupTitle, WrappedComponent, popup, rows, el }) => {
   return (
-    <PopupContainer popup={popup}>
+    <PopupContainer popup={popup} ref={el}>
       <PopupTitle>{popupTitle}</PopupTitle>
       <PopupList>
         {rows.map((row) => (
