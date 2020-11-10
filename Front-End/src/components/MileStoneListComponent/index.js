@@ -3,19 +3,8 @@ import { MileStoneList } from './mileStoneList';
 import styled, { createGlobalStyle } from 'styled-components';
 import { TopLinks } from './topLink';
 import axios from 'axios';
+import {getMileStoneList} from '../../api/milestoneTransaction';
 
-const getMileStoneList = () => {
-  const apiUrl = 'http://localhost:3000/milestone/';
-  return axios
-    .get(apiUrl)
-    .then((result) => {
-      return result.data.result;
-    })
-    .catch((err) => {
-      alert(err);
-      return [];
-    });
-};
 const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
@@ -53,13 +42,11 @@ const MileStoneListComponent = () => {
   let opened = 0;
   let closed = 0;
 
-  useEffect(() => {
-    getMileStoneList().then((res) => {
-      setMilestonelist(res);
-    });
+  useEffect(async () => {
+    const res= await getMileStoneList();
+    setMilestonelist(res); 
   }, []);
 
-  console.log(mileStoneList);
   mileStoneList.forEach((milestone) => {
     milestone.status === 0 ? (opened += 1) : (closed += 1);
   });
