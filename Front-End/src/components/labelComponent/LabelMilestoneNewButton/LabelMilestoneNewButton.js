@@ -1,6 +1,7 @@
 import React from 'react';
 import { Label } from '../makeLabel';
-import { LabelButton, MilestoneButton } from 'Components/common/';
+import { LabelButton, MilestoneButton } from 'Components/common';
+import { GreenButton } from 'Style';
 
 export function TopLinks() {
   function toggleLabelInputEventHandler(e) {
@@ -15,12 +16,9 @@ export function TopLinks() {
           <LabelButton />
           <MilestoneButton />
         </div>
-        <button
-          className="new-label-btn"
-          onClick={(e) => toggleLabelInputEventHandler(e)}
-        >
+        <GreenButton onClick={(e) => toggleLabelInputEventHandler(e)}>
           New Label
-        </button>
+        </GreenButton>
       </div>
       <Label className={'top-input'} flag={1} />
     </div>

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { PostsContext } from './index';
+import { PostsContext } from './LabelComponent';
 import { Label } from './makeLabel';
 
 export function LabelList() {
