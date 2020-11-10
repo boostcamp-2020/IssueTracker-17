@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MileStoneList } from './mileStoneList';
 import styled, { createGlobalStyle } from 'styled-components';
 import { TopLinks } from './topLink';
+import axios from 'axios';
 
+const getMileStoneList = () => {
+  const apiUrl = 'http://localhost:3000/milestone/';
+  return axios
+    .get(apiUrl)
+    .then((result) => {
+      return result.data.result;
+    })
+    .catch((err) => {
+      alert(err);
+      return [];
+    });
+};
 const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
@@ -34,10 +47,22 @@ const ListHeader = styled.div`
 const ListContainer = styled.div`
   border: 1px solid rgb(225 228 232);
 `;
-const MileStoneListComponent = () => {
-  const opened = 5;
-  const closed = 5;
 
+const MileStoneListComponent = () => {
+  const [mileStoneList, setMilestonelist] = useState([]);
+  let opened = 0;
+  let closed = 0;
+
+  useEffect(() => {
+    getMileStoneList().then((res) => {
+      setMilestonelist(res);
+    });
+  }, []);
+
+  console.log(mileStoneList);
+  mileStoneList.forEach((milestone) => {
+    milestone.status === 0 ? (opened += 1) : (closed += 1);
+  });
   return (
     <MileStoneContainer>
       <GlobalStyle />
@@ -76,7 +101,7 @@ const MileStoneListComponent = () => {
         </div>
       </ListHeader>
       <ListContainer>
-        <MileStoneList></MileStoneList>
+        <MileStoneList mileStoneList={mileStoneList}></MileStoneList>
       </ListContainer>
     </MileStoneContainer>
   );
