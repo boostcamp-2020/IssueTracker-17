@@ -7,11 +7,20 @@ const MilestoneName = styled.div`
   padding-top: 10px;
   font-weight: 600;
 `;
+
 const MilestoneRow = ({ row }) => {
+  const getStatus = () => {
+    if (row.issues.length == 0) {
+      return 0;
+    }
+    const closed = row.issues.filter((value) => value.status == 1);
+    return (closed.length / row.issues.length) * 100;
+  };
+
   return (
     <Milestone>
-      <ProgressBar status={row.status}></ProgressBar>
-      <MilestoneName>{row.milestoneName}</MilestoneName>
+      <ProgressBar status={getStatus()}></ProgressBar>
+      <MilestoneName>{row.title}</MilestoneName>
     </Milestone>
   );
 };

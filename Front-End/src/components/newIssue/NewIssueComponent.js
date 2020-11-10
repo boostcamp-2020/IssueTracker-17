@@ -5,8 +5,15 @@ import AssigneeRow from './AssigneeRow';
 import LabelRow from './LabelRow';
 import MilestoneRow from './MilestoneRow';
 import styled from 'styled-components';
-import axios from 'axios';
-import { NavBar } from '../../style';
+import { NavBar } from 'Style';
+import {
+  getUserList,
+  getLabelList,
+  getMileStoneList,
+  postIssue,
+  updateAssignee,
+  updateHasLabel,
+} from 'Api';
 
 const NewIssueContainer = styled.div`
   text-align: center;
@@ -31,40 +38,74 @@ const SelectboxesContiainer = styled.div`
   margin-left: 25px;
 `;
 
-const initData = (setAssignees, setLabels, setMilestone) => {};
+const addCheckedProperty = (list) => {
+  return list.map((value) => {
+    value.checked = false;
+    return value;
+  });
+};
 
-const NewIssueComponent = () => {
+const NewIssueComponent = ({ history }) => {
   const user = JSON.parse(localStorage.getItem('user'));
-  const [assignees, setAssignees] = useState([
-    {
-      avatarUrl: 'https://avatars3.githubusercontent.com/u/40164248?v=4',
-      name: 'sunkest',
-    },
-  ]);
-  const [labels, setLabels] = useState([
-    { labelName: 'testLabel', color: '#abcdef' },
-    { labelName: 'testLabel2', color: '#a23dc4' },
-  ]);
-  const [milestone, setMilestone] = useState([
-    { milestoneName: 'milestone_test', status: 70 },
-  ]);
+  const [assignees, setAssignees] = useState([]);
+  const [labels, setLabels] = useState([]);
+  const [milestone, setMilestone] = useState([]);
   const [assigneePopUp, setassigneePopUp] = useState('none');
   const [labelPopUp, setlabelPopUp] = useState('none');
   const [milestonePopUp, setmilestoneePopUp] = useState('none');
 
-  // useEffect(initData(setAssignees, setLabels, setMilestone), []);
+  const initData = async () => {
+    const { data: userList } = await getUserList();
+    const labelList = await getLabelList();
+    const milestoneList = await getMileStoneList();
+    setAssignees(addCheckedProperty(userList));
+    setLabels(addCheckedProperty(labelList));
+    setMilestone(addCheckedProperty(milestoneList));
+  };
+
+  const confirmData = async (title, contents) => {
+    const data = {
+      title: title,
+      contents: contents,
+      userId: user.id,
+      created: new Date().toISOString(),
+    };
+    const checkedMilestone = milestone.filter((value) => value.checked)[0];
+    if (checkedMilestone) {
+      data.milestoneId = checkedMilestone.id;
+    }
+    const { result: issueResult, id: issueId } = await postIssue(data);
+
+    const assigneeData = {
+      issueId: issueId,
+      insertAssignee: assignees
+        .filter((value) => value.checked)
+        .map((value) => value.id),
+      deleteAssignee: [],
+    };
+    await updateAssignee(assigneeData);
+
+    const labelData = {
+      issueId: issueId,
+      labelId: labels.filter((value) => value.checked).map((value) => value.id),
+    };
+    await updateHasLabel(labelData);
+  };
+
+  useEffect(initData, []);
 
   return (
     <>
       <NavBar />
       <NewIssueContainer>
         <Avatar src={user.profile_url} />
-        <EditBox />
+        <EditBox history={history} confirmData={confirmData} />
         <SelectboxesContiainer>
           <SelectBox
             WrappedComponent={AssigneeRow}
             title="Assignees"
             rows={assignees}
+            setRows={setAssignees}
             popUp={assigneePopUp}
             setPopUp={setassigneePopUp}
           />
@@ -72,6 +113,7 @@ const NewIssueComponent = () => {
             WrappedComponent={LabelRow}
             title="Labels"
             rows={labels}
+            setRows={setLabels}
             popUp={labelPopUp}
             setPopUp={setlabelPopUp}
           />
@@ -79,6 +121,7 @@ const NewIssueComponent = () => {
             WrappedComponent={MilestoneRow}
             title="Milestone"
             rows={milestone}
+            setRows={setMilestone}
             popUp={milestonePopUp}
             setPopUp={setmilestoneePopUp}
           />
