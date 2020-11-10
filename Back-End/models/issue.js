@@ -69,7 +69,7 @@ module.exports = (sequelize, Datatypes) => {
                 },
                 {
                     model: model.milestone,
-                    // attributes: ['title'],
+                    //attributes: ['title'],
                 },
                 {
                     model: model.has_label,
@@ -90,7 +90,13 @@ module.exports = (sequelize, Datatypes) => {
                     include: [
                         {
                             model: model.user,
-                            attributes: ['id', 'type', 'identifier', 'name', ['profile_url','profileUrl']],
+                            attributes: [
+                                'id',
+                                'type',
+                                'identifier',
+                                'name',
+                                ['profile_url', 'profileUrl'],
+                            ],
                         },
                     ],
                 },
