@@ -1,9 +1,14 @@
 import React, { useEffect, useReducer } from 'react';
-import { TopLinks } from './LabelMilestoneNewButton/topLink';
-import { LabelCounter } from './labelCounter';
-import { LabelList } from './labelList';
+import { LabelMilestoneNewButton } from './LabelMilestoneNewButton/LabelMilestoneNewButton';
+import { LabelList } from './LabelList/LabelList';
 import * as reducers from '../../reducer';
+import styled from 'styled-components';
 import './label.css';
+
+const Wrapper = styled.div`
+  width: 85%;
+  margin: auto;
+`;
 
 export const PostsContext = React.createContext();
 const initialState = { list: [] };
@@ -11,7 +16,7 @@ const initialState = { list: [] };
 function LabelComponent() {
   const [state, dispatch] = useReducer(reducers.labelReducer, initialState);
 
-  function pushNewLabel({ titleRef, contentsRef, colorRef, key, idx, labelWrapper}) {
+  function pushNewLabel({ titleRef, contentsRef, colorRef, key, idx}) {
     if (key === -1) {
       const data = {
         id: 4,
@@ -20,7 +25,6 @@ function LabelComponent() {
         color: colorRef.current.value,
       };
       dispatch({ type: 'push', data: data });
-      labelWrapper.classList.toggle('hidden');
     } else {
       const data = {
         id: key,
@@ -29,7 +33,6 @@ function LabelComponent() {
         color: colorRef.current.value,
       };
       dispatch({ type: 'update', data: data, idx: idx });
-      labelWrapper.querySelector('.input-form').classList.toggle('hidden')
     }
   }
 
@@ -46,12 +49,11 @@ function LabelComponent() {
 
   return (
     <PostsContext.Provider value={{ labelList, dispatch, pushNewLabel }}>
-      <div id="label-form">
-        <div id="label-form-wrapper">
-          <TopLinks />
-          <LabelCounter />
+      <div>
+        <Wrapper>
+          <LabelMilestoneNewButton />
           <LabelList />
-        </div>
+        </Wrapper>
       </div>
     </PostsContext.Provider>
   );
