@@ -59,12 +59,16 @@ const getValues = (title) => {
 
 const SelectBox = ({ WrappedComponent, rows, title, popUp, setPopUp }) => {
   const popupElement = useRef(null);
+  const selectBoxHeaderElement = useRef(null);
   const values = getValues(title);
   const setVisible = () => {
     setPopUp('block');
   };
 
   const onClickOutsideHandler = (event) => {
+    if (selectBoxHeaderElement.current.contains(event.target)) {
+      return;
+    }
     if (popUp === 'block' && !popupElement.current.contains(event.target)) {
       setPopUp('none');
     }
@@ -76,7 +80,7 @@ const SelectBox = ({ WrappedComponent, rows, title, popUp, setPopUp }) => {
 
   return (
     <SelectBoxContainer>
-      <SelectBoxHeader onClick={setVisible}>
+      <SelectBoxHeader onClick={setVisible} ref={selectBoxHeaderElement}>
         <SelectBoxTitle>{title}</SelectBoxTitle>
         <SelectBoxSvg />
       </SelectBoxHeader>

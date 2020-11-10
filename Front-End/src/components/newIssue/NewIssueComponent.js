@@ -5,6 +5,8 @@ import AssigneeRow from './AssigneeRow';
 import LabelRow from './LabelRow';
 import MilestoneRow from './MilestoneRow';
 import styled from 'styled-components';
+import axios from 'axios';
+import { NavBar } from '../../style';
 
 const NewIssueContainer = styled.div`
   text-align: center;
@@ -29,7 +31,10 @@ const SelectboxesContiainer = styled.div`
   margin-left: 25px;
 `;
 
+const initData = (setAssignees, setLabels, setMilestone) => {};
+
 const NewIssueComponent = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
   const [assignees, setAssignees] = useState([
     {
       avatarUrl: 'https://avatars3.githubusercontent.com/u/40164248?v=4',
@@ -47,34 +52,39 @@ const NewIssueComponent = () => {
   const [labelPopUp, setlabelPopUp] = useState('none');
   const [milestonePopUp, setmilestoneePopUp] = useState('none');
 
+  // useEffect(initData(setAssignees, setLabels, setMilestone), []);
+
   return (
-    <NewIssueContainer>
-      <Avatar src="" />
-      <EditBox />
-      <SelectboxesContiainer>
-        <SelectBox
-          WrappedComponent={AssigneeRow}
-          title="Assignees"
-          rows={assignees}
-          popUp={assigneePopUp}
-          setPopUp={setassigneePopUp}
-        />
-        <SelectBox
-          WrappedComponent={LabelRow}
-          title="Labels"
-          rows={labels}
-          popUp={labelPopUp}
-          setPopUp={setlabelPopUp}
-        />
-        <SelectBox
-          WrappedComponent={MilestoneRow}
-          title="Milestone"
-          rows={milestone}
-          popUp={milestonePopUp}
-          setPopUp={setmilestoneePopUp}
-        />
-      </SelectboxesContiainer>
-    </NewIssueContainer>
+    <>
+      <NavBar />
+      <NewIssueContainer>
+        <Avatar src={user.profile_url} />
+        <EditBox />
+        <SelectboxesContiainer>
+          <SelectBox
+            WrappedComponent={AssigneeRow}
+            title="Assignees"
+            rows={assignees}
+            popUp={assigneePopUp}
+            setPopUp={setassigneePopUp}
+          />
+          <SelectBox
+            WrappedComponent={LabelRow}
+            title="Labels"
+            rows={labels}
+            popUp={labelPopUp}
+            setPopUp={setlabelPopUp}
+          />
+          <SelectBox
+            WrappedComponent={MilestoneRow}
+            title="Milestone"
+            rows={milestone}
+            popUp={milestonePopUp}
+            setPopUp={setmilestoneePopUp}
+          />
+        </SelectboxesContiainer>
+      </NewIssueContainer>
+    </>
   );
 };
 
