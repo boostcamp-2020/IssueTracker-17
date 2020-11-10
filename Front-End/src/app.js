@@ -27,6 +27,7 @@ export default function App() {
         <Route exac path="/login" component={Pages.LoginPage} />
         <Route exac path="/auth" component={Pages.Auth} />
         <Route exac path="/milestone" component={Pages.MileStoneListPage} />
+        <Route exac path="/issue" component={Pages.IssueListPage} />
       </Switch>
     </BrowserRouter>
   );
