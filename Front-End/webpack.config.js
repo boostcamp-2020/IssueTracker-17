@@ -12,7 +12,7 @@ const env = new dotenv({
 
 module.exports = {
   mode: 'development',
-  entry: './index.js',
+  entry: ['@babel/polyfill', './index.js'],
   output: {
     publicPath: '/',
     path: path.join(__dirname, '/dist'),
