@@ -84,11 +84,19 @@ class LoginManager {
             case other
         }
         func base64Decode(_ base64: String) throws -> Data {
-            let padded = base64.padding(toLength: ((base64.count + 3) / 4) * 4, withPad: "=", startingAt: 0)
-            guard let decoded = Data(base64Encoded: padded) else {
+            var base64String = base64
+            let requiredLength = Int(4 * ceil(Float(base64String.count) / 4.0))
+            let nbrPaddings = requiredLength - base64String.count
+            if nbrPaddings > 0 {
+                let padding = String().padding(toLength: nbrPaddings, withPad: "=", startingAt: 0)
+                base64String = base64String.appending(padding)
+            }
+            base64String = base64String.replacingOccurrences(of: "-", with: "+")
+            base64String = base64String.replacingOccurrences(of: "_", with: "/")
+            guard let decodedData = Data(base64Encoded: base64String, options: Data.Base64DecodingOptions(rawValue: UInt(0))) else {
                 throw DecodeErrors.badToken
             }
-            return decoded
+            return decodedData
         }
         func decodeJWTPart(_ value: String) throws -> [String: Any] {
             let bodyData = try base64Decode(value)
