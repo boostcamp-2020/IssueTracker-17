@@ -38,7 +38,7 @@ const addEditProperty = (list, userList) => {
       value.userName = user[0].name;
       value.profileUrl = user[0].profile_url;
     }
-    value.edit = false;
+    value.edit = true;
     return value;
   });
 };
@@ -78,7 +78,7 @@ const IssueDetailComponent = ({ issueId }) => {
       title: issue.title,
       status: issue.status == 0 ? 'open' : 'closed',
       contents: issue.contents,
-      createdAt: issue.created,
+      created: issue.created,
       userName: issue.userName,
       profileUrl: issue.profileUrl,
       labels: addCheckedProperty(labelList, hasLabels),

@@ -4,7 +4,8 @@ import Comment from './Comment/Comment';
 import { IssueContext } from '../../IssueDetailComponent';
 
 const Container = styled.div`
-  width: calc(100% - 350px);
+  width: calc(100% - 320px);
+  padding-top: 40px;
 `;
 
 const IssueContentList = () => {
@@ -15,7 +16,9 @@ const IssueContentList = () => {
     user_id: state.user_id,
     userName: state.userName,
     contents: state.contents,
-    createdAt: state.created,
+    created: state.created,
+    profileUrl: state.profileUrl,
+    edit: true,
   };
 
   return (
