@@ -13,7 +13,7 @@ router.get(
     userController.login
 );
 
-router.get('/', userController.getUsers);
+router.get('/getAll', userController.getUsers);
 
 //router.get('/logout', userController.logout);
 
