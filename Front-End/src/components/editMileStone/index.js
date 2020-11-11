@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import styled, { css, createGlobalStyle } from 'styled-components';
-import axios from 'axios';
 import { useLocation, useHistory } from 'react-router';
-
+import { NavBar } from '../../style/Layout/Layout';
+import { LabelButton, MilestoneButton } from 'Components/common/';
+import { GreenButton, GrayButton } from 'Style';
 import {
   STATUS,
   getMileStoneById,
@@ -13,7 +14,6 @@ import {
 const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
-    margin: 0;
     width: 100%;
     height: 100vh;
     font-family: Helvetica, Arial, sans-serif;
@@ -21,11 +21,37 @@ const GlobalStyle = createGlobalStyle`
   #app {
     width: 100%;
     height: 100%;
+
   }
+  label{
+    font-size : larger;
+    font-weight:bold;
+
+  }
+  dt,dd ,dl{
+    margin-bottom:25px;
+    margin-left:0px;
+  }
+
 `;
 
 const InputForm = styled.input`
   padding: 5px 12px;
+  margin: 5px;
+  font-size: 14px;
+  line-height: 20px;
+  width: 50%;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(225, 228, 232, 0.2);
+`;
+const TextAreaForm = styled.textarea`
+  padding: 5px 12px;
+  margin: 5px;
   font-size: 14px;
   line-height: 20px;
   width: 50%;
@@ -39,21 +65,14 @@ const InputForm = styled.input`
 `;
 
 const MileStoneContainer = styled.div`
-  width: 85%;
   margin: auto;
+  padding-top: 200px;
+  width: 1024px;
 `;
+const MenuHeaderArea = styled.div``;
 
-const ListHeader = styled.div`
-  display: flex;
-  border: 1px solid rgb(225 228 232);
-  border-bottom: none;
-  height: 40px;
-  padding: 5px;
-  align-items: center;
-  background-color: #f4f4f4;
-`;
-const ListContainer = styled.div`
-  border: 1px solid rgb(225 228 232);
+const BottomBtnsArea = styled.div`
+  text-align: right;
 `;
 
 function getFormatDate(date) {
@@ -97,9 +116,26 @@ const EditMileStoneComponent = ({ match }) => {
   const onSubmitEdit = useCallback(async (e) => {
     const id = parseInt(location.search.split('?id=')[1]);
     const data = { id, title, until, contents, status };
-    console.log(data);
     const res = await editNewMileStone(data);
     alert(res);
+    history.push({
+      pathname: '/milestone',
+    });
+  });
+  const onSubmitCloseState = useCallback(async (e) => {
+    const id = parseInt(location.search.split('?id=')[1]);
+    const data = { id, status: STATUS.closed };
+    const res = await editNewMileStone(data);
+    setStatus(STATUS.closed);
+    history.push({
+      pathname: '/milestone',
+    });
+  });
+  const onSubmitReopenState = useCallback(async (e) => {
+    const id = parseInt(location.search.split('?id=')[1]);
+    const data = { id, status: STATUS.open };
+    const res = await editNewMileStone(data);
+    setStatus(STATUS.open);
     history.push({
       pathname: '/milestone',
     });
@@ -129,8 +165,18 @@ const EditMileStoneComponent = ({ match }) => {
   }, []);
 
   return (
-    <div>
-      <h2>New milestone</h2>
+    <MileStoneContainer>
+      <GlobalStyle></GlobalStyle>
+
+      {mode === 'new' ? (
+        <h2>New milestone</h2>
+      ) : (
+        <MenuHeaderArea>
+          <LabelButton />
+          <MilestoneButton color="#0366d6" />
+        </MenuHeaderArea>
+      )}
+
       <hr></hr>
 
       <div>
@@ -162,18 +208,33 @@ const EditMileStoneComponent = ({ match }) => {
             <label>Description (optional)</label>
           </dt>
           <dd>
-            <textarea value={contents} onChange={onChangeContents} />
+            <TextAreaForm value={contents} onChange={onChangeContents} />
           </dd>
         </dl>
       </div>
       <hr></hr>
-      {mode === 'new' ? (
-        <button onClick={onSubmitNew}>create milestone</button>
-      ) : (
-        <button onClick={onSubmitEdit}>Edit milestone</button>
-      )}
-      <button onClick={onClickCancel}>cancel</button>
-    </div>
+
+      <BottomBtnsArea>
+        <GrayButton onClick={onClickCancel}>cancel</GrayButton>
+        {mode === 'new' ? (
+          <GreenButton onClick={onSubmitNew}>create milestone</GreenButton>
+        ) : (
+          <>
+            {status === STATUS.open ? (
+              <GrayButton onClick={onSubmitCloseState}>
+                Close milestone
+              </GrayButton>
+            ) : (
+              <GrayButton onClick={onSubmitReopenState}>
+                Reopen milestone
+              </GrayButton>
+            )}
+
+            <GreenButton onClick={onSubmitEdit}>Edit milestone</GreenButton>
+          </>
+        )}
+      </BottomBtnsArea>
+    </MileStoneContainer>
   );
 };
 
