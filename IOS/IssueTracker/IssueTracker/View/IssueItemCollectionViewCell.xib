@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -18,34 +17,45 @@
                 <rect key="frame" x="0.0" y="0.0" width="413" height="197"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.crop.square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hoF-6C-ig5">
-                        <rect key="frame" x="6" y="7" width="62" height="62"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hoF-6C-ig5">
+                        <rect key="frame" x="6" y="7" width="62" height="59.5"/>
                         <color key="tintColor" systemColor="systemGray2Color"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="62" id="qSM-89-RAj"/>
+                            <constraint firstAttribute="height" constant="62" id="sVX-sF-JJj"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="IssueWriter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jk7-wa-gck">
-                        <rect key="frame" x="76" y="12" width="269" height="23"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IssueWriter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jk7-wa-gck">
+                        <rect key="frame" x="76" y="12" width="100.5" height="23"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="IssueTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qdk-VR-uEe">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="IssueTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qdk-VR-uEe">
                         <rect key="frame" x="76" y="38" width="269" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                         <color key="textColor" systemColor="systemGray2Color"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="댓글" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MjK-nP-Min">
-                        <rect key="frame" x="6" y="77" width="387" height="84"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="댓글" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MjK-nP-Min">
+                        <rect key="frame" x="6" y="77" width="401" height="84"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="hoF-6C-ig5" firstAttribute="top" secondItem="NQS-SB-TPV" secondAttribute="top" constant="6" id="6FD-Lp-Cm1"/>
+                    <constraint firstItem="hoF-6C-ig5" firstAttribute="leading" secondItem="NQS-SB-TPV" secondAttribute="leading" constant="6" id="O5e-oc-KoW"/>
+                    <constraint firstItem="MjK-nP-Min" firstAttribute="top" secondItem="hoF-6C-ig5" secondAttribute="bottom" constant="9" id="SWu-Qk-YZr"/>
+                    <constraint firstAttribute="trailing" secondItem="MjK-nP-Min" secondAttribute="trailing" constant="6" id="gtR-rG-OhX"/>
+                    <constraint firstItem="qdk-VR-uEe" firstAttribute="top" secondItem="Jk7-wa-gck" secondAttribute="bottom" constant="3" id="hga-jb-k2e"/>
+                    <constraint firstItem="Jk7-wa-gck" firstAttribute="top" secondItem="NQS-SB-TPV" secondAttribute="top" constant="12" id="rKx-HN-kou"/>
+                    <constraint firstItem="qdk-VR-uEe" firstAttribute="leading" secondItem="hoF-6C-ig5" secondAttribute="trailing" constant="8" symbolic="YES" id="uwa-wP-7u1"/>
+                    <constraint firstItem="Jk7-wa-gck" firstAttribute="leading" secondItem="hoF-6C-ig5" secondAttribute="trailing" constant="8" symbolic="YES" id="vd9-YQ-hTr"/>
+                    <constraint firstItem="MjK-nP-Min" firstAttribute="leading" secondItem="NQS-SB-TPV" secondAttribute="leading" constant="6" id="wOx-yK-8qV"/>
+                </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="413" height="197"/>
             <connections>

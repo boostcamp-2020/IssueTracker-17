@@ -17,7 +17,7 @@ class IssueItemViewController: UIViewController {
     var issueAddCommentViewController: IssueAddCommentViewController!
     var visualEffectView: UIVisualEffectView!
     var issueAddCommentViewHeight: Int = 0
-    let issueAddCommentViewHandleAreaHeight = 150
+    let issueAddCommentViewHandleAreaHeight = 100
     var issueAddCommentViewVisible = false
     var nextState:ViewState {
         return issueAddCommentViewVisible ? .collapsed : .expanded
@@ -146,7 +146,7 @@ class IssueItemViewController: UIViewController {
 }
 
 extension IssueItemViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1 //카테코리 수
     }
@@ -176,7 +176,8 @@ extension IssueItemViewController: UICollectionViewDelegate, UICollectionViewDat
     private func setupFlowLayout() { //cell layout 지정
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.headerReferenceSize = CGSize(width: view.bounds.width, height: 170)
-        flowLayout.itemSize = CGSize(width: view.bounds.width, height: 120)
+        //flowLayout.itemSize = CGSize(width: view.bounds.width, height: 120)
+        flowLayout.estimatedItemSize = CGSize(width: view.bounds.width, height: 150)
         // flowLayout.minimumInteritemSpacing = 10
         flowLayout.minimumLineSpacing = 20
         flowLayout.sectionInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
