@@ -20,10 +20,12 @@ module.exports = {
   },
   resolve: {
     alias: {
+      Api: path.resolve(__dirname, './src/api'),
       Components: path.resolve(__dirname, './src/components'),
       Reducer: path.resolve(__dirname, './src/reducer/'),
       Style: path.resolve(__dirname, './src/style/'),
       Config: path.resolve(__dirname, './src/config/'),
+      Api: path.resolve(__dirname, './src/api/'),
       '@': path.resolve(__dirname, './src/'),
     },
   },

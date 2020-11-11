@@ -22,8 +22,8 @@ const SelectBoxAssigneeName = styled.div`
 const AssigneeRow = ({ row }) => {
   return (
     <SelectBoxAssignee>
-      <Avatar src={row.avatarUrl}></Avatar>
-      <SelectBoxAssigneeName>{row.name}</SelectBoxAssigneeName>
+      <Avatar src={row.profile_url}></Avatar>
+      <SelectBoxAssigneeName>{row.name ? row.name : '-'}</SelectBoxAssigneeName>
     </SelectBoxAssignee>
   );
 };

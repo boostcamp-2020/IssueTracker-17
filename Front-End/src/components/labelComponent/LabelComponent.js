@@ -1,26 +1,31 @@
 import React, { useEffect, useReducer } from 'react';
-import { TopLinks } from './LabelMilestoneNewButton/topLink';
-import { LabelCounter } from './labelCounter';
-import { LabelList } from './labelList';
+import { LabelMilestoneNewButton } from './LabelMilestoneNewButton/LabelMilestoneNewButton';
+import { LabelList } from './LabelList/LabelList';
 import * as reducers from '../../reducer';
-import './label.css';
+import styled from 'styled-components';
+import { getLabelList, createLabelList, updateLabelList } from 'Api/labelTranscation';
+
+const Wrapper = styled.div`
+  width: 85%;
+  margin: auto;
+`;
 
 export const PostsContext = React.createContext();
 const initialState = { list: [] };
 
-function LabelComponent() {
+export function LabelComponent() {
   const [state, dispatch] = useReducer(reducers.labelReducer, initialState);
 
-  function pushNewLabel({ titleRef, contentsRef, colorRef, key, idx, labelWrapper}) {
+  async function pushNewLabel({ titleRef, contentsRef, colorRef, key, idx }) {
     if (key === -1) {
       const data = {
-        id: 4,
         title: titleRef.current.value,
         contents: contentsRef.current.value,
         color: colorRef.current.value,
       };
+      const result = await createLabelList(data);
+      data['id'] = result['id'];
       dispatch({ type: 'push', data: data });
-      labelWrapper.classList.toggle('hidden');
     } else {
       const data = {
         id: key,
@@ -28,15 +33,13 @@ function LabelComponent() {
         contents: contentsRef.current.value,
         color: colorRef.current.value,
       };
+      await updateLabelList(data);
       dispatch({ type: 'update', data: data, idx: idx });
-      labelWrapper.querySelector('.input-form').classList.toggle('hidden')
     }
   }
 
-  useEffect(() => {
-    const initData = [
-      { id: 1, title: 'first', contents: '하하', color: '#012345' },
-    ];
+  useEffect(async () => {
+    const initData = await getLabelList();
     initData.forEach((data) => {
       dispatch({ type: 'push', data: data });
     });
@@ -46,12 +49,11 @@ function LabelComponent() {
 
   return (
     <PostsContext.Provider value={{ labelList, dispatch, pushNewLabel }}>
-      <div id="label-form">
-        <div id="label-form-wrapper">
-          <TopLinks />
-          <LabelCounter />
+      <div>
+        <Wrapper>
+          <LabelMilestoneNewButton />
           <LabelList />
-        </div>
+        </Wrapper>
       </div>
     </PostsContext.Provider>
   );

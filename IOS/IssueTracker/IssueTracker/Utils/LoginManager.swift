@@ -13,11 +13,11 @@ import AuthenticationServices
 class LoginManager {
     static let shared = LoginManager()
     private init() {}
-    private let githubClientId = ""
-    private let githubClientSecret = ""
+    private let githubClientId = "ad973f593224119b94b4"
+    private let githubClientSecret = "6061dee97853332ddee856b4c32f488b48f6d8c1"
     private let userRepository = UserRepository()
     func requestCodeToGithub() {
-        let scope = "repo,user"
+        let scope = "user"
         let urlString = "https://github.com/login/oauth/authorize?client_id=\(githubClientId)&scope=\(scope)"
         if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
@@ -76,5 +76,37 @@ class LoginManager {
         }
     }
     func logout() {
+        UserDefaults.standard.removeObject(forKey: "UserToken")
+    }
+    func decode(jwtToken jwt: String) throws -> [String: Any] {
+        enum DecodeErrors: Error {
+            case badToken
+            case other
+        }
+        func base64Decode(_ base64: String) throws -> Data {
+            var base64String = base64
+            let requiredLength = Int(4 * ceil(Float(base64String.count) / 4.0))
+            let nbrPaddings = requiredLength - base64String.count
+            if nbrPaddings > 0 {
+                let padding = String().padding(toLength: nbrPaddings, withPad: "=", startingAt: 0)
+                base64String = base64String.appending(padding)
+            }
+            base64String = base64String.replacingOccurrences(of: "-", with: "+")
+            base64String = base64String.replacingOccurrences(of: "_", with: "/")
+            guard let decodedData = Data(base64Encoded: base64String, options: Data.Base64DecodingOptions(rawValue: UInt(0))) else {
+                throw DecodeErrors.badToken
+            }
+            return decodedData
+        }
+        func decodeJWTPart(_ value: String) throws -> [String: Any] {
+            let bodyData = try base64Decode(value)
+            let json = try JSONSerialization.jsonObject(with: bodyData, options: [])
+            guard let payload = json as? [String: Any] else {
+                throw DecodeErrors.other
+            }
+            return payload
+        }
+        let segments = jwt.components(separatedBy: ".")
+        return try decodeJWTPart(segments[1])
     }
 }

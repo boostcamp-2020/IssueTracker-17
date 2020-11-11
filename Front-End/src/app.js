@@ -15,6 +15,9 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100%;
   }
+  label {
+    display: inline-block;
+  }
 `;
 
 const NavPaddingArea = styled.div`

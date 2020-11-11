@@ -15,11 +15,8 @@ class IssueRepository: Repository {
             response in
             switch response.result {
             case .success:
-                let str = String(decoding: try! response.result.get(), as: UTF8.self)
-                print(str)
-                if let decodeData = try? JSONDecoder().decode(ResultResponse<VO>.self, from: response.result.get()) {
-                    issues = decodeData.result
-                }
+                let decodeData = try! JSONDecoder().decode(ResultResponse<VO>.self, from: response.result.get())
+                issues = decodeData.result
                 finishedCallback(issues)
             case .failure(let error):
                 print(error)
