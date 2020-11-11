@@ -1,0 +1,180 @@
+import React, { useEffect, useState, useCallback } from 'react';
+import styled, { css, createGlobalStyle } from 'styled-components';
+import axios from 'axios';
+import { useLocation, useHistory } from 'react-router';
+
+import {
+  STATUS,
+  getMileStoneById,
+  addNewMileStone,
+  editNewMileStone,
+} from '../../api/milestoneTransaction';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  #app {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const InputForm = styled.input`
+  padding: 5px 12px;
+  font-size: 14px;
+  line-height: 20px;
+  width: 50%;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(225, 228, 232, 0.2);
+`;
+
+const MileStoneContainer = styled.div`
+  width: 85%;
+  margin: auto;
+`;
+
+const ListHeader = styled.div`
+  display: flex;
+  border: 1px solid rgb(225 228 232);
+  border-bottom: none;
+  height: 40px;
+  padding: 5px;
+  align-items: center;
+  background-color: #f4f4f4;
+`;
+const ListContainer = styled.div`
+  border: 1px solid rgb(225 228 232);
+`;
+
+function getFormatDate(date) {
+  const year = date.getFullYear();
+  let month = 1 + date.getMonth();
+  month = month >= 10 ? month : '0' + month;
+  let day = date.getDate();
+  day = day >= 10 ? day : '0' + day;
+  return year + '-' + month + '-' + day;
+}
+
+const EditMileStoneComponent = ({ match }) => {
+  const [title, setTitle] = useState('');
+  const [until, setUntil] = useState(getFormatDate(new Date()));
+  const [contents, setContents] = useState('');
+  const [status, setStatus] = useState(STATUS.open);
+  const [mode, setMode] = useState(match.params.mode);
+
+  const onChangeTitle = useCallback((e) => {
+    setTitle(e.target.value);
+  });
+  const onChangeUntil = useCallback((e) => {
+    setUntil(e.target.value);
+  });
+  const onChangeContents = useCallback((e) => {
+    setContents(e.target.value);
+  });
+
+  const history = useHistory();
+  const location = useLocation();
+
+  const onSubmitNew = useCallback(async (e) => {
+    const data = { title, until, contents, status };
+    const res = await addNewMileStone(data);
+    alert(res);
+    history.push({
+      pathname: '/milestone',
+    });
+  });
+
+  const onSubmitEdit = useCallback(async (e) => {
+    const id = parseInt(location.search.split('?id=')[1]);
+    const data = { id, title, until, contents, status };
+    console.log(data);
+    const res = await editNewMileStone(data);
+    alert(res);
+    history.push({
+      pathname: '/milestone',
+    });
+  });
+
+  const onClickCancel = useCallback(async (e) => {
+    history.push({
+      pathname: '/milestone',
+    });
+  });
+
+  if (!(mode === 'new' || mode === 'edit')) {
+    history.push({
+      pathname: '/milestone',
+    });
+  }
+
+  useEffect(async () => {
+    if (mode === 'edit') {
+      const targetId = parseInt(location.search.split('?id=')[1]);
+      const data = await getMileStoneById(targetId);
+      setTitle(data.title);
+      setUntil(getFormatDate(new Date(data.until)));
+      setStatus(data.status);
+      setContents(data.contents);
+    }
+  }, []);
+
+  return (
+    <div>
+      <h2>New milestone</h2>
+      <hr></hr>
+
+      <div>
+        <dl>
+          <dt>
+            <label htmlFor="title">Title</label>
+          </dt>
+          <dd>
+            <InputForm
+              type="text"
+              placeholder="Title"
+              id="title"
+              value={title}
+              onChange={onChangeTitle}
+            />
+          </dd>
+        </dl>
+
+        <dl>
+          <dt>
+            <label>Due date (optional)</label>
+          </dt>
+          <dd>
+            <InputForm type="date" value={until} onChange={onChangeUntil} />
+          </dd>
+        </dl>
+        <dl>
+          <dt>
+            <label>Description (optional)</label>
+          </dt>
+          <dd>
+            <textarea value={contents} onChange={onChangeContents} />
+          </dd>
+        </dl>
+      </div>
+      <hr></hr>
+      {mode === 'new' ? (
+        <button onClick={onSubmitNew}>create milestone</button>
+      ) : (
+        <button onClick={onSubmitEdit}>Edit milestone</button>
+      )}
+      <button onClick={onClickCancel}>cancel</button>
+    </div>
+  );
+};
+
+export default EditMileStoneComponent;

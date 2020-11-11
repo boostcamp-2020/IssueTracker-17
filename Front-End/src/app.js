@@ -29,6 +29,7 @@ export default function App() {
         <Route exac path="/newIssue" component={Pages.NewIssuePage} />
         <Route exac path="/login" component={Pages.LoginPage} />
         <Route exac path="/auth" component={Pages.Auth} />
+        <Route path="/milestone/:mode" component={Pages.EditMileStonePage} />
         <Route exac path="/milestone" component={Pages.MileStoneListPage} />
         <Route exac path="/issue" component={Pages.IssueListPage} />
       </Switch>

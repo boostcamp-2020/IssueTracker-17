@@ -5,7 +5,7 @@ function milestoneController() {}
 
 milestoneController.get = async (req, res, next) => {
     const { id } = req.params;
-    if (id) query.where = { id };
+
     const query = {
         include: [
             {
@@ -13,6 +13,7 @@ milestoneController.get = async (req, res, next) => {
             },
         ],
     };
+
     if (id) query.where = { id };
     try {
         const result = await milestone.findAll(query);
