@@ -143,6 +143,7 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
         }
         cell.issueTitleLabel.text = issues[indexPath.row].title
         cell.issueContentsLabel.text = issues[indexPath.row].contents
+        cell.selectionStyle = .default
         return cell
     }
     
