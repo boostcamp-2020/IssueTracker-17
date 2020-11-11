@@ -13,11 +13,11 @@ import AuthenticationServices
 class LoginManager {
     static let shared = LoginManager()
     private init() {}
-    private let githubClientId = ""
-    private let githubClientSecret = ""
+    private let githubClientId = "ad973f593224119b94b4"
+    private let githubClientSecret = "6061dee97853332ddee856b4c32f488b48f6d8c1"
     private let userRepository = UserRepository()
     func requestCodeToGithub() {
-        let scope = "repo,user"
+        let scope = "user"
         let urlString = "https://github.com/login/oauth/authorize?client_id=\(githubClientId)&scope=\(scope)"
         if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
@@ -76,5 +76,29 @@ class LoginManager {
         }
     }
     func logout() {
+        UserDefaults.standard.removeObject(forKey: "UserToken")
+    }
+    func decode(jwtToken jwt: String) throws -> [String: Any] {
+        enum DecodeErrors: Error {
+            case badToken
+            case other
+        }
+        func base64Decode(_ base64: String) throws -> Data {
+            let padded = base64.padding(toLength: ((base64.count + 3) / 4) * 4, withPad: "=", startingAt: 0)
+            guard let decoded = Data(base64Encoded: padded) else {
+                throw DecodeErrors.badToken
+            }
+            return decoded
+        }
+        func decodeJWTPart(_ value: String) throws -> [String: Any] {
+            let bodyData = try base64Decode(value)
+            let json = try JSONSerialization.jsonObject(with: bodyData, options: [])
+            guard let payload = json as? [String: Any] else {
+                throw DecodeErrors.other
+            }
+            return payload
+        }
+        let segments = jwt.components(separatedBy: ".")
+        return try decodeJWTPart(segments[1])
     }
 }

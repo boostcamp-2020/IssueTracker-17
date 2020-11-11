@@ -21,6 +21,17 @@ class LoginViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(moveTabBarView), name: .loginSuccess, object: nil)
+        if UserDefaults.standard.value(forKey: "UserToken") != nil {
+            moveTabBarView()
+        }
+    }
+    @objc func moveTabBarView() {
+        guard let vcName = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") else {
+            return
+        }
+        vcName.modalPresentationStyle = .fullScreen
+        self.present(vcName, animated: true, completion: nil)
     }
 }
 extension LoginViewController: ASAuthorizationControllerDelegate {
