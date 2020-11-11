@@ -66,7 +66,6 @@ const TextAreaForm = styled.textarea`
 
 const MileStoneContainer = styled.div`
   margin: auto;
-  padding-top: 200px;
   width: 1024px;
 `;
 const MenuHeaderArea = styled.div``;
