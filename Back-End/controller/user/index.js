@@ -11,11 +11,11 @@ userController.github = passport.authenticate('github');
 userController.iosLogin = async (req, res, next) => {
     const { identifier, name, profileUrl, type } = req.body;
     if (!identifier) {
-        res.status(401).json({ login: false });
+        res.status(401).json({ result: 'no identifier' });
     }
     try {
         const result = await user.findOne({
-            where: { identifier: identifier, type: type },
+            where: { identifier: +identifier, type: type },
         });
 
         let payload = { type: type, identifier: identifier };
@@ -30,12 +30,17 @@ userController.iosLogin = async (req, res, next) => {
                 fields: fields,
             });
         }
+        jwt.sign(
+            payload,
+            config.jwtSecret,
+            { expiresIn: 3600 },
+            (err, token) => {
+                res.json({ token: token });
+            }
+        );
     } catch (e) {
-        next(e);
+        res.json({ result: e });
     }
-    jwt.sign(payload, config.jwtSecret, { expiresIn: 3600 }, (err, token) => {
-        res.json({ token: token });
-    });
 };
 
 userController.login = (req, res) => {
