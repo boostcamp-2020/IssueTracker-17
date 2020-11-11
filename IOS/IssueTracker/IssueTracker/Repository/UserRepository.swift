@@ -19,13 +19,16 @@ class UserRepository: Repository {
         let parameters = ["type": 1,
                           "identifier": item.identifier,
                           "name": item.name,
-                          "profileUrl": item.profileUrl] as [String : Any]
+                          "profileUr;;;;;;;;;l": item.profileUrl] as [String : Any]
         AF.request(RestApiServerURL.login, method: .post, parameters: parameters, headers: headers).responseString(){
             response in
             switch response.result {
             case .success:
-                print(try! response.result.get())
-            // TODO: 해당 값을 캐시로 저장
+                if let token = try? response.result.get() {
+                    let parse = try! LoginManager.shared.decode(jwtToken: token)
+                    UserDefaults.standard.setValue(parse, forKey: "UserToken")
+                    NotificationCenter.default.post(name: .loginSuccess, object: nil)
+                }
             case .failure(let error):
                 print(error)
                 return
