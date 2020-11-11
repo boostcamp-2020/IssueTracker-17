@@ -55,7 +55,7 @@ const NewIssueComponent = ({ history }) => {
   const [milestonePopUp, setmilestoneePopUp] = useState('none');
 
   const initData = async () => {
-    const { data: userList } = await getUserList();
+    const userList = await getUserList();
     const labelList = await getLabelList();
     const milestoneList = await getMileStoneList();
     setAssignees(addCheckedProperty(userList));
