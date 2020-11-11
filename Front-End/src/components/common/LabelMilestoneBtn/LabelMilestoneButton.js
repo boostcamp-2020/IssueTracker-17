@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { LabelMilestoneButton } from 'Style';
 import { LabelSVG } from './LabelSVG';
 import { MilestoneSVG } from './MilestoneSVG';
+import { Link } from 'react-router-dom';
 
 const LabelButtonWrapper = styled(LabelMilestoneButton)`
   border-top-right-radius: 0px;
@@ -16,20 +17,24 @@ const MilestoneButtonWrapper = styled(LabelMilestoneButton)`
 
 export function LabelButton(props) {
   return (
-    <LabelButtonWrapper>
-      <LabelSVG />
-      <span>Labels</span>
-      {props.count ? <span>props.count</span> : ''}
-    </LabelButtonWrapper>
+    <Link to="/label">
+      <LabelButtonWrapper color={props.color}>
+        <LabelSVG color={props.color} />
+        <span>Labels</span>
+        {props.count ? <span>props.count</span> : ''}
+      </LabelButtonWrapper>
+    </Link>
   );
 }
 
 export function MilestoneButton(props) {
   return (
-    <MilestoneButtonWrapper>
-      <MilestoneSVG />
-      <span>Milestones</span>
-      {props.count ? <span>props.count</span> : ''}
-    </MilestoneButtonWrapper>
+    <Link to="/milestone">
+      <MilestoneButtonWrapper color={props.color}>
+        <MilestoneSVG color={props.color} />
+        <span>Milestones</span>
+        {props.count ? <span>props.count</span> : ''}
+      </MilestoneButtonWrapper>
+    </Link>
   );
 }
