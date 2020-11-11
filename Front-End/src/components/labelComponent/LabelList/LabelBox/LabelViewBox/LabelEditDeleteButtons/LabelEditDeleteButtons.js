@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { LabelContext } from '../../LabelBox';
 
@@ -22,18 +22,28 @@ const Buttons = styled.div`
 `;
 
 const EditButton = styled(Buttons)`
+  ${(props) =>
+    !props.visible &&
+    css`
+      display: none;
+    `};
   margin-right: 15px;
 `;
 
 export function LabelEditDeleteButtons(props) {
-  const { key, toggleLabelDetailEventHandler, deleteLabelEventHandler } = useContext(LabelContext);
+  const { key, editVisible, toggleLabelDetailEventHandler, deleteLabelEventHandler } = useContext(LabelContext);
   return (
-    //   className={'label-contents-btn' + (props.flag ? ' hidden' : '')}
     <Wrapper visible={key}>
-      <EditButton className='label-edit-btn' onClick={(e) => toggleLabelDetailEventHandler(e)}>
+      <EditButton
+        className="label-edit-btn"
+        visible={editVisible}
+        onClick={(e) => {
+          toggleLabelDetailEventHandler(e);
+        }}
+      >
         Edit
       </EditButton>
-      <Buttons className='label-delete-btn' onClick={(e) => deleteLabelEventHandler(e)}>
+      <Buttons className='label-delete-btn' onClick={ async(e) => await deleteLabelEventHandler(e)}>
         Delete
       </Buttons>
     </Wrapper>
