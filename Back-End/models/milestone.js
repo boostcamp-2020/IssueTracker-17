@@ -8,11 +8,11 @@ module.exports = (sequelize, Datatypes) => {
             },
             contents: {
                 type: Datatypes.STRING(2000),
-                allowNull: false,
+                allowNull: true,
             },
             until: {
                 type: Datatypes.DATE,
-                allowNull: false,
+                allowNull: true,
             },
             status: {
                 type: Datatypes.INTEGER,
