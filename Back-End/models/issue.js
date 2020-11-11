@@ -65,7 +65,7 @@ module.exports = (sequelize, Datatypes) => {
             include: [
                 {
                     model: model.user,
-                    attributes: ['name'],
+                    attributes: ['name', 'profile_url'],
                 },
                 {
                     model: model.milestone,

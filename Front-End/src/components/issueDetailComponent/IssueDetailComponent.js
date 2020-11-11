@@ -8,6 +8,7 @@ import {
   getUserList,
   getLabelList,
   getMileStoneList,
+  getComments,
 } from 'Api';
 import { NavBar } from 'Style';
 import { Redirect } from 'react-router-dom';
@@ -29,6 +30,19 @@ const addCheckedProperty = (list, compare) => {
   });
 };
 
+const addEditProperty = (list, userList) => {
+  return list.map((value) => {
+    const user = userList.filter((user) => user.id === value.user_id);
+    value.userName = 'Unknown';
+    if (user.length > 0) {
+      value.userName = user[0].name;
+      value.profileUrl = user[0].profile_url;
+    }
+    value.edit = false;
+    return value;
+  });
+};
+
 const getInitialState = () => {
   return {
     id: 0,
@@ -38,9 +52,11 @@ const getInitialState = () => {
     contents: '',
     createdAt: new Date().toISOString(),
     userName: '',
+    profileUrl: '',
     labels: [],
     assignees: [],
     milestones: [],
+    comments: [],
   };
 };
 
@@ -55,6 +71,7 @@ const IssueDetailComponent = ({ issueId }) => {
     const hasAssignees = issue.assignees.map((value) => value.id);
     const hasLabels = issue.labels.map((value) => value.id);
     const hasMilestone = [issue.milestone_id];
+    const comments = issue.comments;
     return {
       id: issue.id,
       userId: issue.user_id,
@@ -63,11 +80,15 @@ const IssueDetailComponent = ({ issueId }) => {
       contents: issue.contents,
       createdAt: issue.created,
       userName: issue.userName,
+      profileUrl: issue.profileUrl,
       labels: addCheckedProperty(labelList, hasLabels),
       assignees: addCheckedProperty(userList, hasAssignees),
       milestones: addCheckedProperty(milestoneList, hasMilestone),
+      comments: addEditProperty(comments, userList),
     };
   };
+
+  const loginUser = JSON.parse(localStorage.getItem('user'));
 
   const [state, dispatch] = useReducer(
     reducers.issueDetailReducer,
@@ -80,7 +101,7 @@ const IssueDetailComponent = ({ issueId }) => {
   }, []);
 
   return (
-    <IssueContext.Provider value={{ state, dispatch }}>
+    <IssueContext.Provider value={{ state, dispatch, loginUser }}>
       <NavBar></NavBar>
       <Wrapper>
         <IssueDetailHeader></IssueDetailHeader>

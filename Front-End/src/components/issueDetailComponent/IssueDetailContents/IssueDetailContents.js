@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import SelectBox from './SelectBox/SelectBox';
+import IssueContentList from './IssueContentList/IssueContentList';
 
-const Container = styled.div``;
-const IssueContentList = styled.div``;
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 const SelectboxesContiainer = styled.div`
   width: 250px;
   display: flex;
