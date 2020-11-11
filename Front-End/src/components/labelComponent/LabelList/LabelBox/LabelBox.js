@@ -3,6 +3,8 @@ import { PostsContext } from '../../LabelComponent';
 import { LabelViewBox } from './LabelViewBox/LabelViewBox';
 import { LabelEditForm } from './LabelEditForm/LabelEditForm';
 import styled, { css } from 'styled-components';
+import { deleteLabelList } from 'Api/labelTranscation';
+
 export const LabelContext = React.createContext();
 
 const LabelBoxWrapper = styled.div`
@@ -17,17 +19,12 @@ const LabelBoxWrapper = styled.div`
 export function Label(props) {
   const { pushNewLabel, dispatch } = useContext(PostsContext);
   const [title, setTitle] = useState(props.data ? props.data.title : '');
-  const [contents, setContents] = useState(props.data ? props.data.title : '');
-  const [color, setColor] = useState(
-    props.data ? props.data.color : randomColor()
-  );
-  const [exTitle, setExTitle] = useState(
-    props.data ? props.data.title : 'LabelBox preview'
-  );
-  const [labelVisible, setLabelVisible] = useState(
-    props.data ? true : props.labelVisible
-  );
+  const [contents, setContents] = useState(props.data ? props.data.contents : '');
+  const [color, setColor] = useState(props.data ? props.data.color : randomColor());
+  const [exTitle, setExTitle] = useState(props.data ? props.data.title : 'LabelBox preview');
+  const [labelVisible, setLabelVisible] = useState(props.data ? true : props.labelVisible);
   const [formVisible, setFormVisible] = useState(!props.data);
+  const [editVisible, setEditVisible] = useState(true);
   const titleRef = useRef({ title });
   const contentsRef = useRef({ contents });
   const colorRef = useRef({ color });
@@ -54,15 +51,15 @@ export function Label(props) {
     return '#' + text;
   }
 
-  function submitLabelFormEventHandler(e) {
+  async function submitLabelFormEventHandler(e) {
     e.preventDefault();
     e.nativeEvent.submitter.classList.contains('cancel-btn')
       ? resetDataEventHandler()
-      : clickChangeEventHandler(e);
+      : await clickChangeEventHandler(e);
   }
 
-  function clickChangeEventHandler(e) {
-    pushNewLabel({
+  async function clickChangeEventHandler(e) {
+    await pushNewLabel({
       titleRef,
       contentsRef,
       colorRef,
@@ -74,18 +71,21 @@ export function Label(props) {
 
   function toggleLabelDetailEventHandler(e) {
     setFormVisible(!formVisible);
+    setEditVisible(!editVisible);
   }
 
   function resetDataEventHandler() {
-    titleRef.current.value = props.data ? props.data.title : '';
-    contentsRef.current.value = props.data ? props.data.contents : '';
+    setTitle(props.data ? props.data.title : '');
+    setContents(props.data ? props.data.contents : '');
     setColor(props.data ? props.data.color : randomColor());
     setExTitle(props.data ? props.data.title : 'LabelBox preview');
     key !== -1 ? setFormVisible(!formVisible) : props.toggleHandler(!labelVisible);
+    setEditVisible(!editVisible);
   }
 
-  function deleteLabelEventHandler(e) {
+  async function deleteLabelEventHandler(e) {
     e.preventDefault();
+    await deleteLabelList({ id: key });
     dispatch({ type: 'delete', idx: props.idx });
   }
 
@@ -108,6 +108,7 @@ export function Label(props) {
         formVisible,
         setLabelVisible,
         setFormVisible,
+        editVisible,
         deleteLabelEventHandler,
         submitLabelFormEventHandler,
         toggleLabelDetailEventHandler,

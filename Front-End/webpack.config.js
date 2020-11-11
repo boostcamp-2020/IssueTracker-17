@@ -25,6 +25,7 @@ module.exports = {
       Reducer: path.resolve(__dirname, './src/reducer/'),
       Style: path.resolve(__dirname, './src/style/'),
       Config: path.resolve(__dirname, './src/config/'),
+      Api: path.resolve(__dirname, './src/api/'),
       '@': path.resolve(__dirname, './src/'),
     },
   },

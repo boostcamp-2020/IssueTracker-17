@@ -37,7 +37,7 @@ export function LabelEditForm(props) {
   }
 
   return (
-    <Form onSubmit={(e) => submitLabelFormEventHandler(e) } visible={formVisible}>
+    <Form onSubmit={ async (e) => await submitLabelFormEventHandler(e) } visible={formVisible}>
       <InputWrapper className={'input-wrapper'}>
         <InputDiv>
           <div>Label name</div>
