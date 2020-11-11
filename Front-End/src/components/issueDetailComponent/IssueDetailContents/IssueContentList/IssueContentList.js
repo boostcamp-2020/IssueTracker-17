@@ -18,6 +18,9 @@ const IssueContentList = () => {
     contents: state.contents,
     created: state.created,
     profileUrl: state.profileUrl,
+    edit: state.edit,
+  };
+  const addOnlyRow = {
     edit: true,
   };
 
@@ -27,6 +30,7 @@ const IssueContentList = () => {
       {rows.map((row, index) => (
         <Comment row={row} isIssue={false} key={index}></Comment>
       ))}
+      <Comment row={addOnlyRow} isIssue={false} key={'add_comment'}></Comment>
     </Container>
   );
 };

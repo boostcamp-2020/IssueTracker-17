@@ -38,7 +38,7 @@ const addEditProperty = (list, userList) => {
       value.userName = user[0].name;
       value.profileUrl = user[0].profile_url;
     }
-    value.edit = true;
+    value.edit = false;
     return value;
   });
 };
@@ -53,6 +53,8 @@ const getInitialState = () => {
     createdAt: new Date().toISOString(),
     userName: '',
     profileUrl: '',
+    edit: false,
+    editTitle: false,
     labels: [],
     assignees: [],
     milestones: [],
@@ -85,6 +87,8 @@ const IssueDetailComponent = ({ issueId }) => {
       assignees: addCheckedProperty(userList, hasAssignees),
       milestones: addCheckedProperty(milestoneList, hasMilestone),
       comments: addEditProperty(comments, userList),
+      edit: false,
+      editTitle: false,
     };
   };
 

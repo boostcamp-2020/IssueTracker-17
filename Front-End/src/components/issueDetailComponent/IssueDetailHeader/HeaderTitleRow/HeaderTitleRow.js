@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { GrayButton } from '../../../../style';
+import { Button, GrayButton } from 'Style';
+import { IssueContext } from '../../IssueDetailComponent';
 
 const Container = styled.div`
   width: 100%;
@@ -34,15 +35,38 @@ const EditBtton = styled(GrayButton)`
   height: 30px;
   font-size: 13px;
 `;
+const TitleTextarea = styled.textarea`
+  width: calc(100% - 200px);
+  border-radius: 5px;
+`;
+const CancelButton = styled(GrayButton)`
+  background-color: transparent;
+  color: #0366d6;
+  border: none;
+`;
+const ConfirmButton = styled(GrayButton)`
+  font-weight: 600;
+`;
 
 const HeaderTitleRow = () => {
+  const { state } = useContext(IssueContext);
   return (
     <Container>
-      <TitleRowLeft>
-        <Title>이슈 제목</Title>
-        <IssueId>#N</IssueId>
-      </TitleRowLeft>
-      <EditBtton>Edit</EditBtton>
+      {state.editTitle ? (
+        <>
+          <TitleTextarea></TitleTextarea>
+          <ConfirmButton>Save</ConfirmButton>
+          <CancelButton>Cancel</CancelButton>
+        </>
+      ) : (
+        <>
+          <TitleRowLeft>
+            <Title>이슈 제목</Title>
+            <IssueId>#N</IssueId>
+          </TitleRowLeft>
+          <EditBtton>Edit</EditBtton>
+        </>
+      )}
     </Container>
   );
 };
