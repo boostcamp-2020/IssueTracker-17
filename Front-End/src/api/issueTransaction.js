@@ -6,8 +6,8 @@ export const postIssue = async (data) => {
   return res.data;
 };
 
-export async function getissueList() {
-  const apiurl = 'http://115.85.181.19:3000/issue/';
+export async function getissueList(data = '') {
+  const apiurl = 'http://115.85.181.19:3000/issue' + data;
   let res = await axios.get(apiurl);
   res = res.data.result;
   return res;

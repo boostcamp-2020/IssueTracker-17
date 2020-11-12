@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { FilterContext } from './index';
 
 const FilterBar = styled.div`
   //border: 1px solid rgb(225 228 232);
@@ -30,13 +31,13 @@ const InputForm = styled.input`
 `;
 
 export const FilterBarComponent = (props) => {
+  const { filterText, setFilterText } = useContext(FilterContext);
   return (
     <FilterBar>
       <FilterSelector value="1">
         <option value="1">Filters</option>
       </FilterSelector>
-
-      <InputForm placeholder="search all issues"></InputForm>
+      <InputForm value={filterText} onChange={(e)=>setFilterText(e.target.value)}/>
     </FilterBar>
   );
 };

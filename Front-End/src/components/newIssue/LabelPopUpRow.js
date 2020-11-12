@@ -36,9 +36,18 @@ const LabelCheckbox = styled.div`
   padding-top: 10px;
   padding-left: 10px;
 `;
-const LabelPopUpRow = ({ row }) => {
+const LabelPopUpRow = ({ row, Event }) => {
+  const changeFilterTextEventHandler = (e) => {
+    e.preventDefault();
+    Event({ id: row.id, title: row.title });
+  };
   return (
-    <LabelRow>
+    <LabelRow
+      onClick={Event ? (e) => changeFilterTextEventHandler(e) : undefined}
+    >
+      <LabelCheckbox>
+        <CheckSvg checked={row.checked}></CheckSvg>
+      </LabelCheckbox>
       <LabelRowContent>
         <LabelRowHead>
           <LabelColor labelColor={row.color} />
@@ -46,9 +55,6 @@ const LabelPopUpRow = ({ row }) => {
         </LabelRowHead>
         <LabelDescription>{row.contents}</LabelDescription>
       </LabelRowContent>
-      <LabelCheckbox>
-        <CheckSvg checked={row.checked}></CheckSvg>
-      </LabelCheckbox>
     </LabelRow>
   );
 };

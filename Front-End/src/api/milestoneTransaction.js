@@ -1,7 +1,7 @@
 import axios from 'axios';
 export const STATUS = { open: 0, closed: 1 };
 
-const host = 'http://localhost:3000';
+const host = HOST;
 
 export async function getMileStoneList() {
   const apiurl = host + '/milestone/';
