@@ -7,7 +7,7 @@ export const postIssue = async (data) => {
 };
 
 export async function getissueList() {
-  const apiurl = 'http://localhost:3000/issue/';
+  const apiurl = 'http://115.85.181.19:3000/issue/';
   let res = await axios.get(apiurl);
   res = res.data.result;
   return res;

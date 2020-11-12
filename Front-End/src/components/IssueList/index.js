@@ -3,10 +3,12 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { getissueList } from '../../api/issueTransaction';
 import { getMileStoneList } from '../../api/milestoneTransaction';
 import { getLabelList } from '../../api/labelTranscation';
+import { getUser } from 'Api/userTransaction';
 import { NavBar } from '../../style/Layout/Layout';
 import { LabelButton, MilestoneButton } from 'Components/common/';
 import { FilterBarComponent } from './FilterBar';
 import { IssueList } from './issueList';
+import { FilterSelectArea } from './FilterSelectArea/FilterSelectArea';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -54,16 +56,13 @@ const ListContainer = styled.div`
 const AllSelectChkboxArea = styled.div`
   width: 50%;
 `;
-const FilterSelectArea = styled.div`
-  display: flex;
-  width: 45%;
-  justify-content: space-between;
-`;
 
 const IssueListComponent = () => {
   const [issueList, setIssueList] = useState([]);
   const [labelList, setLabelList] = useState([]);
   const [mileStoneList, setMilestonelist] = useState([]);
+  const [assigneeList, setAssigneeList] = useState([]);
+  const [authorList, setAuthorList] = useState([]);
 
   useEffect(async () => {
     const res = await getissueList();
@@ -77,6 +76,11 @@ const IssueListComponent = () => {
     const res = await getLabelList();
     setLabelList(res);
   }, []);
+  useEffect(async () => {
+    const res = await getUser();
+    setAssigneeList(res);
+    setAuthorList(res);
+  })
 
   return (
     <IssueContainer>
@@ -92,14 +96,7 @@ const IssueListComponent = () => {
         <AllSelectChkboxArea>
           <input type="checkbox"></input>
         </AllSelectChkboxArea>
-        <FilterSelectArea>
-          <div>Author</div>
-          <div>Label</div>
-          <div>Projects</div>
-          <div>MileStones</div>
-          <div>Assignee</div>
-          <div>Sort</div>
-        </FilterSelectArea>
+        <FilterSelectArea />
       </ListHeader>
       <ListContainer>
         <IssueList issueList={issueList}></IssueList>
