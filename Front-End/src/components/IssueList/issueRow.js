@@ -117,6 +117,10 @@ export const IssueRow = (props) => {
     milestoneTitle,
   } = props.data;
 
+  const checkItems = props.checkItems;
+  const setCheckItems = props.setCheckItems;
+  const handleSingleCheck = props.handleSingleCheck;
+
   const labelList = labels.map((data, idx) => {
     return (
       <LabelBtn key={idx} color={data.color}>
@@ -133,7 +137,12 @@ export const IssueRow = (props) => {
     <RowContainer>
       <IssueContainer>
         <div>
-          <CheckBox type="checkbox" />
+          <CheckBox
+            type="checkbox"
+            onChange={(e) => handleSingleCheck(e.target.checked, id)}
+            // checkItems에 id가 있으면 체크 아니면 체크 해제
+            checked={checkItems.includes(id) ? true : false}
+          />
         </div>
         <StatusArea>
           {status === STATUS.open ? (

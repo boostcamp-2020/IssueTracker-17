@@ -11,7 +11,8 @@ import { FilterSelectArea } from './FilterSelectArea/FilterSelectArea';
 import { FilterCancelButton } from './FilterCancelButton/FilterCancelButton';
 import { GreenButton } from 'Style';
 import * as reducers from 'Reducer';
-
+import { Link } from 'react-router-dom';
+import { MarkAsPopUp } from './MarkAsArea/MarkAsPopUp';
 const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
@@ -89,6 +90,7 @@ const FilterColumn = styled.div`
 `;
 
 export const FilterContext = React.createContext();
+
 const initialState = {
   issueList: [],
   labelList: [],
@@ -106,12 +108,40 @@ const filterInitialState = {
 
 const IssueListComponent = () => {
   const [store, dispatch] = useReducer(reducers.issueReducer, initialState);
-  const [filterStore, filterDispatch] = useReducer(reducers.filterReducer, filterInitialState);
+  const [filterStore, filterDispatch] = useReducer(
+    reducers.filterReducer,
+    filterInitialState
+  );
   const [filterText, setFilterText] = useState('is:issue is:open');
   const [close, setClose] = useState(false);
   const [status, setStatus] = useState(0);
   const [labelNumber, setLabelNumber] = useState(0);
   const [milestoneNumber, setMilestoneNumber] = useState(0);
+  // 체크리스트 - 체크된 issue id저장
+  const [checkItems, setCheckItems] = useState([]);
+  // 체크박스 전체 선택
+  const handleAllCheck = (checked, list) => {
+    if (checked) {
+      const idArray = [];
+      // 전체 체크 박스가 체크 되면 id를 가진 모든 elements를 배열에 넣어주어서,
+      // 전체 체크 박스 체크
+      list.forEach((issue) => idArray.push(issue.id));
+      setCheckItems(idArray);
+    }
+    // 반대의 경우 전체 체크 박스 체크 삭제
+    else {
+      setCheckItems([]);
+    }
+  };
+
+  const handleSingleCheck = (checked, id) => {
+    if (checked) {
+      setCheckItems([...checkItems, id]);
+    } else {
+      // 체크 해제
+      setCheckItems(checkItems.filter((el) => el !== id));
+    }
+  };
 
   useEffect(async () => {
     const { labels, milestones } = await initialDispatch();
@@ -186,18 +216,40 @@ const IssueListComponent = () => {
           <MenuHeaderArea>
             <LabelButton count={labelNumber} />
             <MilestoneButton count={milestoneNumber} />
-            <GreenButtonMargin>New Issue</GreenButtonMargin>
+            <Link to="/NewIssue">
+              <GreenButtonMargin>New Issue</GreenButtonMargin>
+            </Link>
           </MenuHeaderArea>
         </TopMenuBar>
         <FilterCancelButton />
         <ListHeader>
           <AllSelectChkboxArea>
-            <CheckBox type="checkbox" />
+            <CheckBox
+              type="checkbox"
+              onChange={(e) =>
+                handleAllCheck(e.target.checked, store.issueList)
+              }
+              checked={
+                checkItems.length === store.issueList.length ? true : false
+              }
+            />
+            {checkItems.length ? <span> {checkItems.length}개 선택</span> : ''}
           </AllSelectChkboxArea>
-          <FilterSelectArea />
+          {checkItems.length > 0 ? (
+            <>
+              <MarkAsPopUp checkedIdList={checkItems}></MarkAsPopUp>
+            </>
+          ) : (
+            <FilterSelectArea />
+          )}
         </ListHeader>
         <ListContainer>
-          <IssueList issueList={store.issueList} />
+          <IssueList
+            checkItems={checkItems}
+            setCheckItems={setCheckItems}
+            handleSingleCheck={handleSingleCheck}
+            issueList={store.issueList}
+          />
         </ListContainer>
       </IssueContainer>
     </FilterContext.Provider>
