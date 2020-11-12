@@ -14,6 +14,9 @@ const AssigneeRow = styled.div`
   vertical-align: center;
   border-bottom: 1px solid #dddddd;
   position: relative;
+  &:hover {
+    background-color: #e7e7e7;
+  }
 `;
 const AssigneeName = styled.div`
   width: calc(100% - 50px);
