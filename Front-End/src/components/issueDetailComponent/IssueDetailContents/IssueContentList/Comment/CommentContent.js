@@ -52,7 +52,7 @@ const OwnerTag = styled.div`
   font-size: 14px;
 `;
 const EditButton = styled.button`
-  display: ${(props) => (props.isOwner ? 'block' : 'none')};
+  display: ${(props) => (props.isAuthor ? 'block' : 'none')};
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -67,9 +67,10 @@ const Avatar = styled.img`
 `;
 
 const CommentContent = () => {
-  const { loginUser, dispatch } = useContext(IssueContext);
+  const { state, loginUser, dispatch } = useContext(IssueContext);
   const { row, isIssue } = useContext(CommentContext);
-  const isOwner = row.user_id === loginUser.id;
+  const isOwner = row.user_id === state.userId;
+  const isAuthor = row.user_id === loginUser.id;
 
   const onEditButtonClicked = (e) => {
     const type = isIssue ? 'EDIT_ISSUE' : 'EDIT_COMMENT';
@@ -87,7 +88,7 @@ const CommentContent = () => {
           </CommentHeaderLeft>
           <CommentHeaderRight>
             <OwnerTag isOwner={isOwner}>Owner</OwnerTag>
-            <EditButton isOwner={isOwner} onClick={onEditButtonClicked}>
+            <EditButton isAuthor={isAuthor} onClick={onEditButtonClicked}>
               Edit
             </EditButton>
           </CommentHeaderRight>

@@ -19,7 +19,6 @@ const NewIssueContainer = styled.div`
   text-align: center;
   width: 95%;
   margin: auto;
-  margin-top: 80px;
   display: flex;
   justify-content: center;
 `;

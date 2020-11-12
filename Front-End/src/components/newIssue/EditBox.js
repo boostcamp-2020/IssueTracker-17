@@ -3,7 +3,7 @@ import useDebounce from '../../util/useDebounce.js';
 import styled from 'styled-components';
 import {} from '../../style';
 import { postFile } from 'Api';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 
 const EditBoxContainer = styled.div`
   width: 850px;
@@ -122,13 +122,13 @@ const FileInput = styled.input`
   display: none;
 `;
 
-const EditBox = ({ history, confirmData }) => {
+const EditBox = ({ confirmData }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [numCharacters, setNumCharacters] = useState(content.length);
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
   const debouncedContent = useDebounce(content, 1000);
-
+  const history = useHistory();
   const updateTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -137,17 +137,15 @@ const EditBox = ({ history, confirmData }) => {
     setContent(e.target.value);
   };
 
-  const onFileChanged = async (e) => {
+  const onFileChanged = (e) => {
     setFile(e.target.files[0]);
-    const formData = new FormData();
-    formData.append('img', file);
-    const uri = await postFile(formData);
   };
 
   const onCancelButtonClicked = (e) => {};
 
-  const onSubmitButtonClicked = (e) => {
-    confirmData(title, content);
+  const onSubmitButtonClicked = async (e) => {
+    await confirmData(title, content);
+    history.push('/issue');
   };
 
   useEffect(() => {
@@ -155,6 +153,15 @@ const EditBox = ({ history, confirmData }) => {
       setNumCharacters(debouncedContent.length);
     }
   });
+
+  useEffect(async () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append('img', file);
+      const uri = await postFile(formData);
+      setContent(`${content}\n${uri}`);
+    }
+  }, file);
 
   return (
     <EditBoxContainer>
@@ -166,6 +173,7 @@ const EditBox = ({ history, confirmData }) => {
         <ContentTextarea
           placeholder="Leave a comment"
           onChange={updateContent}
+          value={content}
         />
         <FileUploader htmlFor="img">
           Attatch files by selecting here
@@ -173,13 +181,16 @@ const EditBox = ({ history, confirmData }) => {
         <FileInput
           type="file"
           id="img"
+          name="img"
           accept=".gif,.jpeg,.jpg,.png"
           onChange={onFileChanged}
         />
         <NumCharacters>{numCharacters} Characters</NumCharacters>
       </TabContainer>
       <ButtonContainer>
-        <CancelButton onClick={onCancelButtonClicked}>Cancel</CancelButton>
+        <Link to="/issue">
+          <CancelButton onClick={onCancelButtonClicked}>Cancel</CancelButton>
+        </Link>
         <SubmitButton onClick={onSubmitButtonClicked}>
           Submit new issue
         </SubmitButton>

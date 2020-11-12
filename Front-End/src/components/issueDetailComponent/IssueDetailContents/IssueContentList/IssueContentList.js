@@ -9,7 +9,7 @@ const Container = styled.div`
 `;
 
 const IssueContentList = () => {
-  const { state, dispatch } = useContext(IssueContext);
+  const { state, loginUser, dispatch } = useContext(IssueContext);
   const rows = state.comments;
   const issueDetailRow = {
     id: state.id,
@@ -21,7 +21,7 @@ const IssueContentList = () => {
     edit: state.edit,
   };
   const addOnlyRow = {
-    profileUrl: state.profileUrl,
+    profileUrl: loginUser.profile_url,
     id: -1,
     contents: '',
     edit: true,
