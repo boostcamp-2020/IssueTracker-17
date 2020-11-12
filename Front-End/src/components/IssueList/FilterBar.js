@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { FilterContext } from './index';
 
@@ -31,13 +31,48 @@ const InputForm = styled.input`
 `;
 
 export const FilterBarComponent = (props) => {
-  const { filterText, setFilterText } = useContext(FilterContext);
+  const { filterText, setFilterText, filterDispatch, setStatus } = useContext(FilterContext);
+  const [zero, setZero] = useState(0);
+
+  const onChangeFilterEventHandler = (e) => {
+    switch (Number(e.target.value)) {
+      case 1:
+        setStatus(0);
+        filterDispatch({ type: 'deleteAll' });
+        break;
+      case 2:
+        setStatus(0);
+        filterDispatch({ type: 'oneFilter', data: 1, filter: 'author' });
+        break;
+      case 3:
+        setStatus(0);
+        filterDispatch({ type: 'oneFilter', data: 1, filter: 'asignee' });
+        break;
+      case 4:
+      case 5:
+        setStatus(1);
+        filterDispatch({ type: 'deleteAll' });
+        break;
+    }
+    setZero(0);
+  };
   return (
     <FilterBar>
-      <FilterSelector value="1">
-        <option value="1">Filters</option>
+      <FilterSelector
+        value={zero}
+        onChange={(e) => onChangeFilterEventHandler(e)}
+      >
+        <option value={0}>Filters</option>
+        <option value={1}>open issue</option>
+        <option value={2}>your issue</option>
+        <option value={3}>Everything assgined to you</option>
+        <option value={4}>Everything mentioning you</option>
+        <option value={5}>closed issues</option>
       </FilterSelector>
-      <InputForm value={filterText} onChange={(e)=>setFilterText(e.target.value)}/>
+      <InputForm
+        value={filterText}
+        onChange={(e) => setFilterText(e.target.value)}
+      />
     </FilterBar>
   );
 };
