@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const OuterProgressBar = styled.span`
   display: flex;
+  margin-top: 5px;
   height: 10px;
   overflow: hidden;
   background-color: rgb(225 228 232);
@@ -19,7 +20,6 @@ const InnerProgressBar = styled.span`
 `;
 
 export const ProgressBar = (props) => {
-  console.log(props);
   return (
     <OuterProgressBar>
       <InnerProgressBar width={props.width}></InnerProgressBar>
