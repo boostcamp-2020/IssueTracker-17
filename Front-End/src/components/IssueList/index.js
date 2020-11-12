@@ -7,6 +7,7 @@ import { NavBar } from '../../style/Layout/Layout';
 import { LabelButton, MilestoneButton } from 'Components/common/';
 import { FilterBarComponent } from './FilterBar';
 import { IssueList } from './issueList';
+import { GreenButton, GrayButton } from 'Style';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -21,20 +22,29 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     
   }
-  * {
-    border:1px solid black;
+
+  a{
+    text-decoration: none;
+    color:black;
+
   }
+
 `;
 const TopMenuBar = styled.div`
   display: flex;
   border: none;
   height: 40px;
-  padding: 5px;
+
+  margin-bottom: 15px;
   justify-content: space-between;
 `;
-
+const MenuHeaderArea = styled.div`
+  & * {
+    margin: 3px 5px 0px 0px;
+  }
+`;
 const IssueContainer = styled.div`
-  width: 85%;
+  width: 1024px;
   margin: auto;
 `;
 
@@ -54,10 +64,18 @@ const ListContainer = styled.div`
 const AllSelectChkboxArea = styled.div`
   width: 50%;
 `;
+const CheckBox = styled.input`
+  margin: 11px;
+`;
 const FilterSelectArea = styled.div`
   display: flex;
+  padding: 10px 5px 0px 5px;
   width: 45%;
   justify-content: space-between;
+`;
+const FilterColumn = styled.div`
+  width: 100px;
+  margin: 0px 10px 0px 10px;
 `;
 
 const IssueListComponent = () => {
@@ -81,24 +99,27 @@ const IssueListComponent = () => {
   return (
     <IssueContainer>
       <GlobalStyle />
-      <NavBar></NavBar>
+
       <TopMenuBar>
         <FilterBarComponent />
-        <LabelButton />
-        <MilestoneButton />
+        <MenuHeaderArea>
+          <LabelButton count={labelList.length} />
+          <MilestoneButton count={mileStoneList.length} />
+          <GreenButton>New Issue</GreenButton>
+        </MenuHeaderArea>
       </TopMenuBar>
 
       <ListHeader>
         <AllSelectChkboxArea>
-          <input type="checkbox"></input>
+          <CheckBox type="checkbox" />
         </AllSelectChkboxArea>
         <FilterSelectArea>
-          <div>Author</div>
-          <div>Label</div>
-          <div>Projects</div>
-          <div>MileStones</div>
-          <div>Assignee</div>
-          <div>Sort</div>
+          <FilterColumn>Author</FilterColumn>
+          <FilterColumn>Label</FilterColumn>
+          <FilterColumn>Projects</FilterColumn>
+          <FilterColumn>MileStones</FilterColumn>
+          <FilterColumn>Assignee</FilterColumn>
+          <FilterColumn>Sort</FilterColumn>
         </FilterSelectArea>
       </ListHeader>
       <ListContainer>
