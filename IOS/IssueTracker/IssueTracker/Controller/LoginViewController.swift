@@ -43,11 +43,12 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         if let credential = authorization.credential as? ASAuthorizationAppleIDCredential {
             var userVO = UserVO(type: 2)
             userVO.identifier = credential.user
-            if let fullName = credential.fullName {
+            if let fullName = credential.fullName, fullName.description.isEmpty != true {
                 userVO.name = fullName.description
             } else {
                 userVO.name = "appleUser" + credential.user
             }
+            userVO.profileUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Apple_logo_grey.svg/976px-Apple_logo_grey.svg.png"
             let userRepository = UserRepository()
             do {
                 try userRepository.insert(item: userVO)

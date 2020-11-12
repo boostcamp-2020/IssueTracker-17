@@ -5,7 +5,7 @@ function milestoneController() {}
 
 milestoneController.get = async (req, res, next) => {
     const { id } = req.params;
-    if (id) query.where = { id };
+
     const query = {
         include: [
             {
@@ -13,6 +13,7 @@ milestoneController.get = async (req, res, next) => {
             },
         ],
     };
+
     if (id) query.where = { id };
     try {
         const result = await milestone.findAll(query);
@@ -48,7 +49,8 @@ milestoneController.update = async (req, res, next) => {
     }
 };
 milestoneController.delete = async (req, res, next) => {
-    const { id } = req.body;
+    const { id } = req.params;
+
     const sql = { where: { id } };
     try {
         const result = await milestone.destroy(sql);
