@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { GreenButton, IssueStatusSvg } from 'Style';
 import { IssueContext } from '../../IssueDetailComponent';
+import { calcTime } from '@/util/calcTime';
 
 const Container = styled.div`
   display: flex;
@@ -48,7 +49,8 @@ const HeaderDetailRow = () => {
       </StatusBox>
       <Author>{state.userName}</Author>
       <Details>
-        opened this issue {state.created} · {state.comments.length} comments
+        opened this issue {calcTime(state.created)} · {state.comments.length}{' '}
+        comments
       </Details>
     </Container>
   );
