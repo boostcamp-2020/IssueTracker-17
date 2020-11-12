@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import EditBox from './EditBox.js';
-import SelectBox from './SelectBox.js';
-import AssigneeRow from './AssigneeRow';
-import LabelRow from './LabelRow';
-import MilestoneRow from './MilestoneRow';
+import EditBox from './EditBox/EditBox.js';
+import SelectBox from './SelectBox/SelectBox.js';
+import AssigneeRow from './SelectBox/SelectBoxList/SelectBoxRows/AssigneeRow';
+import LabelRow from './SelectBox/SelectBoxList/SelectBoxRows/LabelRow';
+import MilestoneRow from './SelectBox/SelectBoxList/SelectBoxRows/MilestoneRow';
 import styled from 'styled-components';
-import { NavBar } from 'Style';
 import {
   getUserList,
   getLabelList,
