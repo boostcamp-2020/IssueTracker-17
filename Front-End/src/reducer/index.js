@@ -1,2 +1,2 @@
-import { labelReducer } from './labelReducer';
-export { labelReducer };
+export * from './labelReducer';
+export * from './issueDetailReducer';

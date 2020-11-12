@@ -7,7 +7,7 @@ commentController.get = async (req, res, next) => {
     const { issueId } = req.params;
     try {
         const result = issueId
-            ? await comment.get(issueId)
+            ? await comment.get({ issueId })
             : await comment.findAll();
         res.status(200).json({ result: result });
     } catch (e) {

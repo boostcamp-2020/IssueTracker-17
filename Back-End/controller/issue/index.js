@@ -60,6 +60,7 @@ const makeGetResult = ({ result }) => {
     result.forEach((issueDataValue) => {
         let data = issueDataValue['dataValues'];
         data['userName'] = data['user']['name'];
+        data['profileUrl'] = data['user']['profile_url'];
         data['milestoneTitle'] = data['milestone']
             ? data['milestone']['title']
             : data['milestone'];
@@ -75,7 +76,6 @@ const makeGetResult = ({ result }) => {
             data['assignees'] = [...data['assignees'], user['user']];
         });
         data['has_assignees'] = undefined;
-        delete data['comments'];
     });
     return result;
 };

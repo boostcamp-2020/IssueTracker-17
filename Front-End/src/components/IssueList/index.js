@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { getissueList } from '../../api/issueTransaction';
 import { getMileStoneList } from '../../api/milestoneTransaction';
-import { getLabelList } from '../../api/labelTranscation';
 import { getUser } from 'Api/userTransaction';
+import { getLabelList } from '../../api/labelTransaction';
 import { NavBar } from '../../style/Layout/Layout';
 import { LabelButton, MilestoneButton } from 'Components/common/';
 import { FilterBarComponent } from './FilterBar';
 import { IssueList } from './issueList';
 import { FilterSelectArea } from './FilterSelectArea/FilterSelectArea';
+import { GreenButton, GrayButton } from 'Style';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -23,20 +24,29 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     
   }
-  * {
-    border:1px solid black;
+
+  a{
+    text-decoration: none;
+    color:black;
+
   }
+
 `;
 const TopMenuBar = styled.div`
   display: flex;
   border: none;
   height: 40px;
-  padding: 5px;
+
+  margin-bottom: 15px;
   justify-content: space-between;
 `;
-
+const MenuHeaderArea = styled.div`
+  & * {
+    margin: 3px 5px 0px 0px;
+  }
+`;
 const IssueContainer = styled.div`
-  width: 85%;
+  width: 1024px;
   margin: auto;
 `;
 
@@ -55,6 +65,10 @@ const ListContainer = styled.div`
 
 const AllSelectChkboxArea = styled.div`
   width: 50%;
+`;
+
+const CheckBox = styled.input`
+  margin: 11px;
 `;
 
 const IssueListComponent = () => {
@@ -85,16 +99,19 @@ const IssueListComponent = () => {
   return (
     <IssueContainer>
       <GlobalStyle />
-      <NavBar></NavBar>
+
       <TopMenuBar>
         <FilterBarComponent />
-        <LabelButton />
-        <MilestoneButton />
+        <MenuHeaderArea>
+          <LabelButton count={labelList.length} />
+          <MilestoneButton count={mileStoneList.length} />
+          <GreenButton>New Issue</GreenButton>
+        </MenuHeaderArea>
       </TopMenuBar>
 
       <ListHeader>
         <AllSelectChkboxArea>
-          <input type="checkbox"></input>
+          <CheckBox type="checkbox" />
         </AllSelectChkboxArea>
         <FilterSelectArea />
       </ListHeader>
