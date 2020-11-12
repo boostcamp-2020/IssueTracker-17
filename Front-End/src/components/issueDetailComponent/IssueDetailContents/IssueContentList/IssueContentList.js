@@ -13,7 +13,7 @@ const IssueContentList = () => {
   const rows = state.comments;
   const issueDetailRow = {
     id: state.id,
-    user_id: state.user_id,
+    user_id: state.userId,
     userName: state.userName,
     contents: state.contents,
     created: state.created,
@@ -21,6 +21,9 @@ const IssueContentList = () => {
     edit: state.edit,
   };
   const addOnlyRow = {
+    profileUrl: state.profileUrl,
+    id: -1,
+    contents: '',
     edit: true,
   };
 

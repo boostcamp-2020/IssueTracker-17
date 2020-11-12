@@ -16,23 +16,26 @@ const makeDateStrFormat = (date) => {
   };
   return new Date(date).toLocaleDateString('en-US', options);
 };
-/*
-const getElaspedTimeStr = (date) => {
-  const now = new Date();
-  const nowTimeStamp = now.getTime();
-  const dateTimeStamp = date.getTime();
+export const getElapsedTimeSTr = (date) => {
+  const time = Math.floor((new Date() - new Date(date)) / 1000);
+  const minute = time > 60 ? Math.floor(time / 60) : undefined;
+  const hour = minute > 60 ? Math.floor(minute / 60) : undefined;
+  const day = hour > 24 ? Math.floor(hour / 24) : undefined;
+  const month = day >= 30 ? Math.floor(day / 30) : undefined;
+  const year = day >= 365 ? Math.floor(day / 365) : undefined;
 
-  const diff = (nowTimeStamp - dateTimeStamp) / 1000;
-  let resultStr = '';
-
-  if (diff < 60) resultStr = `${diff} second${diff <= 1 ? '' : 's'} ago`;
-  else if (diff < 3600)
-    resultStr = `${diff} minute${diff / 60 <= 1 ? '' : 's'} ago`;
-  else if (diff < 3600 * 24)
-    resultStr = `${diff} hour${diff / (60 * 60) <= 1 ? '' : 's'} ago`;
-  else if (diff >= 3600 * 24 && diff < 3600 * 24 * 2) resultStr = `yesterday`;
+  if (year) {
+    return year + ` year${year > 1 ? 's' : ''} ago`;
+  } else if (month) {
+    return month + ` months${month > 1 ? 's' : ''} ago`;
+  } else if (day) {
+    return day + ` day${day > 1 ? 's' : ''} ago`;
+  } else if (hour) {
+    return hour + ` hour${hour > 1 ? 's' : ''} ago`;
+  } else if (minute) {
+    return minute + ` minute${minute > 1 ? 's' : ''} ago`;
+  } else return time + ` second${time > 1 ? 's' : ''} ago`;
 };
-*/
 const RowContainer = styled.div`
   padding: 5px;
   border-bottom: 1px solid rgb(225 228 232);
@@ -98,13 +101,9 @@ const FilterColumn = styled.div`
   width: 100px;
   margin: 0px 10px 0px 10px;
 `;
-/*
-const getDDays = (date) => {
-  const now = new Date();
-  const gap = now.getTime() - date.getTime();
-  return Math.floor(gap / (1000 * 60 * 60 * 24)) * -1;
-};
-*/
+const OpenCloseDateArea = styled.strong`
+  color: grey;
+`;
 export const IssueRow = (props) => {
   const {
     id,
@@ -151,7 +150,13 @@ export const IssueRow = (props) => {
             <LabelArea> {labelList}</LabelArea>
           </TitleLabelsArea>
           <div>
-            {'Opened ' + makeDateStrFormat(created)}
+            <OpenCloseDateArea title={makeDateStrFormat(created)}>
+              {`#${id} `}
+              {status === STATUS.open
+                ? 'Opened ' + getElapsedTimeSTr(created)
+                : 'Closed ' + getElapsedTimeSTr(created)}
+            </OpenCloseDateArea>
+
             <MileStoneTitleArea>
               {milestoneTitle ? <MileStoneSVG color="grey" /> : undefined}
               {milestoneTitle}

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { GreenButton, IssueStatusSvg } from 'Style';
+import { IssueContext } from '../../IssueDetailComponent';
 
 const Container = styled.div`
   display: flex;
@@ -15,6 +16,7 @@ const StatusBox = styled(GreenButton)`
   display: flex;
   justify-content: space-around;
   cursor: unset;
+  font-weight: 400;
   background-color: ${(props) =>
     props.status === 'closed' ? '#d73a49' : '#28a745'};
   & svg {
@@ -37,14 +39,17 @@ const Details = styled.div`
 `;
 
 const HeaderDetailRow = () => {
+  const { state } = useContext(IssueContext);
   return (
     <Container>
-      <StatusBox status={'closed'}>
-        <IssueStatus status={'closed'}></IssueStatus>
-        <div>Closed</div>
+      <StatusBox status={state.status}>
+        <IssueStatus status={state.status}></IssueStatus>
+        <div>{state.status}</div>
       </StatusBox>
-      <Author>Author</Author>
-      <Details>opened this issue N days ago · N comments</Details>
+      <Author>{state.userName}</Author>
+      <Details>
+        opened this issue {state.created} · {state.comments.length} comments
+      </Details>
     </Container>
   );
 };

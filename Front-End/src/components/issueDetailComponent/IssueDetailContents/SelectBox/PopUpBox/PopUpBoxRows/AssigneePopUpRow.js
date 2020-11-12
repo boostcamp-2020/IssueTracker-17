@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { CheckSvg } from 'Style';
+import { IssueContext } from '../../../../IssueDetailComponent';
 
 const Avatar = styled.img`
   width: 20px;
@@ -29,7 +30,7 @@ const AssigneeCheckbox = styled.div`
   padding: 5px 5px;
 `;
 
-const AssigneePopUpRow = ({ row }) => {
+const AssigneePopUpRow = ({ row, onClick }) => {
   return (
     <AssigneeRow>
       <Avatar src={row.profile_url}></Avatar>

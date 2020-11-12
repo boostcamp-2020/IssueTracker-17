@@ -64,16 +64,48 @@ const ListHeader = styled.div`
   justify-content: space-between;
   background-color: #f4f4f4;
 `;
+
 const ListContainer = styled.div`
   border: 1px solid rgb(225 228 232);
 `;
 
 const AllSelectChkboxArea = styled.div`
-  width: 50%;
+  width: 400px;
 `;
 
 const CheckBox = styled.input`
   margin: 11px;
+`;
+
+const FilterSelectArea = styled.div`
+  display: flex;
+  padding: 10px 5px 0px 5px;
+  width: 500px;
+  justify-content: space-between;
+`;
+
+const Caret = styled.span`
+  display: block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  content: '';
+  border-top-style: solid;
+  border-top-width: 4px;
+  border-right: 4px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-left: 4px solid transparent;
+`;
+
+const FilterColumn = styled.div`
+  width: 100px;
+  display: flex;
+  text-align: center;
+  & * {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 2px;
+  }
 `;
 
 export const FilterContext = React.createContext();
@@ -187,6 +219,7 @@ const IssueListComponent = () => {
         </ListContainer>
       </IssueContainer>
     </FilterContext.Provider>
+
   );
 };
 
