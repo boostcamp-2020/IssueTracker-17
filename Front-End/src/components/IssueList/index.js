@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { getissueList } from '../../api/issueTransaction';
 import { getMileStoneList } from '../../api/milestoneTransaction';
-import { getLabelList } from '../../api/labelTranscation';
+import { getLabelList } from '../../api/labelTransaction';
 import { NavBar } from '../../style/Layout/Layout';
 import { LabelButton, MilestoneButton } from 'Components/common/';
 import { FilterBarComponent } from './FilterBar';

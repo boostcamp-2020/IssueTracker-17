@@ -3,7 +3,7 @@ import { PostsContext } from '../../LabelComponent';
 import { LabelViewBox } from './LabelViewBox/LabelViewBox';
 import { LabelEditForm } from './LabelEditForm/LabelEditForm';
 import styled, { css } from 'styled-components';
-import { deleteLabelList } from 'Api/labelTranscation';
+import { deleteLabelList } from 'Api/labelTransaction';
 
 export const LabelContext = React.createContext();
 
@@ -19,10 +19,18 @@ const LabelBoxWrapper = styled.div`
 export function Label(props) {
   const { pushNewLabel, dispatch } = useContext(PostsContext);
   const [title, setTitle] = useState(props.data ? props.data.title : '');
-  const [contents, setContents] = useState(props.data ? props.data.contents : '');
-  const [color, setColor] = useState(props.data ? props.data.color : randomColor());
-  const [exTitle, setExTitle] = useState(props.data ? props.data.title : 'LabelBox preview');
-  const [labelVisible, setLabelVisible] = useState(props.data ? true : props.labelVisible);
+  const [contents, setContents] = useState(
+    props.data ? props.data.contents : ''
+  );
+  const [color, setColor] = useState(
+    props.data ? props.data.color : randomColor()
+  );
+  const [exTitle, setExTitle] = useState(
+    props.data ? props.data.title : 'LabelBox preview'
+  );
+  const [labelVisible, setLabelVisible] = useState(
+    props.data ? true : props.labelVisible
+  );
   const [formVisible, setFormVisible] = useState(!props.data);
   const [editVisible, setEditVisible] = useState(true);
   const titleRef = useRef({ title });
@@ -79,7 +87,9 @@ export function Label(props) {
     setContents(props.data ? props.data.contents : '');
     setColor(props.data ? props.data.color : randomColor());
     setExTitle(props.data ? props.data.title : 'LabelBox preview');
-    key !== -1 ? setFormVisible(!formVisible) : props.toggleHandler(!labelVisible);
+    key !== -1
+      ? setFormVisible(!formVisible)
+      : props.toggleHandler(!labelVisible);
     setEditVisible(!editVisible);
   }
 

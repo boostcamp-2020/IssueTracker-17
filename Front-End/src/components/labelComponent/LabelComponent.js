@@ -3,7 +3,11 @@ import { LabelMilestoneNewButton } from './LabelMilestoneNewButton/LabelMileston
 import { LabelList } from './LabelList/LabelList';
 import * as reducers from '../../reducer';
 import styled from 'styled-components';
-import { getLabelList, createLabelList, updateLabelList } from 'Api/labelTranscation';
+import {
+  getLabelList,
+  createLabelList,
+  updateLabelList,
+} from 'Api/labelTransaction';
 
 const Wrapper = styled.div`
   width: 85%;
@@ -45,7 +49,7 @@ export function LabelComponent() {
     });
   }, []);
 
-  let labelList = state.list;
+  const labelList = state.list;
 
   return (
     <PostsContext.Provider value={{ labelList, dispatch, pushNewLabel }}>

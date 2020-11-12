@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100vh;
     font-family: Helvetica, Arial, sans-serif;
+    overflow-y: auto;
   }
   #app {
     width: 100%;
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/milestone/:mode" component={Pages.EditMileStonePage} />
         <Route exac path="/milestone" component={Pages.MileStoneListPage} />
         <Route exac path="/issue" component={Pages.IssueListPage} />
+        <Route path="/detail/:issueId" component={Pages.IssueDetailPage} />
       </Switch>
     </BrowserRouter>
   );

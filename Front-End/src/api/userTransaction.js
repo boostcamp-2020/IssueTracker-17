@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 export const getUserList = async () => {
-  const apiurl = 'http://localhost:3000/user/';
+  const apiurl = 'http://localhost:3000/user/getAll';
   const res = await axios.get(apiurl);
-  return res;
+  return res.data;
 };
 
 export const updateAssignee = async (data) => {
