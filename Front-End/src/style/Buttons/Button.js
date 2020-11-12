@@ -3,10 +3,10 @@ import styled from 'styled-components';
 export const Button = styled.button`
   padding: 10px;
   font-size: 16px;
-  margin:2px;
+  margin: 2px;
   font-weight: bolder;
   line-height: 20px;
-  width: fit-content
+  width: fit-content;
   vertical-align: middle;
   cursor: pointer;
   border: 1px solid;

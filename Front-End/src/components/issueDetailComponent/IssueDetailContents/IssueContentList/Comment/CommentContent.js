@@ -45,10 +45,11 @@ const CreatedTime = styled.div`
 `;
 const OwnerTag = styled.div`
   display: ${(props) => (props.isOwner ? 'block' : 'none')};
-  border: 1px solid black;
+  border: 1px solid #aaaaaa;
   border-radius: 5px;
   padding: 5px;
   margin: 0 10px;
+  font-size: 14px;
 `;
 const EditButton = styled.button`
   display: ${(props) => (props.isOwner ? 'block' : 'none')};
@@ -66,9 +67,15 @@ const Avatar = styled.img`
 `;
 
 const CommentContent = () => {
-  const { loginUser } = useContext(IssueContext);
+  const { loginUser, dispatch } = useContext(IssueContext);
   const { row, isIssue } = useContext(CommentContext);
-  const isOwner = row.userId === loginUser.id;
+  const isOwner = row.user_id === loginUser.id;
+
+  const onEditButtonClicked = (e) => {
+    const type = isIssue ? 'EDIT_ISSUE' : 'EDIT_COMMENT';
+    dispatch({ type: type, commentId: row.id });
+  };
+
   return (
     <Container>
       <Avatar src={row.profileUrl}></Avatar>
@@ -80,7 +87,9 @@ const CommentContent = () => {
           </CommentHeaderLeft>
           <CommentHeaderRight>
             <OwnerTag isOwner={isOwner}>Owner</OwnerTag>
-            <EditButton isOwner={isOwner}>Edit</EditButton>
+            <EditButton isOwner={isOwner} onClick={onEditButtonClicked}>
+              Edit
+            </EditButton>
           </CommentHeaderRight>
         </CommentHeader>
         <CommentBody>{row.contents}</CommentBody>

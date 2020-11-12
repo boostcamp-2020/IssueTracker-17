@@ -3,14 +3,24 @@ import styled from 'styled-components';
 import useDebounce from '@/util/useDebounce';
 import { IssueContext } from '../../../IssueDetailComponent';
 import { CommentContext } from './Comment';
-import { GreenButton, GrayButton } from 'Style';
+import { GreenButton, GrayButton, IssueStatusSvg } from 'Style';
+import { updateIssue, updateComment, postComment, getComments } from 'Api';
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: left;
+`;
+const Avatar = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+`;
 const Container = styled.div`
   width: calc(100% - 86px);
   height: auto;
   border: 1px solid #cccccc;
   border-radius: 5px;
-  margin-left: 56px;
+  margin-left: 15px;
   text-align: left;
   margin-bottom: 70px;
   font-family: inherit;
@@ -110,17 +120,81 @@ const CancelButton = styled(GrayButton)`
   font-weight: 600;
   margin-right: 8px;
 `;
+const CloseButton = styled(GrayButton)`
+  padding: 5px 12px;
+  width: auto;
+  height: 30px;
+  color: #24292e;
+  display: inline-flex;
+  justify-content: space-around;
+  cursor: pointer;
+  font-weight: 400;
+  background-color: #fafbfc;
+  margin-right: 10px;
+  & svg {
+    fill: ${(props) => (props.status === 'closed' ? '#28a745' : '#d73a49')};
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+`;
+const CloseSvg = styled(IssueStatusSvg)``;
 
 const CommentEditBox = () => {
-  const { loginUser } = useContext(IssueContext);
+  const { loginUser, state, dispatch, history, addEditProperty } = useContext(
+    IssueContext
+  );
   const { row, isIssue } = useContext(CommentContext);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(row.contents);
   const [numCharacters, setNumCharacters] = useState(content.length);
   const debouncedContent = useDebounce(content, 1000);
 
   const onFileChanged = async (e) => {};
   const updateContent = (e) => {
     setContent(e.target.value);
+  };
+
+  const onCancelButtonClicked = (e) => {
+    const type = isIssue ? 'EDIT_ISSUE' : 'EDIT_COMMENT';
+    dispatch({ type: type, commentId: row.id });
+  };
+  const onUpdateButtonClicked = async (e) => {
+    if (row.id < 0) {
+      const data = {
+        issueId: state.id,
+        contents: content,
+        created: new Date().toISOString(),
+        emoji: '',
+        userId: loginUser.id,
+      };
+      const postResult = await postComment(data);
+      const newComments = await getComments(state.id);
+      const comments = addEditProperty(newComments, state.assignees);
+      dispatch({
+        type: 'REFRESH_COMMENTS',
+        comments: comments,
+      });
+    }
+
+    let result = undefined;
+    const type = isIssue ? 'UPDATE_ISSUE' : 'UPDATE_COMMENT';
+    if (isIssue) {
+      result = await updateIssue({ id: state.id, contents: content });
+    } else {
+      result = await updateComment({ id: row.id, contents: content });
+    }
+
+    dispatch({ type: type, commentId: row.id, contents: content });
+  };
+
+  const onCloseButtonClicked = (e) => {
+    if (state.status === 'open') {
+      dispatch({ type: 'CLOSE_ISSUE' });
+      updateIssue({ id: state.id, status: '1' });
+    } else {
+      dispatch({ type: 'REOPEN_ISSUE' });
+      updateIssue({ id: state.id, status: '0' });
+    }
   };
 
   useEffect(() => {
@@ -130,33 +204,46 @@ const CommentEditBox = () => {
   });
 
   return (
-    <Container>
-      <TabContainer>
-        <EditHead isIssue={isIssue}>
-          <TabsDiv>
-            <Tab>Write</Tab>
-          </TabsDiv>
-        </EditHead>
-        <ContentTextarea
-          placeholder="Leave a comment"
-          onChange={updateContent}
-        />
-        <FileUploader htmlFor="img">
-          Attatch files by selecting here
-        </FileUploader>
-        <FileInput
-          type="file"
-          id="img"
-          accept=".gif,.jpeg,.jpg,.png"
-          onChange={onFileChanged}
-        />
-        <NumCharacters>{numCharacters} Characters</NumCharacters>
-      </TabContainer>
-      <ButtonContainer>
-        <CancelButton>Cancel</CancelButton>
-        <UpdateButton>Update Comment</UpdateButton>
-      </ButtonContainer>
-    </Container>
+    <Wrapper>
+      <Avatar src={row.profileUrl} />
+      <Container>
+        <TabContainer>
+          <EditHead isIssue={isIssue}>
+            <TabsDiv>
+              <Tab>Write</Tab>
+            </TabsDiv>
+          </EditHead>
+          <ContentTextarea
+            placeholder="Leave a comment"
+            value={content}
+            onChange={updateContent}
+          />
+          <FileUploader htmlFor="img">
+            Attatch files by selecting here
+          </FileUploader>
+          <FileInput
+            type="file"
+            id="img"
+            accept=".gif,.jpeg,.jpg,.png"
+            onChange={onFileChanged}
+          />
+          <NumCharacters>{numCharacters} Characters</NumCharacters>
+        </TabContainer>
+        <ButtonContainer>
+          {row.id > -1 ? (
+            <CancelButton onClick={onCancelButtonClicked}>Cancel</CancelButton>
+          ) : (
+            <CloseButton status={state.status} onClick={onCloseButtonClicked}>
+              <CloseSvg status={state.status}></CloseSvg>
+              <div>{state.status === 'closed' ? 'Reopen' : 'Close'} issue</div>
+            </CloseButton>
+          )}
+          <UpdateButton onClick={onUpdateButtonClicked}>
+            Update Comment
+          </UpdateButton>
+        </ButtonContainer>
+      </Container>
+    </Wrapper>
   );
 };
 

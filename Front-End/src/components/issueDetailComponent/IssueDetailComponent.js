@@ -11,7 +11,7 @@ import {
   getComments,
 } from 'Api';
 import { NavBar } from 'Style';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: 85%;
@@ -91,7 +91,7 @@ const IssueDetailComponent = ({ issueId }) => {
       editTitle: false,
     };
   };
-
+  const history = useHistory();
   const loginUser = JSON.parse(localStorage.getItem('user'));
 
   const [state, dispatch] = useReducer(
@@ -105,8 +105,9 @@ const IssueDetailComponent = ({ issueId }) => {
   }, []);
 
   return (
-    <IssueContext.Provider value={{ state, dispatch, loginUser }}>
-      <NavBar></NavBar>
+    <IssueContext.Provider
+      value={{ state, dispatch, loginUser, history, addEditProperty }}
+    >
       <Wrapper>
         <IssueDetailHeader></IssueDetailHeader>
         <IssueDetailContents></IssueDetailContents>
