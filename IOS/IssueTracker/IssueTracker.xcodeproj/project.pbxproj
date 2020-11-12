@@ -49,6 +49,10 @@
 		AA40D14E25543B7F005B4835 /* IssueHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D14A25543B7F005B4835 /* IssueHeaderCollectionViewCell.swift */; };
 		AA40D14F25543B7F005B4835 /* IssueItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA40D14B25543B7F005B4835 /* IssueItemCollectionViewCell.xib */; };
 		AA40D15225543B83005B4835 /* IssueAddCommentSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA40D15125543B83005B4835 /* IssueAddCommentSubView.xib */; };
+		AA9BE7CD255DA4F00030189E /* CommentAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9BE7CC255DA4F00030189E /* CommentAddViewController.swift */; };
+		AAB10FA1255C9E04002B10B7 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB10FA0255C9E04002B10B7 /* Comment.swift */; };
+		AAB10FA4255CAD18002B10B7 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB10FA3255CAD18002B10B7 /* CommentRepository.swift */; };
+		AAB10FA7255D3B77002B10B7 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB10FA6255D3B77002B10B7 /* PaddingLabel.swift */; };
 		EA74D17795BA82EAD2AD8CBA /* Pods_IssueTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2633AFE581F57FFC1B375827 /* Pods_IssueTracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +105,10 @@
 		AA40D14A25543B7F005B4835 /* IssueHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA40D14B25543B7F005B4835 /* IssueItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IssueItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		AA40D15125543B83005B4835 /* IssueAddCommentSubView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IssueAddCommentSubView.xib; sourceTree = "<group>"; };
+		AA9BE7CC255DA4F00030189E /* CommentAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentAddViewController.swift; sourceTree = "<group>"; };
+		AAB10FA0255C9E04002B10B7 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		AAB10FA3255CAD18002B10B7 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
+		AAB10FA6255D3B77002B10B7 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +158,7 @@
 				886910D82551A123009D0F96 /* User.swift */,
 				88AEA8F7255282D200C934B3 /* Issue.swift */,
 				88F8E96425590AB6005B9F22 /* ResultResponse.swift */,
+				AAB10FA0255C9E04002B10B7 /* Comment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -185,6 +194,7 @@
 				8850A79C254B065D00039E76 /* MilestoneViewController.swift */,
 				AA40D14225543B25005B4835 /* IssueAddCommentViewController.swift */,
 				8850A7A2254B151600039E76 /* MilestoneDetailViewController.swift */,
+				AA9BE7CC255DA4F00030189E /* CommentAddViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -194,6 +204,7 @@
 			children = (
 				887C633025482F3800579562 /* LoginManager.swift */,
 				886910DE2551A91F009D0F96 /* RestApiServerURL.swift */,
+				AAB10FA6255D3B77002B10B7 /* PaddingLabel.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -253,6 +264,7 @@
 				88AEA8F425527FC900C934B3 /* LabelRepository.swift */,
 				88E2A30D25546C23009E1968 /* IssueRepository.swift */,
 				88E2A31025546E92009E1968 /* UserRepository.swift */,
+				AAB10FA3255CAD18002B10B7 /* CommentRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -398,12 +410,14 @@
 				AA40D0EF2549B3B7005B4835 /* IssueViewController.swift in Sources */,
 				88AEA8F8255282D200C934B3 /* Issue.swift in Sources */,
 				8850A7A3254B151600039E76 /* MilestoneDetailViewController.swift in Sources */,
+				AAB10FA7255D3B77002B10B7 /* PaddingLabel.swift in Sources */,
 				AA40D0F32549CFA9005B4835 /* IssueViewCustomCell.swift in Sources */,
 				888AAAA92547C1EB0013B974 /* ViewController.swift in Sources */,
 				88AEA8EC25525F6500C934B3 /* MilestoneRepository.swift in Sources */,
 				AA40D14E25543B7F005B4835 /* IssueHeaderCollectionViewCell.swift in Sources */,
 				AA40D13825543A3E005B4835 /* IssueFilterViewController.swift in Sources */,
 				88AEA8F525527FC900C934B3 /* LabelRepository.swift in Sources */,
+				AAB10FA1255C9E04002B10B7 /* Comment.swift in Sources */,
 				88AEA8DF25525A6500C934B3 /* Date+Extention.swift in Sources */,
 				88F8E96525590AB6005B9F22 /* ResultResponse.swift in Sources */,
 				88E2A31125546E92009E1968 /* UserRepository.swift in Sources */,
@@ -420,8 +434,10 @@
 				888AAAA52547C1EB0013B974 /* AppDelegate.swift in Sources */,
 				886910D52551A0D2009D0F96 /* UIColor+Extention.swift in Sources */,
 				8850A79D254B065D00039E76 /* MilestoneViewController.swift in Sources */,
+				AA9BE7CD255DA4F00030189E /* CommentAddViewController.swift in Sources */,
 				888AAAA72547C1EB0013B974 /* SceneDelegate.swift in Sources */,
 				88E2A30E25546C23009E1968 /* IssueRepository.swift in Sources */,
+				AAB10FA4255CAD18002B10B7 /* CommentRepository.swift in Sources */,
 				883D89BA2549483C005BDBE4 /* Label.swift in Sources */,
 				AA40D14C25543B7F005B4835 /* IssueItemCollectionViewCell.swift in Sources */,
 				889EEC74254A90BF009CED1C /* LabelDetailViewController.swift in Sources */,

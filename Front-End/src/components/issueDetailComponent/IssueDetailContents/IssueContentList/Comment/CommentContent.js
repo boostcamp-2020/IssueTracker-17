@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { IssueContext } from '../../../IssueDetailComponent';
 import { CommentContext } from './Comment';
+import { calcTime } from '@/util/calcTime';
+import ReactMarkdown from 'react-markdown';
 
 const Container = styled.div`
   display: flex;
@@ -52,7 +54,7 @@ const OwnerTag = styled.div`
   font-size: 14px;
 `;
 const EditButton = styled.button`
-  display: ${(props) => (props.isOwner ? 'block' : 'none')};
+  display: ${(props) => (props.isAuthor ? 'block' : 'none')};
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -67,9 +69,10 @@ const Avatar = styled.img`
 `;
 
 const CommentContent = () => {
-  const { loginUser, dispatch } = useContext(IssueContext);
+  const { state, loginUser, dispatch } = useContext(IssueContext);
   const { row, isIssue } = useContext(CommentContext);
-  const isOwner = row.user_id === loginUser.id;
+  const isOwner = row.user_id === state.userId;
+  const isAuthor = row.user_id === loginUser.id;
 
   const onEditButtonClicked = (e) => {
     const type = isIssue ? 'EDIT_ISSUE' : 'EDIT_COMMENT';
@@ -83,16 +86,18 @@ const CommentContent = () => {
         <CommentHeader isIssue={isIssue}>
           <CommentHeaderLeft>
             <Author>{row.userName}</Author>
-            <CreatedTime>commented at {row.created}</CreatedTime>
+            <CreatedTime>commented {calcTime(row.created)}</CreatedTime>
           </CommentHeaderLeft>
           <CommentHeaderRight>
             <OwnerTag isOwner={isOwner}>Owner</OwnerTag>
-            <EditButton isOwner={isOwner} onClick={onEditButtonClicked}>
+            <EditButton isAuthor={isAuthor} onClick={onEditButtonClicked}>
               Edit
             </EditButton>
           </CommentHeaderRight>
         </CommentHeader>
-        <CommentBody>{row.contents}</CommentBody>
+        <CommentBody>
+          <ReactMarkdown>{row.contents}</ReactMarkdown>
+        </CommentBody>
       </CommentContainer>
     </Container>
   );

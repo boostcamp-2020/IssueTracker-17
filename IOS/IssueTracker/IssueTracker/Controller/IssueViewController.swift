@@ -19,23 +19,26 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     let toolbar = UIToolbar()
     private let searchController = UISearchController(searchResultsController: nil)
     var issues = [Issue]()
+    var tempIssues = [Issue]()
     private let issueRepository = IssueRepository()
     
     @IBAction func tabTableEditButton(_ sender: UIBarButtonItem) {
         if issueTableView.isEditing {
             issueTableView.setEditing(false, animated: true)
             self.navigationItem.leftBarButtonItem = issueFilterButton
-            self.tabBarController?.tabBar.isHidden = false
+            self.tabBarController?.tabBar.alpha = 1
+            toolbar.alpha = 0
         }else{
             let button = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(tabSelectAllButton))
             self.navigationItem.leftBarButtonItem = button
-            self.tabBarController?.tabBar.isHidden = true
+            self.tabBarController?.tabBar.alpha = 0
+            let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+            let buttonIssue = UIBarButtonItem(title: "선택 이슈 닫기", style: .plain, target: self, action: nil)
+            toolbar.setItems([flexibleSpace, buttonIssue], animated: true)
+            toolbar.topAnchor.constraint(equalTo: issueTableView.bottomAnchor).isActive = true
+            toolbar.alpha = 1
             issueTableView.setEditing(true, animated: true)
             issueTableView.allowsMultipleSelectionDuringEditing = true
-           // let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-            let button2 = UIBarButtonItem(title: "선택 이슈 닫기", style: .plain, target: self, action: nil)
-            
-            toolbar.setItems([button2], animated: true)
         }
     }
     
@@ -75,6 +78,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     
     private func configure() {
         self.navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
         issueTableView.dataSource = self
         issueTableView.delegate = self
         issueTableView.allowsMultipleSelectionDuringEditing = true
@@ -90,7 +94,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
             if (arrayOfIssue != nil) {
                 for issue in arrayOfIssue! {
                     self.issues.append(issue.decode())
-                    print(self.issues)
+                    self.tempIssues.append(issue.decode())
                 }
             }
             self.issueTableView.reloadData()
@@ -108,24 +112,28 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        issues = tempIssues.filter({$0.title.lowercased().contains(searchText.lowercased()) })
+        if searchText == "" {
+            issues = tempIssues
+        }
+        issueTableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        issues = tempIssues
+        issueTableView.reloadData()
     }
     
     func configToolbar() {
         self.view.addSubview(toolbar)
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        let button = UIBarButtonItem(title: "선택 이슈 닫기", style: .plain, target: self, action: nil)
-        
-       // toolbar.setItems([flexibleSpace, button], animated: true)
         toolbar.translatesAutoresizingMaskIntoConstraints = false
-        toolbar.topAnchor.constraint(equalTo: issueTableView.bottomAnchor).isActive = true
+        //toolbar.topAnchor.constraint(equalTo: self.tabBarController?.tabBar.topAnchor!).isActive = true
         toolbar.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        //toolbar.bottomAnchor.constraint(equalToSystemSpacingBelow: self.view.bottomAnchor, multiplier: 0).isActive = true
         toolbar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         toolbar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
-     //   toolbar.items = [flexibleSpace, button]
-        
+        toolbar.alpha = 0
     }
+    
     @objc func saveIssueData() {
         getIssue()
         issueTableView.reloadData()
@@ -152,8 +160,15 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selectSelectCell(tableView: tableView, indexPath: indexPath)
-        print("select", indexPath)
+        issueTableView.deselectRow(at: indexPath, animated: false)
+        if issueTableView.isEditing {
+            self.selectSelectCell(tableView: tableView, indexPath: indexPath)
+            print("select", indexPath)
+        }else{
+            let vc = self.storyboard?.instantiateViewController(identifier: "IssueItemViewController") as! IssueItemViewController
+            vc.issue = issues[indexPath.row]
+            present(vc, animated: true, completion: nil)
+        }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

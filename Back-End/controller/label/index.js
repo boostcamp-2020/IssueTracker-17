@@ -41,7 +41,7 @@ labelController.update = async (req, res, next) => {
     }
 };
 labelController.delete = async (req, res, next) => {
-    const { id } = req.body;
+    const { id } = req.params;
     try {
         const result = await label.delete({ id: id });
         res.status(200).json({ result: result });

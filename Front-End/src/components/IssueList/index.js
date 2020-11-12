@@ -114,7 +114,7 @@ const IssueListComponent = () => {
   );
   const [filterText, setFilterText] = useState('is:issue is:open');
   const [close, setClose] = useState(false);
-  const [status, setStatus] = useState('open');
+  const [status, setStatus] = useState(0);
   const [labelNumber, setLabelNumber] = useState(0);
   const [milestoneNumber, setMilestoneNumber] = useState(0);
   // 체크리스트 - 체크된 issue id저장
@@ -158,7 +158,7 @@ const IssueListComponent = () => {
   }, [filterStore]);
 
   const initialDispatch = async () => {
-    const issues = await getissueList();
+    const issues = await getissueList('?status=0');
     const milestones = await getMileStoneList();
     const labels = await getLabelList();
     const users = await getUserList();
@@ -179,7 +179,8 @@ const IssueListComponent = () => {
   const makeFilterText = () => {
     let str = 'is:issue';
     let query = '';
-    str += ' is:' + (status === 'open' ? 'open' : 'close');
+    str += ' is:' + (status === 0 ? 'open' : 'close');
+    query += 'status=' + (status === 0 ? '0' : '1');
     for (const key in filterStore) {
       str +=
         filterStore[key]['text'] !== ''
@@ -190,7 +191,7 @@ const IssueListComponent = () => {
           ? '&' + key + '=' + filterStore[key]['id']
           : '';
     }
-    query = '?' + query.slice(1);
+    query = '?' + query;
     return { str, query };
   };
 
@@ -204,6 +205,7 @@ const IssueListComponent = () => {
         close,
         setClose,
         filterStore,
+        setStatus,
       }}
     >
       <IssueContainer>

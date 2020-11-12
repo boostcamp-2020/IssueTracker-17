@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -11,7 +10,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IssueAddCommentViewController" customModule="IssueTracker" customModuleProvider="target">
             <connections>
+                <outlet property="assigneesScrollView" destination="7gS-IB-6qK" id="WIc-km-ZZL"/>
                 <outlet property="handleArea" destination="dJj-YY-A5E" id="Xut-vf-zO1"/>
+                <outlet property="labelScrollView" destination="APG-k2-tAb" id="W7B-59-zVS"/>
+                <outlet property="milestoneProgressView" destination="63w-xI-p7g" id="7pb-dO-Mzz"/>
+                <outlet property="milestoneTitleLabel" destination="DZA-AH-y9Z" id="Xhk-Jf-QVQ"/>
+                <outlet property="milestoneUIView" destination="dVn-25-JUY" id="WFA-oP-9ju"/>
                 <outlet property="view" destination="dJj-YY-A5E" id="5VL-oC-gcK"/>
             </connections>
         </placeholder>
@@ -30,6 +34,9 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="댓글 추가"/>
+                    <connections>
+                        <action selector="addCommentButton:" destination="-1" eventType="touchUpInside" id="mPb-lE-I1K"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ysb-tk-XzS">
                     <rect key="frame" x="314" y="60" width="43" height="43"/>
@@ -37,6 +44,9 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
                     <state key="normal" image="control" catalog="system"/>
+                    <connections>
+                        <action selector="scrollToUpButton:" destination="-1" eventType="touchUpInside" id="hls-0Z-vLB"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dee-ku-Eg4">
                     <rect key="frame" x="357" y="60" width="43" height="43"/>
@@ -44,6 +54,9 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
                     <state key="normal" image="chevron.down" catalog="system"/>
+                    <connections>
+                        <action selector="scrollToDownButton:" destination="-1" eventType="touchUpInside" id="sOA-2b-afH"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="담당자" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBN-w8-j1K">
                     <rect key="frame" x="14" y="145" width="58" height="27"/>
@@ -84,34 +97,12 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="APG-k2-tAb">
                     <rect key="frame" x="14" y="403" width="386" height="51"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJr-IJ-xv5">
-                            <rect key="frame" x="0.0" y="1" width="386" height="48"/>
-                        </stackView>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="jSe-Wk-iE2" firstAttribute="trailing" secondItem="tJr-IJ-xv5" secondAttribute="trailing" id="3RJ-wB-h3D"/>
-                        <constraint firstItem="tJr-IJ-xv5" firstAttribute="top" secondItem="jSe-Wk-iE2" secondAttribute="top" constant="1" id="7np-oQ-PnO"/>
-                        <constraint firstItem="jSe-Wk-iE2" firstAttribute="bottom" secondItem="tJr-IJ-xv5" secondAttribute="bottom" constant="2" id="Q3i-xK-F17"/>
-                        <constraint firstItem="tJr-IJ-xv5" firstAttribute="leading" secondItem="jSe-Wk-iE2" secondAttribute="leading" id="Z7e-jz-FpM"/>
-                    </constraints>
                     <viewLayoutGuide key="contentLayoutGuide" id="z7d-N4-zCT"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="jSe-Wk-iE2"/>
                 </scrollView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7gS-IB-6qK">
                     <rect key="frame" x="14" y="195" width="386" height="113"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYg-VS-xXU">
-                            <rect key="frame" x="0.0" y="1" width="386" height="110"/>
-                        </stackView>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="48U-wf-H1k" firstAttribute="trailing" secondItem="jYg-VS-xXU" secondAttribute="trailing" id="0c4-v3-WRC"/>
-                        <constraint firstItem="jYg-VS-xXU" firstAttribute="leading" secondItem="48U-wf-H1k" secondAttribute="leading" id="ByC-SA-Ex0"/>
-                        <constraint firstItem="jYg-VS-xXU" firstAttribute="top" secondItem="48U-wf-H1k" secondAttribute="top" constant="1" id="p70-5c-vED"/>
-                        <constraint firstItem="48U-wf-H1k" firstAttribute="bottom" secondItem="jYg-VS-xXU" secondAttribute="bottom" constant="2" id="pHi-gb-E2M"/>
-                    </constraints>
                     <viewLayoutGuide key="contentLayoutGuide" id="Z8u-Tl-Snm"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="48U-wf-H1k"/>
                 </scrollView>
@@ -126,9 +117,25 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="63w-xI-p7g">
+                            <rect key="frame" x="8" y="53" width="370" height="4"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </progressView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hdt-qM-yEu">
+                    <rect key="frame" x="14" y="665" width="386" height="51"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                    <state key="normal" title="Close Issue">
+                        <color key="titleColor" systemColor="systemRedColor"/>
+                    </state>
+                    <connections>
+                        <action selector="closeIssueButton:" destination="-1" eventType="touchUpInside" id="Kgw-ef-hxh"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="W33-Ag-tDU"/>
             <color key="backgroundColor" systemColor="systemGray6Color"/>
@@ -146,6 +153,9 @@
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

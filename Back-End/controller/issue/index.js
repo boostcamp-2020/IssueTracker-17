@@ -76,6 +76,11 @@ const makeGetResult = ({ result }) => {
             data['assignees'] = [...data['assignees'], user['user']];
         });
         data['has_assignees'] = undefined;
+        data['comments'].forEach((comment) => {
+            comment['dataValues']['name'] = comment['dataValues']['user']['name'];
+            comment['dataValues']['profileUrl'] = comment['dataValues']['user']['profile_url'];
+            comment['dataValues']['user'] = undefined;
+        });
     });
     return result;
 };

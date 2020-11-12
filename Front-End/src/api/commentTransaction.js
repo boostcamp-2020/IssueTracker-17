@@ -9,13 +9,13 @@ export const getComments = async (issueId) => {
 };
 
 export const updateComment = async (data) => {
-  const apiurl = `http://localhost:3000/comment`;
+  const apiurl = host + `/comment/`;
   const res = await axios.put(apiurl, data);
   return res.data.result;
 };
 
 export const postComment = async (data) => {
-  const apiurl = 'http://localhost:3000/comment/';
+  const apiurl = host + `/comment/`;
   const res = await axios.post(apiurl, data);
   return res.data.result;
 };

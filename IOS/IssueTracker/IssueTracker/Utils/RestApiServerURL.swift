@@ -12,4 +12,5 @@ struct RestApiServerURL {
     static var login = "http://115.85.181.19:3000/user/ios-login"
     static var image = "http://115.85.181.19:3000/imageUpload"
     static var issue = "http://115.85.181.19:3000/issue"
+    static var comment = "http://115.85.181.19:3000/comment"
 }

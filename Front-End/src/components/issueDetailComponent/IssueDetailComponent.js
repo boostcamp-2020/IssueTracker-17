@@ -16,7 +16,6 @@ import { Redirect, useHistory } from 'react-router-dom';
 const Wrapper = styled.div`
   width: 85%;
   margin: auto;
-  margin-top: 50px;
   display: block;
 `;
 
