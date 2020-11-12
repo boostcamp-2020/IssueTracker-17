@@ -60,9 +60,9 @@ const makeGetResult = ({ result }) => {
     result.forEach((issueDataValue) => {
         let data = issueDataValue['dataValues'];
         data['userName'] = data['user']['name'];
-        data['milestoneTitle'] = data['milstone']
-            ? data['milstone']['title']
-            : data['milstone'];
+        data['milestoneTitle'] = data['milestone']
+            ? data['milestone']['title']
+            : data['milestone'];
         data['user'] = undefined;
         data['milestone'] = undefined;
         data['labels'] = [];

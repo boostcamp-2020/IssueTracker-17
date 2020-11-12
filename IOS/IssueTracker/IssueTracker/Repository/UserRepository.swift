@@ -24,8 +24,12 @@ class UserRepository: Repository {
             response in
             switch response.result {
             case .success:
-                print(try! response.result.get())
-            // TODO: 해당 값을 캐시로 저장
+                if let token = try? response.result.get() {
+                    print(token)
+                    let parse = try! LoginManager.shared.decode(jwtToken: token)
+                    UserDefaults.standard.setValue(parse, forKey: "UserToken")
+                    NotificationCenter.default.post(name: .loginSuccess, object: nil)
+                }
             case .failure(let error):
                 print(error)
                 return

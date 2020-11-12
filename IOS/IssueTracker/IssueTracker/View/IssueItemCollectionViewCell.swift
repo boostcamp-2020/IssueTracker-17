@@ -14,23 +14,13 @@ class IssueItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var issueDateLabel: UILabel!
     @IBOutlet weak var issueCommentLabel: UILabel!
     
-    
-    //    private var imageCache = NSCache<NSString, UIImage>()
-    //    var downloadBGTask: URLSessionDownloadTask!
-    //    var downloadBGSession: URLSession!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         issueCommentLabel.translatesAutoresizingMaskIntoConstraints = false
         let labelInset = UIEdgeInsets(top: 10, left: 10, bottom: -10, right: -10)
-        
-       
         issueCommentLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor, constant: labelInset.left).isActive = true
         issueCommentLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor, constant: labelInset.right).isActive = true
         issueCommentLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: labelInset.bottom).isActive = true
-
-        //        itemImageView.layer.cornerRadius = 20
-        //        itemImageView.layer.masksToBounds = true
     }
     
     override func prepareForReuse() { //cell재사용시 초기화
@@ -42,22 +32,23 @@ class IssueItemCollectionViewCell: UICollectionViewCell {
         //        }
     }
     
-    func setupCellValues() {
+    func setupCellValues(comment: Comment) {
         print("cell test")
+        print(comment)
+        
+        //        let url = URL(string: "http://verona-api.municipiumstaging.it/system/images/image/image/22/app_1920_1280_4.jpg")
+        //        let data = try Data(contentsOf: url!)
+        //        uiImageView.image = UIImage(data: data)
+        //        uiImageView
+        
         issueWriterLabel.text = "글쓴이"
-        issueDateLabel.text = "13 minutes ago"
-        issueCommentLabel.text = "댓글댓글댓글댓글 123123123 \\n123adkasldklwk dowkfoesfsmdfmsfmefmwmow vmowmvomvosmdlvdsvmsd123123 \\n \\12 31231\\n123123"
-        //        let tempUrl = URL(string: item.image)!
-        //        if let image = imageCache.object(forKey: tempUrl.lastPathComponent as NSString) {//이미지 캐시 존재
-        //            self.itemImageView.image = image
-        //        } else {//캐시없음
-        //            self.downloadBGSession = {
-        //                let downloadBGSessionConfig = URLSessionConfiguration.default
-        //                return URLSession(configuration: downloadBGSessionConfig, delegate: self, delegateQueue: OperationQueue.main)
-        //            }()
-        //            self.downloadBGTask = self.downloadBGSession.downloadTask(with: tempUrl)
-        //            self.downloadBGTask.resume()
-        //        }
+        issueCommentLabel.text = comment.contents
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let date:Date = dateFormatter.date(from: comment.created)!
+        dateFormatter.dateFormat = "MM월 dd일 HH:mm"
+        issueDateLabel.text = dateFormatter.string(from: date)
+
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {

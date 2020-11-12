@@ -13,11 +13,13 @@ class IssueItemViewController: UIViewController {
         case collapsed
     }
     @IBOutlet weak var issueItemCollectionView: UICollectionView!
-    var data: [String] = ["댓글1", "댓글2", "댓글3", "댓글4", "댓글5"]
+    private let commentRepository = CommentRepository()
+    var issue: Issue = Issue()
+    var comments = [Comment]()
     var issueAddCommentViewController: IssueAddCommentViewController!
     var visualEffectView: UIVisualEffectView!
     var issueAddCommentViewHeight: Int = 0
-    let issueAddCommentViewHandleAreaHeight = 100
+    let issueAddCommentViewHandleAreaHeight = 120
     var issueAddCommentViewVisible = false
     var nextState:ViewState {
         return issueAddCommentViewVisible ? .collapsed : .expanded
@@ -25,9 +27,19 @@ class IssueItemViewController: UIViewController {
     var runningAnimations = [UIViewPropertyAnimator]()
     var animationProgressWhenInterrupted:CGFloat = 0
     
+    @IBAction func goBackButton(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func editIssueButton(_ sender: UIBarButtonItem) {
+        openDetailView(issue: issue)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
+        getComment()
+        print("=======", issue)
         issueAddCommentViewHeight = Int(self.view.frame.height - 150)
         issueItemCollectionView.delegate = self
         issueItemCollectionView.dataSource = self
@@ -40,11 +52,20 @@ class IssueItemViewController: UIViewController {
         self.visualEffectView.isUserInteractionEnabled = false
     }
     
+    func getComment() {
+        self.comments.removeAll()
+        commentRepository.getAll(id: issue.id, finishedCallback: { [weak self] (response) in
+            self?.comments = response
+            self?.issueItemCollectionView.reloadData()
+        })
+    }
+    
     func setupIssueAddCommentView() {
         visualEffectView = UIVisualEffectView()
         visualEffectView.frame = self.view.frame
         self.view.addSubview(visualEffectView)
         issueAddCommentViewController = IssueAddCommentViewController(nibName: "IssueAddCommentSubView", bundle: nil)
+        issueAddCommentViewController.configIssue(issue: issue)
         self.addChild(issueAddCommentViewController)
         self.view.addSubview(issueAddCommentViewController.view)
         issueAddCommentViewController.view.frame = CGRect(x: 0, y: Int(self.view.frame.height) - issueAddCommentViewHandleAreaHeight, width: Int(self.view.bounds.width), height: issueAddCommentViewHeight)
@@ -134,7 +155,7 @@ class IssueItemViewController: UIViewController {
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
         }
     }
-    //openDetailView(issue: issues[indexPath.row])
+    
     func openDetailView(issue: Issue) {
         guard let vcName = self.storyboard?.instantiateViewController(withIdentifier: "IssueDetailViewController") as? IssueDetailViewController else {
             return
@@ -152,14 +173,14 @@ extension IssueItemViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count //카테고리 별 아이템 수
+        return comments.count //카테고리 별 아이템 수
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let issueHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "IssueHeaderCollectionViewCell", for: indexPath) as? IssueHeaderCollectionViewCell else{
             return UICollectionReusableView()
         }
-        issueHeaderView.setupHeaderSection()
+        issueHeaderView.setupHeaderSection(issue: issue)
         return issueHeaderView
     }
     
@@ -167,19 +188,15 @@ extension IssueItemViewController: UICollectionViewDelegate, UICollectionViewDat
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IssueItemCollectionViewCell", for: indexPath) as? IssueItemCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.setupCellValues()
+        cell.setupCellValues(comment: comments[indexPath.row])
         return cell
     }
     
-    
-    
     private func setupFlowLayout() { //cell layout 지정
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.headerReferenceSize = CGSize(width: view.bounds.width, height: 170)
-        //flowLayout.itemSize = CGSize(width: view.bounds.width, height: 120)
+        flowLayout.headerReferenceSize = CGSize(width: view.bounds.width, height: 150)
         flowLayout.estimatedItemSize = CGSize(width: view.bounds.width, height: 150)
-        // flowLayout.minimumInteritemSpacing = 10
-        flowLayout.minimumLineSpacing = 20
+        flowLayout.minimumLineSpacing = 10
         flowLayout.sectionInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
         
         self.issueItemCollectionView.collectionViewLayout = flowLayout

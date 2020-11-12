@@ -21,6 +21,21 @@ class LoginViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(moveTabBarView), name: .loginSuccess, object: nil)
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        if UserDefaults.standard.value(forKey: "UserToken") != nil {
+            moveTabBarView()
+        }
+    }
+    
+    @objc func moveTabBarView() {
+        guard let vcName = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") else {
+            return
+        }
+        vcName.modalPresentationStyle = .overFullScreen
+        self.present(vcName, animated: true, completion: nil)
+        
     }
 }
 extension LoginViewController: ASAuthorizationControllerDelegate {
@@ -28,11 +43,12 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         if let credential = authorization.credential as? ASAuthorizationAppleIDCredential {
             var userVO = UserVO(type: 2)
             userVO.identifier = credential.user
-            if let fullName = credential.fullName {
+            if let fullName = credential.fullName, fullName.description.isEmpty != true {
                 userVO.name = fullName.description
             } else {
                 userVO.name = "appleUser" + credential.user
             }
+            userVO.profileUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Apple_logo_grey.svg/976px-Apple_logo_grey.svg.png"
             let userRepository = UserRepository()
             do {
                 try userRepository.insert(item: userVO)

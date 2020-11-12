@@ -13,6 +13,8 @@ router.get(
     userController.login
 );
 
+router.get('/getAll', userController.getUsers);
+
 //router.get('/logout', userController.logout);
 
 module.exports = router;

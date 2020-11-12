@@ -19,6 +19,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     let toolbar = UIToolbar()
     private let searchController = UISearchController(searchResultsController: nil)
     var issues = [Issue]()
+    var tempIssues = [Issue]()
     private let issueRepository = IssueRepository()
     
     @IBAction func tabTableEditButton(_ sender: UIBarButtonItem) {
@@ -77,6 +78,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     
     private func configure() {
         self.navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
         issueTableView.dataSource = self
         issueTableView.delegate = self
         issueTableView.allowsMultipleSelectionDuringEditing = true
@@ -92,7 +94,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
             if (arrayOfIssue != nil) {
                 for issue in arrayOfIssue! {
                     self.issues.append(issue.decode())
-                    print(self.issues)
+                    self.tempIssues.append(issue.decode())
                 }
             }
             self.issueTableView.reloadData()
@@ -110,7 +112,16 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        issues = tempIssues.filter({$0.title.lowercased().contains(searchText.lowercased()) })
+        if searchText == "" {
+            issues = tempIssues
+        }
+        issueTableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        issues = tempIssues
+        issueTableView.reloadData()
     }
     
     func configToolbar() {
@@ -122,6 +133,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         toolbar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
         toolbar.alpha = 0
     }
+    
     @objc func saveIssueData() {
         getIssue()
         issueTableView.reloadData()
@@ -134,12 +146,12 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("reload!!")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "IssueViewCustomCell", for: indexPath) as? IssueViewCustomCell else {
             return UITableViewCell()
         }
         cell.issueTitleLabel.text = issues[indexPath.row].title
         cell.issueContentsLabel.text = issues[indexPath.row].contents
+        cell.selectionStyle = .default
         return cell
     }
     
@@ -148,8 +160,14 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selectSelectCell(tableView: tableView, indexPath: indexPath)
-        print("select", indexPath)
+        if issueTableView.isEditing {
+            self.selectSelectCell(tableView: tableView, indexPath: indexPath)
+            print("select", indexPath)
+        }else{
+            let vc = self.storyboard?.instantiateViewController(identifier: "IssueItemViewController") as! IssueItemViewController
+            vc.issue = issues[indexPath.row]
+            present(vc, animated: true, completion: nil)
+        }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

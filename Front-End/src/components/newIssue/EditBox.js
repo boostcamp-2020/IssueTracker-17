@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import useDebounce from '../../util/useDebounce.js';
 import styled from 'styled-components';
 import {} from '../../style';
+import { postFile } from 'Api';
+import { Redirect } from 'react-router-dom';
 
 const EditBoxContainer = styled.div`
   width: 850px;
@@ -24,6 +26,7 @@ const TitleTextarea = styled.textarea`
   background-color: rgb(250 251 252);
   resize: none;
   display: ${(props) => props.display || 'block'};
+  font-family: inherit;
 `;
 const TabContainer = styled.div`
   margin-top: 10px;
@@ -31,9 +34,20 @@ const TabContainer = styled.div`
   position: relative;
 `;
 const TabsDiv = styled.div`
+  height: 35px;
   border-bottom: 1px solid #cccccc;
+  display: flex;
+  justify-content: left;
 `;
-const Tab = styled.div``;
+const Tab = styled.div`
+  height: 20px;
+  padding: 10px;
+  padding-bottom: 5px;
+  border: 1px solid #dddddd;
+  background-color: white;
+  border-bottom: none;
+  cursor: pointer;
+`;
 const ContentTextarea = styled.textarea`
   margin-top: 15px;
   max-height: 400px;
@@ -48,12 +62,12 @@ const ContentTextarea = styled.textarea`
   border-radius: 6px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+  font-family: inherit;
 `;
-const FileUploader = styled.div`
+const FileUploader = styled.label`
   width: calc(100% - 14px);
   height: 20px;
   padding: 5px;
-  cursor: pointer;
   font-size: 14px;
   color: rgb(36 41 46);
   vertical-align: middle;
@@ -64,6 +78,7 @@ const FileUploader = styled.div`
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   margin-top: -4px;
+  cursor: pointer;
 `;
 const ButtonContainer = styled.div`
   width: 100%;
@@ -103,15 +118,36 @@ const NumCharacters = styled.div`
   font-size: 14px;
   color: #777777;
 `;
+const FileInput = styled.input`
+  display: none;
+`;
 
-const EditBox = () => {
+const EditBox = ({ history, confirmData }) => {
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [numCharacters, setNumCharacters] = useState(content.length);
-
+  const [file, setFile] = useState();
   const debouncedContent = useDebounce(content, 1000);
+
+  const updateTitle = (e) => {
+    setTitle(e.target.value);
+  };
 
   const updateContent = (e) => {
     setContent(e.target.value);
+  };
+
+  const onFileChanged = async (e) => {
+    setFile(e.target.files[0]);
+    const formData = new FormData();
+    formData.append('img', file);
+    const uri = await postFile(formData);
+  };
+
+  const onCancelButtonClicked = (e) => {};
+
+  const onSubmitButtonClicked = (e) => {
+    confirmData(title, content);
   };
 
   useEffect(() => {
@@ -122,7 +158,7 @@ const EditBox = () => {
 
   return (
     <EditBoxContainer>
-      <TitleTextarea placeholder="Title" />
+      <TitleTextarea placeholder="Title" onChange={updateTitle} />
       <TabContainer>
         <TabsDiv>
           <Tab>Write</Tab>
@@ -131,12 +167,22 @@ const EditBox = () => {
           placeholder="Leave a comment"
           onChange={updateContent}
         />
-        <FileUploader>Attatch files by selecting here</FileUploader>
+        <FileUploader htmlFor="img">
+          Attatch files by selecting here
+        </FileUploader>
+        <FileInput
+          type="file"
+          id="img"
+          accept=".gif,.jpeg,.jpg,.png"
+          onChange={onFileChanged}
+        />
         <NumCharacters>{numCharacters} Characters</NumCharacters>
       </TabContainer>
       <ButtonContainer>
-        <CancelButton>Cancel</CancelButton>
-        <SubmitButton>Submit new issue</SubmitButton>
+        <CancelButton onClick={onCancelButtonClicked}>Cancel</CancelButton>
+        <SubmitButton onClick={onSubmitButtonClicked}>
+          Submit new issue
+        </SubmitButton>
       </ButtonContainer>
     </EditBoxContainer>
   );

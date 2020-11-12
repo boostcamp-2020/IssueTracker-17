@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { GearSvg } from './svg';
 import SelectBoxList from './SelectBoxList';
@@ -57,28 +57,52 @@ const getValues = (title) => {
   }
 };
 
-const SelectBox = ({ WrappedComponent, rows, title, popUp, setPopUp }) => {
+const SelectBox = ({
+  WrappedComponent,
+  rows,
+  setRows,
+  title,
+  popUp,
+  setPopUp,
+}) => {
+  const popupElement = useRef(null);
+  const selectBoxHeaderElement = useRef(null);
   const values = getValues(title);
   const setVisible = () => {
     setPopUp('block');
   };
 
+  const onClickOutsideHandler = (event) => {
+    if (selectBoxHeaderElement.current.contains(event.target)) {
+      return;
+    }
+    if (popUp === 'block' && !popupElement.current.contains(event.target)) {
+      setPopUp('none');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', onClickOutsideHandler);
+  });
+
   return (
     <SelectBoxContainer>
-      <SelectBoxHeader onClick={setVisible}>
+      <SelectBoxHeader onClick={setVisible} ref={selectBoxHeaderElement}>
         <SelectBoxTitle>{title}</SelectBoxTitle>
         <SelectBoxSvg />
       </SelectBoxHeader>
       <SelectBoxList
         title={title}
-        rows={rows}
+        rows={rows.filter((value) => value.checked)}
         WrappedComponent={WrappedComponent}
       />
       <PopUpBox
+        el={popupElement}
         popupTitle={values.popupTitle}
         WrappedComponent={values.component}
         popup={popUp}
-        rows={[]}
+        rows={rows}
+        setRows={setRows}
       ></PopUpBox>
     </SelectBoxContainer>
   );

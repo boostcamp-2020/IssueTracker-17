@@ -15,14 +15,22 @@ class IssueHeaderCollectionViewCell: UICollectionReusableView {
     @IBOutlet weak var issueItemStatusButton: UIButton!
     
     override func awakeFromNib() {
-        //categoryNameLabel.layer.borderWidth = 1
+        //cell reuse
     }
     
-    func setupHeaderSection() {
-        print("test")
-        issueItemWriterLabel.text = "writer"
-        issueItemNumberLabel.text = "#11"
-        issueItemContentsLabel.text = "이슈 목록 확인 구현중"
+    func setupHeaderSection(issue: Issue) {
+        let url = URL(string: issue.profileUrl)
+        do {
+            if let url = url {
+                let data = try Data(contentsOf: url)
+                issueItemImageView.image = UIImage(data: data)
+            }
+        } catch let error {
+            debugPrint("ERRor ::\(error)")
+        }
+        issueItemWriterLabel.text = issue.userName
+        issueItemNumberLabel.text = "#\(issue.id)"
+        issueItemContentsLabel.text = issue.title
     }
     
 }

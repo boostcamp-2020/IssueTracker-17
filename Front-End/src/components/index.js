@@ -1,1 +1,1 @@
-export { default as LabelComponent } from './labelComponent/LabelComponent';
+export { LabelComponent } from './labelComponent/LabelComponent';

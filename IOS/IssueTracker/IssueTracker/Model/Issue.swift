@@ -15,6 +15,7 @@ struct Issue {
     var created = Date()
     var userName = ""
     var milestoneId = -1
+    var profileUrl = ""
     var labels = [Label]()
     var assignees = [User]()
 }
@@ -28,7 +29,7 @@ extension Issue {
         for assigne in self.assignees {
             assigneVOArray.append(assigne.model)
         }
-        return IssueVO(id: id, title: title, status: status, contents: contents, created: created.getString(), userName: userName, labels: labelVOArray, assignees: assigneVOArray)
+        return IssueVO(id: id, title: title, status: status, contents: contents, created: created.getString(), userName: userName, profileUrl: profileUrl,  labels: labelVOArray, assignees: assigneVOArray)
     }
 }
 struct IssueVO : Codable {
@@ -38,6 +39,7 @@ struct IssueVO : Codable {
     var contents = ""
     var created = ""
     var userName = ""
+    var profileUrl = ""
     var labels = [LabelVO]()
     var assignees = [UserVO]()
 }
@@ -51,7 +53,7 @@ extension IssueVO {
         for assigne in assignees {
             assigneArray.append(assigne.decode())
         }
-        return Issue(id: id, title: title, status: status, contents: contents, created: created.getDate(), userName: userName, labels: labelArray, assignees: assigneArray)
+        return Issue(id: id, title: title, status: status, contents: contents, created: created.getDate(), userName: userName, profileUrl: profileUrl, labels: labelArray, assignees: assigneArray)
         
     }
 }

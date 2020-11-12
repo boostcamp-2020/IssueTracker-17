@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  padding: 5px 16px;
-  font-size: 14px;
-  font-weight: 400;
+  padding: 10px;
+  font-size: 16px;
+  margin:2px;
+  font-weight: bolder;
   line-height: 20px;
+  width: fit-content
   vertical-align: middle;
   cursor: pointer;
   border: 1px solid;
@@ -24,10 +26,13 @@ export const GrayButton = styled(Button)`
 `;
 
 export const LabelMilestoneButton = styled(Button)`
-  background-color: white;
+  background-color: ${(props) => (props.color ? props.color : 'white')};
+  color: ${(props) => (props.color ? 'white' : 'black')};
   height: 33px;
   border: 1px solid darkgray;
+  border-radius: 0 !important;
   font-size: 16px;
+  font-weight: bold;
   padding: 0px;
-  width: 50%;
+  width: 150px;
 `;
