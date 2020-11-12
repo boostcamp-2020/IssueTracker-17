@@ -1,7 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IssueContext } from '../../../IssueDetailComponent';
 import { SelectBoxContext } from '../SelectBox';
+import {
+  updateAssignee,
+  insertHasLabel,
+  deleteHasLabel,
+  updateIssue,
+} from 'Api';
 
 const PopupContainer = styled.div`
   display: ${(props) => props.popup};
@@ -30,24 +36,79 @@ const PopupList = styled.div`
   max-height: 50vh;
 `;
 
-const updateChecked = (id, source, dispatch, category) => {
-  if (category === 'Milestone') {
-    dispatch(
-      source.map((value) => {
+const PopUpBox = ({ category, PopUpRowcomponent, elementRef, popupTitle }) => {
+  const { popUp } = useContext(SelectBoxContext);
+  const { state, dispatch } = useContext(IssueContext);
+
+  let rows;
+  switch (category) {
+    case 'Assignees':
+      rows = state.assignees;
+      break;
+    case 'Labels':
+      rows = state.labels;
+      break;
+    case 'Milestone':
+      rows = state.milestones;
+  }
+
+  const putAssignee = (id) => {
+    const data = { issueId: state.id, insertAssignee: [], deleteAssignee: [] };
+    const checked = rows.filter((value) => value.id == id)[0].checked;
+    if (checked) data.deleteAssignee.push(id);
+    else data.insertAssignee.push(id);
+    updateAssignee(data);
+  };
+
+  const putLabel = (id) => {
+    const data = { issueId: state.id, labelId: [id] };
+    const checked = rows.filter((value) => value.id == id)[0].checked;
+    if (checked) deleteHasLabel(data);
+    else insertHasLabel(data);
+  };
+
+  const putMilestone = (id) => {
+    updateIssue({
+      id: state.id,
+      milestoneId: id,
+    });
+  };
+
+  const putChanges = (id) => {
+    switch (category) {
+      case 'Assignees':
+        putAssignee(id);
+        break;
+      case 'Labels':
+        putLabel(id);
+        break;
+      case 'Milestone':
+        putMilestone(id);
+        break;
+    }
+  };
+
+  const updateChecked = (id, source) => {
+    if (category === 'Milestone') {
+      const milestones = source.map((value) => {
         value.checked = false;
         return value;
-      })
-    );
-  }
-  const updatedItem = source.filter((item) => item.id === +id)[0];
-  updatedItem.checked = !updatedItem.checked;
-  const updatedItemIndex = source.indexOf(updatedItem);
-  dispatch(Object.assign([...source], { [updatedItemIndex]: updatedItem }));
-};
+      });
+      dispatch({ type: 'UNCHECK_MILESTONE', milestones: milestones });
+    }
+    const updatedItem = source.filter((item) => item.id === +id)[0];
+    updatedItem.checked = !updatedItem.checked;
+    const updatedItemIndex = source.indexOf(updatedItem);
+    const newRows = Object.assign([...source], {
+      [updatedItemIndex]: updatedItem,
+    });
+    dispatch({
+      type: 'UPDATE',
+      category: category,
+      newRows: newRows,
+    });
+  };
 
-const PopUpBox = ({ category, PopUpRowcomponent, elementRef, popupTitle }) => {
-  const { popUp, rows } = useContext(SelectBoxContext);
-  const { dispatch } = useContext(IssueContext);
   return (
     <PopupContainer popup={popUp} ref={elementRef}>
       <PopupTitle>{popupTitle}</PopupTitle>
@@ -55,8 +116,9 @@ const PopUpBox = ({ category, PopUpRowcomponent, elementRef, popupTitle }) => {
         {rows.map((row) => (
           <div
             key={`div${row.id}${row.name}`}
-            onClick={() => {
-              updateChecked(row.id, rows, dispatch, category);
+            onClick={(e) => {
+              putChanges(row.id);
+              updateChecked(row.id, rows);
             }}
           >
             <PopUpRowcomponent

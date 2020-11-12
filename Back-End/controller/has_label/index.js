@@ -38,8 +38,8 @@ hasLabelController.update = async (req, res, next) => {
     }
 };
 hasLabelController.delete = async (req, res, next) => {
-    const { id } = req.body;
-    const sql = { where: { id: id } };
+    const data = req.params.data.split('_');
+    const sql = { where: { issue_id: data[0], label_id: data[1] } };
     try {
         const result = await has_label.destroy(sql);
         res.status(200).json({ result: result });

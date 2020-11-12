@@ -33,3 +33,17 @@ export async function deleteLabelList(data) {
   res = res.data.result;
   return res;
 }
+
+export async function insertHasLabel(data) {
+  const apiurl = 'http://localhost:3000/has-label/';
+  let res = await axios.post(apiurl, data);
+  res = res.data.result;
+  return res;
+}
+
+export async function deleteHasLabel(data) {
+  const apiurl = `http://localhost:3000/has-label/${data.issueId}_${data.labelId[0]}`;
+  let res = await axios.delete(apiurl);
+  res = res.data.result;
+  return res;
+}

@@ -10,6 +10,12 @@ import AssigneePopUpRow from './PopUpBox/PopUpBoxRows/AssigneePopUpRow';
 import LabelPopUpRow from './PopUpBox/PopUpBoxRows/LabelPopUpRow';
 import MilestonePopUpRow from './PopUpBox/PopUpBoxRows/MilestonePopUpRow';
 import { IssueContext } from '../../IssueDetailComponent';
+import {
+  updateAssignee,
+  insertHasLabel,
+  deleteHasLabel,
+  updateIssue,
+} from 'Api';
 
 const SelectBoxContainer = styled.div`
   padding-top: 16px;

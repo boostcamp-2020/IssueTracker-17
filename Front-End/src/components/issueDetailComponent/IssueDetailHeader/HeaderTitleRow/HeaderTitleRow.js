@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { Button, GrayButton } from 'Style';
+import { GrayButton } from 'Style';
 import { IssueContext } from '../../IssueDetailComponent';
+import { updateIssue } from 'Api';
 
 const Container = styled.div`
   width: 100%;
@@ -34,6 +35,7 @@ const EditBtton = styled(GrayButton)`
   width: 60px;
   height: 30px;
   font-size: 13px;
+  line-height: 10px;
 `;
 const TitleTextarea = styled.textarea`
   width: calc(100% - 200px);
@@ -49,22 +51,55 @@ const ConfirmButton = styled(GrayButton)`
 `;
 
 const HeaderTitleRow = () => {
-  const { state } = useContext(IssueContext);
+  const { state, dispatch } = useContext(IssueContext);
+  const [title, setTitle] = useState(state.title);
+  const TitleTextareaElement = useRef(null);
+
+  const onEditButtonClicked = (e) => {
+    dispatch({ type: 'EDIT_TITLE' });
+    setTitle(state.title);
+  };
+
+  const onCancelButtonClicked = (e) => {
+    dispatch({ type: 'EDIT_TITLE' });
+    setTitle(state.title);
+  };
+
+  const onSaveButtonClicked = async (e) => {
+    dispatch({ type: 'EDIT_TITLE' });
+    const result = await updateIssue({
+      id: state.id,
+      title: title,
+    });
+    if (`${result}` !== `true`) {
+      alert('update failed');
+    }
+    dispatch({ type: 'UPDATE_TITLE', title: title });
+  };
+
+  const onTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
   return (
     <Container>
       {state.editTitle ? (
         <>
-          <TitleTextarea></TitleTextarea>
-          <ConfirmButton>Save</ConfirmButton>
-          <CancelButton>Cancel</CancelButton>
+          <TitleTextarea
+            ref={TitleTextareaElement}
+            value={title}
+            onChange={onTitleChange}
+          ></TitleTextarea>
+          <ConfirmButton onClick={onSaveButtonClicked}>Save</ConfirmButton>
+          <CancelButton onClick={onCancelButtonClicked}>Cancel</CancelButton>
         </>
       ) : (
         <>
           <TitleRowLeft>
-            <Title>이슈 제목</Title>
-            <IssueId>#N</IssueId>
+            <Title>{state.title}</Title>
+            <IssueId>#{state.id}</IssueId>
           </TitleRowLeft>
-          <EditBtton>Edit</EditBtton>
+          <EditBtton onClick={onEditButtonClicked}>Edit</EditBtton>
         </>
       )}
     </Container>

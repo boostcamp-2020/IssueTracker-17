@@ -40,8 +40,16 @@ module.exports = (sequelize, Datatypes) => {
             onDelete: 'cascade',
         });
     };
-    comment.get = async ({ issueId }) => {
-        return await comment.findAll({ where: { issue_id: issueId } });
+    comment.get = async ({ model, issueId }) => {
+        return await comment.findAll({
+            where: { issue_id: issueId },
+            include: [
+                {
+                    model: model.user,
+                    attributes: ['name', 'profile_url'],
+                },
+            ],
+        });
     };
 
     comment.insert = async ({ issueId, contents, created, emoji, userId }) => {
