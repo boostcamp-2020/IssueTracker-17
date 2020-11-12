@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const host = HOST;
+
 export const postFile = async (data) => {
-  const apiurl = 'http://localhost:3000/imageUpload/';
+  const apiurl = host + '/imageUpload/';
   let res = await axios.post(apiurl, data);
   res = res.data.result;
   return res;

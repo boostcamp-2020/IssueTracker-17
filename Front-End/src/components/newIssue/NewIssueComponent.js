@@ -96,7 +96,6 @@ const NewIssueComponent = ({ history }) => {
 
   return (
     <>
-      <NavBar />
       <NewIssueContainer>
         <Avatar src={user.profile_url} />
         <EditBox history={history} confirmData={confirmData} />

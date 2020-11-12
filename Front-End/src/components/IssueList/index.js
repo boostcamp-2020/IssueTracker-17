@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { getissueList } from '../../api/issueTransaction';
 import { getMileStoneList } from '../../api/milestoneTransaction';
 import { getLabelList } from '../../api/labelTransaction';
-import { NavBar } from '../../style/Layout/Layout';
+import { getUserList } from '../../api/userTransaction';
 import { LabelButton, MilestoneButton } from 'Components/common/';
 import { FilterBarComponent } from './FilterBar';
 import { IssueList } from './issueList';
-import { GreenButton, GrayButton } from 'Style';
+import { FilterSelectArea } from './FilterSelectArea/FilterSelectArea';
+import { FilterCancelButton } from './FilterCancelButton/FilterCancelButton';
+import { GreenButton } from 'Style';
+import * as reducers from 'Reducer';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -39,10 +42,14 @@ const TopMenuBar = styled.div`
   justify-content: space-between;
 `;
 const MenuHeaderArea = styled.div`
-  & * {
-    margin: 3px 5px 0px 0px;
-  }
+  margin: 2px;
+  margin-right: 5px;
 `;
+
+const GreenButtonMargin = styled(GreenButton)`
+  margin-left: 5px;
+`;
+
 const IssueContainer = styled.div`
   width: 1024px;
   margin: auto;
@@ -57,6 +64,7 @@ const ListHeader = styled.div`
   justify-content: space-between;
   background-color: #f4f4f4;
 `;
+
 const ListContainer = styled.div`
   border: 1px solid rgb(225 228 232);
 `;
@@ -64,9 +72,11 @@ const ListContainer = styled.div`
 const AllSelectChkboxArea = styled.div`
   width: 400px;
 `;
+
 const CheckBox = styled.input`
   margin: 11px;
 `;
+
 const FilterSelectArea = styled.div`
   display: flex;
   padding: 10px 5px 0px 5px;
@@ -98,67 +108,118 @@ const FilterColumn = styled.div`
   }
 `;
 
+export const FilterContext = React.createContext();
+const initialState = {
+  issueList: [],
+  labelList: [],
+  mileStoneList: [],
+  assigneeList: [],
+  authorList: [],
+};
+
+const filterInitialState = {
+  author: { text: '', id: -1 },
+  labels: { text: '', id: -1 },
+  milestone: { text: '', id: -1 },
+  asignee: { text: '', id: -1 },
+};
+
 const IssueListComponent = () => {
-  const [issueList, setIssueList] = useState([]);
-  const [labelList, setLabelList] = useState([]);
-  const [mileStoneList, setMilestonelist] = useState([]);
+  const [store, dispatch] = useReducer(reducers.issueReducer, initialState);
+  const [filterStore, filterDispatch] = useReducer(reducers.filterReducer, filterInitialState);
+  const [filterText, setFilterText] = useState('is:issue is:open');
+  const [close, setClose] = useState(false);
+  const [status, setStatus] = useState('open');
+  const [labelNumber, setLabelNumber] = useState(0);
+  const [milestoneNumber, setMilestoneNumber] = useState(0);
 
   useEffect(async () => {
-    const res = await getissueList();
-    setIssueList(res);
+    const { labels, milestones } = await initialDispatch();
+    setLabelNumber(labels);
+    setMilestoneNumber(milestones);
   }, []);
+
   useEffect(async () => {
-    const res = await getMileStoneList();
-    setMilestonelist(res);
-  }, []);
-  useEffect(async () => {
-    const res = await getLabelList();
-    setLabelList(res);
-  }, []);
+    checkClose();
+    const { str, query } = makeFilterText();
+    setFilterText(str);
+    const res = await getissueList(query);
+    dispatch({ type: 'pushIssues', data: res });
+  }, [filterStore]);
+
+  const initialDispatch = async () => {
+    const issues = await getissueList();
+    const milestones = await getMileStoneList();
+    const labels = await getLabelList();
+    const users = await getUserList();
+    dispatch({ type: 'pushAll', data: { issues, milestones, labels, users } });
+    return { labels: labels.length, milestones: milestones.length };
+  };
+
+  const checkClose = () => {
+    for (const key in filterStore) {
+      if (filterStore[key]['id'] !== -1) {
+        setClose(true);
+        return;
+      }
+      setClose(false);
+    }
+  };
+
+  const makeFilterText = () => {
+    let str = 'is:issue';
+    let query = '';
+    str += ' is:' + (status === 'open' ? 'open' : 'close');
+    for (const key in filterStore) {
+      str +=
+        filterStore[key]['text'] !== ''
+          ? ' ' + key + ':' + filterStore[key]['text']
+          : '';
+      query +=
+        filterStore[key]['id'] !== -1
+          ? '&' + key + '=' + filterStore[key]['id']
+          : '';
+    }
+    query = '?' + query.slice(1);
+    return { str, query };
+  };
 
   return (
-    <IssueContainer>
-      <GlobalStyle />
+    <FilterContext.Provider
+      value={{
+        store,
+        filterText,
+        filterDispatch,
+        setFilterText,
+        close,
+        setClose,
+        filterStore,
+      }}
+    >
+      <IssueContainer>
+        <GlobalStyle />
 
-      <TopMenuBar>
-        <FilterBarComponent />
-        <MenuHeaderArea>
-          <LabelButton count={labelList.length} />
-          <MilestoneButton count={mileStoneList.length} />
-          <GreenButton>New Issue</GreenButton>
-        </MenuHeaderArea>
-      </TopMenuBar>
+        <TopMenuBar>
+          <FilterBarComponent />
+          <MenuHeaderArea>
+            <LabelButton count={labelNumber} />
+            <MilestoneButton count={milestoneNumber} />
+            <GreenButtonMargin>New Issue</GreenButtonMargin>
+          </MenuHeaderArea>
+        </TopMenuBar>
+        <FilterCancelButton />
+        <ListHeader>
+          <AllSelectChkboxArea>
+            <CheckBox type="checkbox" />
+          </AllSelectChkboxArea>
+          <FilterSelectArea />
+        </ListHeader>
+        <ListContainer>
+          <IssueList issueList={store.issueList} />
+        </ListContainer>
+      </IssueContainer>
+    </FilterContext.Provider>
 
-      <ListHeader>
-        <AllSelectChkboxArea>
-          <CheckBox type="checkbox" />
-        </AllSelectChkboxArea>
-        <FilterSelectArea>
-          <FilterColumn>
-            Author
-            <Caret></Caret>
-          </FilterColumn>
-          <FilterColumn>
-            Label <Caret />
-          </FilterColumn>
-          <FilterColumn>
-            Projects <Caret />
-          </FilterColumn>
-          <FilterColumn>
-            MileStones <Caret />
-          </FilterColumn>
-          <FilterColumn>
-            Assignee <Caret />
-          </FilterColumn>
-          <FilterColumn>
-            Sort <Caret />
-          </FilterColumn>
-        </FilterSelectArea>
-      </ListHeader>
-      <ListContainer>
-        <IssueList issueList={issueList}></IssueList>
-      </ListContainer>
-    </IssueContainer>
   );
 };
 

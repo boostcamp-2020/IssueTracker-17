@@ -6,13 +6,13 @@ import { MilestoneSVG } from './MilestoneSVG';
 import { Link } from 'react-router-dom';
 
 const LabelButtonWrapper = styled(LabelMilestoneButton)`
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;;
 `;
 
 const MilestoneButtonWrapper = styled(LabelMilestoneButton)`
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px !important;;
+  border-bottom-left-radius: 0px !important;;
 `;
 const CountArea = styled.span`
   min-width: 20px;

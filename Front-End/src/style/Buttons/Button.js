@@ -30,9 +30,10 @@ export const LabelMilestoneButton = styled(Button)`
   color: ${(props) => (props.color ? 'white' : 'black')};
   height: 33px;
   border: 1px solid darkgray;
-  border-radius: 0 !important;
+  border-radius: 7px !important;
   font-size: 16px;
   font-weight: bold;
   padding: 0px;
+  margin: 0px;
   width: 150px;
 `;

@@ -103,7 +103,7 @@ const SelectBox = ({
         popup={popUp}
         rows={rows}
         setRows={setRows}
-      ></PopUpBox>
+      />
     </SelectBoxContainer>
   );
 };

@@ -10,7 +10,7 @@ import {
 } from 'Api/labelTransaction';
 
 const Wrapper = styled.div`
-  width: 85%;
+  width: 1024px;
   margin: auto;
 `;
 
