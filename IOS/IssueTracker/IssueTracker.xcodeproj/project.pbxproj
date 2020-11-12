@@ -49,6 +49,7 @@
 		AA40D14E25543B7F005B4835 /* IssueHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40D14A25543B7F005B4835 /* IssueHeaderCollectionViewCell.swift */; };
 		AA40D14F25543B7F005B4835 /* IssueItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA40D14B25543B7F005B4835 /* IssueItemCollectionViewCell.xib */; };
 		AA40D15225543B83005B4835 /* IssueAddCommentSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA40D15125543B83005B4835 /* IssueAddCommentSubView.xib */; };
+		AA9BE7CD255DA4F00030189E /* CommentAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9BE7CC255DA4F00030189E /* CommentAddViewController.swift */; };
 		AAB10FA1255C9E04002B10B7 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB10FA0255C9E04002B10B7 /* Comment.swift */; };
 		AAB10FA4255CAD18002B10B7 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB10FA3255CAD18002B10B7 /* CommentRepository.swift */; };
 		AAB10FA7255D3B77002B10B7 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB10FA6255D3B77002B10B7 /* PaddingLabel.swift */; };
@@ -104,6 +105,7 @@
 		AA40D14A25543B7F005B4835 /* IssueHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA40D14B25543B7F005B4835 /* IssueItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IssueItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		AA40D15125543B83005B4835 /* IssueAddCommentSubView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IssueAddCommentSubView.xib; sourceTree = "<group>"; };
+		AA9BE7CC255DA4F00030189E /* CommentAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentAddViewController.swift; sourceTree = "<group>"; };
 		AAB10FA0255C9E04002B10B7 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		AAB10FA3255CAD18002B10B7 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
 		AAB10FA6255D3B77002B10B7 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				8850A79C254B065D00039E76 /* MilestoneViewController.swift */,
 				AA40D14225543B25005B4835 /* IssueAddCommentViewController.swift */,
 				8850A7A2254B151600039E76 /* MilestoneDetailViewController.swift */,
+				AA9BE7CC255DA4F00030189E /* CommentAddViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				888AAAA52547C1EB0013B974 /* AppDelegate.swift in Sources */,
 				886910D52551A0D2009D0F96 /* UIColor+Extention.swift in Sources */,
 				8850A79D254B065D00039E76 /* MilestoneViewController.swift in Sources */,
+				AA9BE7CD255DA4F00030189E /* CommentAddViewController.swift in Sources */,
 				888AAAA72547C1EB0013B974 /* SceneDelegate.swift in Sources */,
 				88E2A30E25546C23009E1968 /* IssueRepository.swift in Sources */,
 				AAB10FA4255CAD18002B10B7 /* CommentRepository.swift in Sources */,

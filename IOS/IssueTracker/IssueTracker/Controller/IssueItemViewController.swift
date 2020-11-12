@@ -38,6 +38,8 @@ class IssueItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(scrollToUp), name: NSNotification.Name(rawValue: "scrollToUp"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(scrollToDown), name: NSNotification.Name(rawValue: "scrollToDown"), object: nil)
         getComment()
         print("=======", issue)
         issueAddCommentViewHeight = Int(self.view.frame.height - 150)
@@ -50,6 +52,16 @@ class IssueItemViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         self.visualEffectView.isUserInteractionEnabled = false
+    }
+    
+    @objc
+    func scrollToUp() {
+        issueItemCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: true)
+    }
+    
+    @objc
+    func scrollToDown() {
+        issueItemCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
     }
     
     func getComment() {
@@ -194,7 +206,7 @@ extension IssueItemViewController: UICollectionViewDelegate, UICollectionViewDat
     
     private func setupFlowLayout() { //cell layout 지정
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.headerReferenceSize = CGSize(width: view.bounds.width, height: 150)
+        flowLayout.headerReferenceSize = CGSize(width: view.bounds.width, height: 130)
         flowLayout.estimatedItemSize = CGSize(width: view.bounds.width, height: 150)
         flowLayout.minimumLineSpacing = 10
         flowLayout.sectionInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)

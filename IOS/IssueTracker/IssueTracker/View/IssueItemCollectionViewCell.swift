@@ -25,30 +25,28 @@ class IssueItemCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() { //cell재사용시 초기화
         super.prepareForReuse()
-        //        itemPriceMain.attributedText = NSAttributedString(string: "")
-        //        itemPriceSub.attributedText = NSAttributedString(string: "")
-        //        itemBadgeScrollView.subviews.forEach { (item) in
-        //            item.removeFromSuperview()
-        //        }
     }
     
     func setupCellValues(comment: Comment) {
-        print("cell test")
-        print(comment)
-        
-        //        let url = URL(string: "http://verona-api.municipiumstaging.it/system/images/image/image/22/app_1920_1280_4.jpg")
-        //        let data = try Data(contentsOf: url!)
-        //        uiImageView.image = UIImage(data: data)
-        //        uiImageView
-        
-        issueWriterLabel.text = "글쓴이"
+        let url = URL(string: comment.user.profileURL)
+        DispatchQueue.main.async {
+            do {
+                if let url = url {
+                    let data = try Data(contentsOf: url)
+                    self.issueImageLabel.image = UIImage(data: data)
+                }
+            } catch let error {
+                debugPrint("ERRor ::\(error)")
+            }
+        }
+        issueWriterLabel.text = comment.user.name
         issueCommentLabel.text = comment.contents
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         let date:Date = dateFormatter.date(from: comment.created)!
         dateFormatter.dateFormat = "MM월 dd일 HH:mm"
         issueDateLabel.text = dateFormatter.string(from: date)
-
+        
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
