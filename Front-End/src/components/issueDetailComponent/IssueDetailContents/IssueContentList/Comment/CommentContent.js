@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { IssueContext } from '../../../IssueDetailComponent';
 import { CommentContext } from './Comment';
 import { calcTime } from '@/util/calcTime';
+import ReactMarkdown from 'react-markdown';
 
 const Container = styled.div`
   display: flex;
@@ -94,7 +95,9 @@ const CommentContent = () => {
             </EditButton>
           </CommentHeaderRight>
         </CommentHeader>
-        <CommentBody>{row.contents}</CommentBody>
+        <CommentBody>
+          <ReactMarkdown>{row.contents}</ReactMarkdown>
+        </CommentBody>
       </CommentContainer>
     </Container>
   );
