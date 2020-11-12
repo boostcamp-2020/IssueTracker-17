@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { IssueContext } from '../../../IssueDetailComponent';
 import { CommentContext } from './Comment';
+import { calcTime } from '@/util/calcTime';
 
 const Container = styled.div`
   display: flex;
@@ -84,7 +85,7 @@ const CommentContent = () => {
         <CommentHeader isIssue={isIssue}>
           <CommentHeaderLeft>
             <Author>{row.userName}</Author>
-            <CreatedTime>commented at {row.created}</CreatedTime>
+            <CreatedTime>commented {calcTime(row.created)}</CreatedTime>
           </CommentHeaderLeft>
           <CommentHeaderRight>
             <OwnerTag isOwner={isOwner}>Owner</OwnerTag>
