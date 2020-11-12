@@ -4,7 +4,13 @@ import useDebounce from '@/util/useDebounce';
 import { IssueContext } from '../../../IssueDetailComponent';
 import { CommentContext } from './Comment';
 import { GreenButton, GrayButton, IssueStatusSvg } from 'Style';
-import { updateIssue, updateComment, postComment, getComments } from 'Api';
+import {
+  updateIssue,
+  updateComment,
+  postComment,
+  getComments,
+  postFile,
+} from 'Api';
 
 const Wrapper = styled.div`
   display: flex;
@@ -147,9 +153,12 @@ const CommentEditBox = () => {
   const { row, isIssue } = useContext(CommentContext);
   const [content, setContent] = useState(row.contents);
   const [numCharacters, setNumCharacters] = useState(content.length);
+  const [file, setFile] = useState();
   const debouncedContent = useDebounce(content, 1000);
 
-  const onFileChanged = async (e) => {};
+  const onFileChanged = async (e) => {
+    setFile(e.target.files[0]);
+  };
   const updateContent = (e) => {
     setContent(e.target.value);
   };
@@ -202,6 +211,15 @@ const CommentEditBox = () => {
       setNumCharacters(debouncedContent.length);
     }
   });
+
+  useEffect(async () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append('img', file);
+      const uri = await postFile(formData);
+      setContent(`${content}\n${uri}`);
+    }
+  }, file);
 
   return (
     <Wrapper>

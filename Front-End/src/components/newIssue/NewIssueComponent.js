@@ -19,7 +19,6 @@ const NewIssueContainer = styled.div`
   text-align: center;
   width: 95%;
   margin: auto;
-  margin-top: 80px;
   display: flex;
   justify-content: center;
 `;
@@ -96,7 +95,6 @@ const NewIssueComponent = ({ history }) => {
 
   return (
     <>
-      <NavBar />
       <NewIssueContainer>
         <Avatar src={user.profile_url} />
         <EditBox history={history} confirmData={confirmData} />
