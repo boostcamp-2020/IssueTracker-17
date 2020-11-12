@@ -21,16 +21,10 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const NavPaddingArea = styled.div`
-  padding-top: 150px;
-`;
-
 export default function App() {
   return (
     <BrowserRouter>
-      <NavBar>ISSUE TRACKER</NavBar>
       <GlobalStyle />
-      <NavPaddingArea></NavPaddingArea>
       <Switch>
         <Route exac path="/label" component={Pages.LabelPage} />
         <Route exac path="/newIssue" component={Pages.NewIssuePage} />
