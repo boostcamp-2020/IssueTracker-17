@@ -29,6 +29,7 @@ const FilterPopUpDiv = styled.div`
   border: 1px solid #dddddd;
   border-radius: 3px;
   overflow-x: hidden;
+  cursor: pointer;
 `;
 
 const ModalOveray = styled.div`
@@ -49,10 +50,27 @@ const ModalOveray = styled.div`
   background: transparent;
 `;
 
+const Caret = styled.div`
+  display: inline-block;
+  margin-left: 4px;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  content: '';
+  border-top-style: solid;
+  border-top-width: 4px;
+  border-right: 4px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-left: 4px solid transparent;
+`;
+
+const Title = styled.div`
+  cursor: pointer;
+`;
+
 const FilterSelect = (props) => {
   const { filterDispatch, filterStore } = useContext(FilterContext);
   const [visible, setVisible] = useState(false);
-  const [checkNum, setCheckNum] = useState(-1);
   const Wrapper = props.list.component;
 
   const onClickFilterItemEventHandler = ({ id, title }) => {
@@ -65,12 +83,11 @@ const FilterSelect = (props) => {
   };
 
   return (
-    <FilterSelectDiv
-      onClick={(e) => {
-        e.target === e.currentTarget ? setVisible(!visible) : undefined;
-      }}
-    >
-      {props.list.title}
+    <FilterSelectDiv>
+      <Title onClick={(e) => {setVisible(!visible)}}>
+        {props.list.title}
+        <Caret />
+      </Title>
       <ModalOveray popup={visible} onClick={(e) => setVisible(!visible)} />
       <FilterPopUpDiv popup={visible} tabIndex={-1}>
         {props.list.list.map((row, idx) => (

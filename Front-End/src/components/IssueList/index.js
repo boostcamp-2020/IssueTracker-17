@@ -77,26 +77,6 @@ const CheckBox = styled.input`
   margin: 11px;
 `;
 
-const FilterSelectArea = styled.div`
-  display: flex;
-  padding: 10px 5px 0px 5px;
-  width: 500px;
-  justify-content: space-between;
-`;
-
-const Caret = styled.span`
-  display: block;
-  width: 0;
-  height: 0;
-  vertical-align: middle;
-  content: '';
-  border-top-style: solid;
-  border-top-width: 4px;
-  border-right: 4px solid transparent;
-  border-bottom: 0 solid transparent;
-  border-left: 4px solid transparent;
-`;
-
 const FilterColumn = styled.div`
   width: 100px;
   display: flex;

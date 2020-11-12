@@ -7,6 +7,9 @@ const LabelRow = styled.div`
   padding-left: 5px;
   border-bottom: 1px solid #dddddd;
   display: flex;
+  &:hover {
+    background-color: #e7e7e7;
+  }
 `;
 const LabelRowContent = styled.div``;
 const LabelRowHead = styled.div`
