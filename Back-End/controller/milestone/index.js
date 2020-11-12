@@ -49,7 +49,8 @@ milestoneController.update = async (req, res, next) => {
     }
 };
 milestoneController.delete = async (req, res, next) => {
-    const { id } = req.body;
+    const { id } = req.params;
+
     const sql = { where: { id } };
     try {
         const result = await milestone.destroy(sql);
