@@ -103,6 +103,12 @@ module.exports = (sequelize, Datatypes) => {
                 {
                     model: model.comment,
                     // attributes: ['user_id'],
+                    include: [
+                        {
+                            model: model.user,
+                            attributes: ['name', 'profile_url'],
+                        },
+                    ],
                 },
             ],
             where: filterQuery,
