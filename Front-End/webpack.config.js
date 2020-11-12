@@ -53,6 +53,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       JWT_SECRET: env['process.env.JWT_SECRET'],
+      HOST: env['process.env.HOST'],
     }),
   ],
 };
