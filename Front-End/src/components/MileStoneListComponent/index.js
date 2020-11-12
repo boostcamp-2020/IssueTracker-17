@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { MileStoneList } from './mileStoneList';
 import styled, { createGlobalStyle } from 'styled-components';
-import { TopLinks } from './topLink';
-import axios from 'axios';
-import {getMileStoneList} from '../../api/milestoneTransaction';
-
+import { getMileStoneList } from '../../api/milestoneTransaction';
+import { LabelButton, MilestoneButton } from 'Components/common/';
+import { GreenButton, GrayButton } from 'Style';
+import { Link } from 'react-router-dom';
+import { OpenIssueSVG } from './svg/OpenIssueSVG';
+import { ClosedIssueSVG } from './svg/ClosedIssueSVG';
 const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
@@ -20,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const MileStoneContainer = styled.div`
-  width: 85%;
+  width: 1024px;
   margin: auto;
 `;
 
@@ -36,59 +38,77 @@ const ListHeader = styled.div`
 const ListContainer = styled.div`
   border: 1px solid rgb(225 228 232);
 `;
-
+const MenuHeaderArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+`;
+const LabelMilestoneBtnArea = styled.div``;
 const MileStoneListComponent = () => {
   const [mileStoneList, setMilestonelist] = useState([]);
-  let opened = 0;
-  let closed = 0;
-
+  const [openedCnt, setOpenedCnt] = useState(0);
+  const [closedCnt, setClosedCnt] = useState(0);
   useEffect(async () => {
-    const res= await getMileStoneList();
-    setMilestonelist(res); 
+    let opened = 0;
+    let closed = 0;
+    const res = await getMileStoneList();
+    res.forEach((milestone) => {
+      milestone.status === 0 ? (opened += 1) : (closed += 1);
+    });
+
+    setMilestonelist(res);
+    setClosedCnt(closed);
+    setOpenedCnt(opened);
   }, []);
 
-  mileStoneList.forEach((milestone) => {
-    milestone.status === 0 ? (opened += 1) : (closed += 1);
-  });
+  const removeMileStone = (targetId) => {
+    let opened = 0;
+    let closed = 0;
+    const filteredList = mileStoneList.filter((milestone) => {
+      const res = milestone.id !== targetId;
+      res && milestone.status === 0 ? (opened += 1) : (closed += 1);
+      return res;
+    });
+    setMilestonelist(filteredList);
+    setClosedCnt(closed);
+    setOpenedCnt(opened);
+  };
+
+  const changeOpenedCnt = (amount) => {
+    setOpenedCnt(openedCnt + amount);
+  };
+  const changeClosedCnt = (amount) => {
+    setClosedCnt(closedCnt + amount);
+  };
+
   return (
     <MileStoneContainer>
       <GlobalStyle />
-      <TopLinks></TopLinks>
+      <MenuHeaderArea>
+        <LabelMilestoneBtnArea>
+          <LabelButton />
+          <MilestoneButton color="#0366d6" />
+        </LabelMilestoneBtnArea>
+        <Link to="/milestone/new">
+          <GreenButton>New Milestone</GreenButton>
+        </Link>
+      </MenuHeaderArea>
       <ListHeader>
         <div>
-          <svg
-            viewBox="0 0 16 16"
-            version="1.1"
-            width="16"
-            height="16"
-            aria-hidden="true"
-          >
-            <path
-              fillRule="evenodd"
-              d="M7.75 0a.75.75 0 01.75.75V3h3.634c.414 0 .814.147 1.13.414l2.07 1.75a1.75 1.75 0 010 2.672l-2.07 1.75a1.75 1.75 0 01-1.13.414H8.5v5.25a.75.75 0 11-1.5 0V10H2.75A1.75 1.75 0 011 8.25v-3.5C1 3.784 1.784 3 2.75 3H7V.75A.75.75 0 017.75 0zm0 8.5h4.384a.25.25 0 00.161-.06l2.07-1.75a.25.25 0 000-.38l-2.07-1.75a.25.25 0 00-.161-.06H2.75a.25.25 0 00-.25.25v3.5c0 .138.112.25.25.25h5z"
-            ></path>
-          </svg>
-          open :{opened}
+          <OpenIssueSVG></OpenIssueSVG> open :{openedCnt}
         </div>
 
         <div>
-          <svg
-            viewBox="0 0 16 16"
-            version="1.1"
-            width="16"
-            height="16"
-            aria-hidden="true"
-          >
-            <path
-              fillRule="evenodd"
-              d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"
-            ></path>
-          </svg>
-          closed : {closed}
+          <ClosedIssueSVG></ClosedIssueSVG>closed : {closedCnt}
         </div>
       </ListHeader>
       <ListContainer>
-        <MileStoneList mileStoneList={mileStoneList}></MileStoneList>
+        <MileStoneList
+          removeMileStone={removeMileStone}
+          changeOpenedCnt={changeOpenedCnt}
+          changeClosedCnt={changeClosedCnt}
+          mileStoneList={mileStoneList}
+        ></MileStoneList>
       </ListContainer>
     </MileStoneContainer>
   );
