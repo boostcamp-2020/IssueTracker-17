@@ -11,10 +11,12 @@ class IssueAddCommentViewController: UIViewController {
     @IBOutlet var handleArea: UIView!
     @IBOutlet weak var assigneesScrollView: UIScrollView!
     @IBOutlet weak var labelScrollView: UIScrollView!
+    @IBOutlet weak var milestoneUIView: UIView!
     var issue: Issue = Issue()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        milestoneUIView.removeFromSuperview()
         configLabelStackView()
         configAssigneesStackView()
     }
@@ -74,7 +76,7 @@ class IssueAddCommentViewController: UIViewController {
             label.backgroundColor = UIColor().colorWithHexString(hex: issueLabel.color)
             label.textColor = .white
             label.font = .systemFont(ofSize: 20, weight: .semibold)
-            label.text = issueLabel.contents
+            label.text = issueLabel.title
             label.layer.masksToBounds = true
             label.layer.cornerRadius = 5
             label.paddingLeft = 7

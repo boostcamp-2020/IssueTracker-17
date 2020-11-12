@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { comment } = require('@models/sequelize');
+const model = require('@models/sequelize');
 
 function commentController() {}
 
@@ -7,8 +8,15 @@ commentController.get = async (req, res, next) => {
     const { issueId } = req.params;
     try {
         const result = issueId
-            ? await comment.get(issueId)
-            : await comment.findAll();
+            ? await comment.get({ model, issueId })
+            : await comment.findAll({
+                  include: [
+                      {
+                          model: model.user,
+                          attributes: ['name', 'profile_url'],
+                      },
+                  ],
+              });
         res.status(200).json({ result: result });
     } catch (e) {
         next(e);

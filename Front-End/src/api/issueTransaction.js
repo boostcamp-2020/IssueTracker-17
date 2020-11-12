@@ -12,3 +12,16 @@ export async function getissueList() {
   res = res.data.result;
   return res;
 }
+
+export const getIssueDetails = async (issueId) => {
+  const apiurl = `http://localhost:3000/issue/${issueId}`;
+  let res = await axios.get(apiurl);
+  [res] = res.data.result;
+  return res;
+};
+
+export const updateIssue = async (data) => {
+  const apiurl = 'http://localhost:3000/issue/';
+  const res = await axios.put(apiurl, data);
+  return res.data.result;
+};

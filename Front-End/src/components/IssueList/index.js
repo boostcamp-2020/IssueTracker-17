@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { getissueList } from '../../api/issueTransaction';
 import { getMileStoneList } from '../../api/milestoneTransaction';
-import { getLabelList } from '../../api/labelTranscation';
+import { getLabelList } from '../../api/labelTransaction';
 import { NavBar } from '../../style/Layout/Layout';
 import { LabelButton, MilestoneButton } from 'Components/common/';
 import { FilterBarComponent } from './FilterBar';
 import { IssueList } from './issueList';
+import { GreenButton, GrayButton } from 'Style';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -21,20 +22,29 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     
   }
-  * {
-    border:1px solid black;
+
+  a{
+    text-decoration: none;
+    color:black;
+
   }
+
 `;
 const TopMenuBar = styled.div`
   display: flex;
   border: none;
   height: 40px;
-  padding: 5px;
+
+  margin-bottom: 15px;
   justify-content: space-between;
 `;
-
+const MenuHeaderArea = styled.div`
+  & * {
+    margin: 3px 5px 0px 0px;
+  }
+`;
 const IssueContainer = styled.div`
-  width: 85%;
+  width: 1024px;
   margin: auto;
 `;
 
@@ -52,12 +62,40 @@ const ListContainer = styled.div`
 `;
 
 const AllSelectChkboxArea = styled.div`
-  width: 50%;
+  width: 400px;
+`;
+const CheckBox = styled.input`
+  margin: 11px;
 `;
 const FilterSelectArea = styled.div`
   display: flex;
-  width: 45%;
+  padding: 10px 5px 0px 5px;
+  width: 500px;
   justify-content: space-between;
+`;
+
+const Caret = styled.span`
+  display: block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  content: '';
+  border-top-style: solid;
+  border-top-width: 4px;
+  border-right: 4px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-left: 4px solid transparent;
+`;
+
+const FilterColumn = styled.div`
+  width: 100px;
+  display: flex;
+  text-align: center;
+  & * {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 2px;
+  }
 `;
 
 const IssueListComponent = () => {
@@ -81,24 +119,40 @@ const IssueListComponent = () => {
   return (
     <IssueContainer>
       <GlobalStyle />
-      <NavBar></NavBar>
+
       <TopMenuBar>
         <FilterBarComponent />
-        <LabelButton />
-        <MilestoneButton />
+        <MenuHeaderArea>
+          <LabelButton count={labelList.length} />
+          <MilestoneButton count={mileStoneList.length} />
+          <GreenButton>New Issue</GreenButton>
+        </MenuHeaderArea>
       </TopMenuBar>
 
       <ListHeader>
         <AllSelectChkboxArea>
-          <input type="checkbox"></input>
+          <CheckBox type="checkbox" />
         </AllSelectChkboxArea>
         <FilterSelectArea>
-          <div>Author</div>
-          <div>Label</div>
-          <div>Projects</div>
-          <div>MileStones</div>
-          <div>Assignee</div>
-          <div>Sort</div>
+          <FilterColumn>
+            Author
+            <Caret></Caret>
+          </FilterColumn>
+          <FilterColumn>
+            Label <Caret />
+          </FilterColumn>
+          <FilterColumn>
+            Projects <Caret />
+          </FilterColumn>
+          <FilterColumn>
+            MileStones <Caret />
+          </FilterColumn>
+          <FilterColumn>
+            Assignee <Caret />
+          </FilterColumn>
+          <FilterColumn>
+            Sort <Caret />
+          </FilterColumn>
         </FilterSelectArea>
       </ListHeader>
       <ListContainer>

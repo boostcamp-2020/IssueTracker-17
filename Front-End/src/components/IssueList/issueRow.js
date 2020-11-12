@@ -2,7 +2,11 @@
 /* eslint-disable react/jsx-key */
 import React from 'react';
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
+import { IssueClosedSVG } from './svg/IssueClosedSVG';
+import { IssueOpenSVG } from './svg/IssueOpenSVG';
+import { MileStoneSVG } from './svg/MileStoneSVG';
+const STATUS = { open: 0, close: 1 };
 const makeDateStrFormat = (date) => {
   const options = {
     // weekday: 'long',
@@ -12,7 +16,26 @@ const makeDateStrFormat = (date) => {
   };
   return new Date(date).toLocaleDateString('en-US', options);
 };
+export const getElapsedTimeSTr = (date) => {
+  const time = Math.floor((new Date() - new Date(date)) / 1000);
+  const minute = time > 60 ? Math.floor(time / 60) : undefined;
+  const hour = minute > 60 ? Math.floor(minute / 60) : undefined;
+  const day = hour > 24 ? Math.floor(hour / 24) : undefined;
+  const month = day >= 30 ? Math.floor(day / 30) : undefined;
+  const year = day >= 365 ? Math.floor(day / 365) : undefined;
 
+  if (year) {
+    return year + ` year${year > 1 ? 's' : ''} ago`;
+  } else if (month) {
+    return month + ` months${month > 1 ? 's' : ''} ago`;
+  } else if (day) {
+    return day + ` day${day > 1 ? 's' : ''} ago`;
+  } else if (hour) {
+    return hour + ` hour${hour > 1 ? 's' : ''} ago`;
+  } else if (minute) {
+    return minute + ` minute${minute > 1 ? 's' : ''} ago`;
+  } else return time + ` second${time > 1 ? 's' : ''} ago`;
+};
 const RowContainer = styled.div`
   padding: 5px;
   border-bottom: 1px solid rgb(225 228 232);
@@ -22,47 +45,65 @@ const RowContainer = styled.div`
 
 const IssueContainer = styled.div`
   width: 50%;
+  display: flex;
+`;
+const TitleArea = styled.div`
+  font-size: large;
+  font-weight: bold;
+  margin: 5px;
 `;
 
 const ExtraContainer = styled.div`
   width: 45%;
+  display: flex;
 `;
 
 const LabelBtn = styled.button`
-  width: fit-content;
-  padding: 1px;
-  border: none;
-
-  height: 25px;
+  padding: 0 7px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  border: 1px solid transparent;
+  border-radius: 2em;
   //텍스트 색 반전시키는 코드 여기 들어가야됨
   background-color: ${(props) => props.color};
 `;
 
-const MileStoneSVGIcon = () => {
-  return (
-    <svg
-      aria-label="Milestone"
-      class="octicon octicon-milestone"
-      viewBox="0 0 16 16"
-      version="1.1"
-      width="16"
-      height="16"
-      role="img"
-    >
-      <path
-        fillRule="evenodd"
-        d="M7.75 0a.75.75 0 01.75.75V3h3.634c.414 0 .814.147 1.13.414l2.07 1.75a1.75 1.75 0 010 2.672l-2.07 1.75a1.75 1.75 0 01-1.13.414H8.5v5.25a.75.75 0 11-1.5 0V10H2.75A1.75 1.75 0 011 8.25v-3.5C1 3.784 1.784 3 2.75 3H7V.75A.75.75 0 017.75 0zm0 8.5h4.384a.25.25 0 00.161-.06l2.07-1.75a.25.25 0 000-.38l-2.07-1.75a.25.25 0 00-.161-.06H2.75a.25.25 0 00-.25.25v3.5c0 .138.112.25.25.25h5z"
-      ></path>
-    </svg>
-  );
-};
+const CheckBox = styled.input`
+  margin: 11px;
+`;
+const StatusArea = styled.div`
+  margin: 11px;
+`;
+const TitleLabelsArea = styled.div`
+  display: flex;
+`;
+
+const LabelArea = styled.div`
+  margin-top: 8px;
+`;
+const MileStoneTitleArea = styled.span`
+  color: grey;
+  margin: 0px 5px 0px 5px;
+
+  & svg {
+    margin-right: 3px;
+  }
+`;
 
 const ProfileImg = styled.img`
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
 `;
 
+const FilterColumn = styled.div`
+  width: 100px;
+  margin: 0px 10px 0px 10px;
+`;
+const OpenCloseDateArea = styled.strong`
+  color: grey;
+`;
 export const IssueRow = (props) => {
   const {
     id,
@@ -92,18 +133,45 @@ export const IssueRow = (props) => {
     <RowContainer>
       <IssueContainer>
         <div>
-          {title} {labelList}
+          <CheckBox type="checkbox" />
         </div>
-
+        <StatusArea>
+          {status === STATUS.open ? (
+            <IssueOpenSVG color="green"></IssueOpenSVG>
+          ) : (
+            <IssueClosedSVG color="red"></IssueClosedSVG>
+          )}
+        </StatusArea>
         <div>
-          {'Opened ' + makeDateStrFormat(created)}
-          <span>
-            {milestoneTitle ? <MileStoneSVGIcon /> : undefined}
-            {milestoneTitle}
-          </span>
+          <TitleLabelsArea>
+            <Link to={`/detail/${id}`}>
+              <TitleArea>{title}</TitleArea>
+            </Link>
+            <LabelArea> {labelList}</LabelArea>
+          </TitleLabelsArea>
+          <div>
+            <OpenCloseDateArea title={makeDateStrFormat(created)}>
+              {`#${id} `}
+              {status === STATUS.open
+                ? 'Opened ' + getElapsedTimeSTr(created)
+                : 'Closed ' + getElapsedTimeSTr(created)}
+            </OpenCloseDateArea>
+
+            <MileStoneTitleArea>
+              {milestoneTitle ? <MileStoneSVG color="grey" /> : undefined}
+              {milestoneTitle}
+            </MileStoneTitleArea>
+          </div>
         </div>
       </IssueContainer>
-      <ExtraContainer>{assigneeList}</ExtraContainer>
+      <ExtraContainer>
+        <FilterColumn />
+        <FilterColumn />
+        <FilterColumn />
+        <FilterColumn />
+        <FilterColumn>{assigneeList}</FilterColumn>
+        <FilterColumn />
+      </ExtraContainer>
     </RowContainer>
   );
 };

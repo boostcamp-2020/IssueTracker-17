@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CheckSvg } from './svg';
+import { CheckSvg } from 'Style';
 
 const Avatar = styled.img`
   width: 20px;

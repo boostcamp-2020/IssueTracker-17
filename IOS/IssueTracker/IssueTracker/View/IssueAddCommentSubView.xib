@@ -13,6 +13,7 @@
                 <outlet property="assigneesScrollView" destination="7gS-IB-6qK" id="WIc-km-ZZL"/>
                 <outlet property="handleArea" destination="dJj-YY-A5E" id="Xut-vf-zO1"/>
                 <outlet property="labelScrollView" destination="APG-k2-tAb" id="W7B-59-zVS"/>
+                <outlet property="milestoneUIView" destination="dVn-25-JUY" id="WFA-oP-9ju"/>
                 <outlet property="view" destination="dJj-YY-A5E" id="5VL-oC-gcK"/>
             </connections>
         </placeholder>

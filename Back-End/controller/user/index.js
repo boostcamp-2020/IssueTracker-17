@@ -15,7 +15,7 @@ userController.iosLogin = async (req, res, next) => {
     }
     try {
         const result = await user.findOne({
-            where: { identifier: +identifier, type: type },
+            where: { identifier: identifier, type: type },
         });
 
         let payload = { type: type, identifier: identifier };

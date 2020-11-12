@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const Gear = styled.svg``;
 const Check = styled.svg``;
+const IssueStatus = styled.svg``;
 
 export const GearSvg = () => {
   return (
@@ -41,4 +42,52 @@ export const CheckSvg = ({ checked }) => {
       />
     </Check>
   );
+};
+
+export const IssueStatusSvg = ({ status }) => {
+  if (status === 'closed') {
+    return (
+      <IssueStatus
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
+        aria-hidden="true"
+        focusable="false"
+        width="1em"
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fillRule="evenodd"
+          d="M2.5 12c0-5.24 4.288-9.5 9.593-9.5a9.608 9.608 0 0 1 7.197 3.219a.75.75 0 0 0 1.12-.998A11.108 11.108 0 0 0 12.093 1C5.973 1 1 5.919 1 12s4.973 11 11.093 11c5.403 0 9.91-3.832 10.893-8.915a.75.75 0 1 0-1.472-.285c-.848 4.381-4.74 7.7-9.421 7.7C6.788 21.5 2.5 17.24 2.5 12z"
+        />
+        <path
+          fillRule="evenodd"
+          d="M12 17a1 1 0 1 0 0-2a1 1 0 0 0 0 2zm0-10a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 12 7zm11.28.78a.75.75 0 0 0-1.06-1.06l-3.47 3.47l-1.47-1.47a.75.75 0 1 0-1.06 1.06l2 2a.75.75 0 0 0 1.06 0l4-4z"
+        />
+      </IssueStatus>
+    );
+  } else {
+    return (
+      <IssueStatus
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
+        aria-hidden="true"
+        focusable="false"
+        width="1em"
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fillRule="evenodd"
+          d="M12 7a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 12 7zm1 9a1 1 0 1 1-2 0a1 1 0 0 1 2 0z"
+        />
+        <path
+          fillRule="evenodd"
+          d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11s11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1 1 19 0a9.5 9.5 0 0 1-19 0z"
+        />
+      </IssueStatus>
+    );
+  }
 };

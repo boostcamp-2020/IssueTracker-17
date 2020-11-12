@@ -47,6 +47,7 @@ module.exports = (sequelize, Datatypes) => {
     };
 
     has_assignee.delete = async ({ issueId, deleteAssignees }) => {
+        if (deleteAssignees.length == 0) return 0;
         const result = await has_assignee.destroy({
             where: {
                 issue_id: issueId,
