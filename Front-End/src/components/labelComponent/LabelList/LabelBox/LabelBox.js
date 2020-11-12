@@ -13,7 +13,7 @@ const LabelBoxWrapper = styled.div`
     css`
       display: none;
     `};
-  border: 1px solid gray;
+  border: 1px solid rgb(225 228 232);
 `;
 
 export function Label(props) {

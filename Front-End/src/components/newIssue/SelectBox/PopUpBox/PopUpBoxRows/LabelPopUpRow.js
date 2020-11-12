@@ -4,10 +4,12 @@ import { CheckSvg } from 'Style';
 
 const LabelRow = styled.div`
   padding: 5px 0;
-  padding-left: 20px;
+  padding-left: 5px;
   border-bottom: 1px solid #dddddd;
   display: flex;
-  justify-content: space-between;
+  &:hover {
+    background-color: #e7e7e7;
+  }
 `;
 const LabelRowContent = styled.div``;
 const LabelRowHead = styled.div`
@@ -36,9 +38,18 @@ const LabelCheckbox = styled.div`
   padding-top: 10px;
   padding-left: 10px;
 `;
-const LabelPopUpRow = ({ row }) => {
+const LabelPopUpRow = ({ row, Event }) => {
+  const changeFilterTextEventHandler = (e) => {
+    e.preventDefault();
+    Event({ id: row.id, title: row.title });
+  };
   return (
-    <LabelRow>
+    <LabelRow
+      onClick={Event ? (e) => changeFilterTextEventHandler(e) : undefined}
+    >
+      <LabelCheckbox>
+        <CheckSvg checked={row.checked}></CheckSvg>
+      </LabelCheckbox>
       <LabelRowContent>
         <LabelRowHead>
           <LabelColor labelColor={row.color} />
@@ -46,9 +57,6 @@ const LabelPopUpRow = ({ row }) => {
         </LabelRowHead>
         <LabelDescription>{row.contents}</LabelDescription>
       </LabelRowContent>
-      <LabelCheckbox>
-        <CheckSvg checked={row.checked}></CheckSvg>
-      </LabelCheckbox>
     </LabelRow>
   );
 };

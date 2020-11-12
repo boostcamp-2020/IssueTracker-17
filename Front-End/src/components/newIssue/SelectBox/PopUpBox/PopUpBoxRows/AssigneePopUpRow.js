@@ -11,10 +11,12 @@ const AssigneeRow = styled.div`
   height: 20px;
   padding: 5px 10px;
   display: flex;
-  justify-content: space-between;
   vertical-align: center;
   border-bottom: 1px solid #dddddd;
   position: relative;
+  &:hover {
+    background-color: #e7e7e7;
+  }
 `;
 const AssigneeName = styled.div`
   width: calc(100% - 50px);
@@ -29,14 +31,20 @@ const AssigneeCheckbox = styled.div`
   padding: 5px 5px;
 `;
 
-const AssigneePopUpRow = ({ row }) => {
+const AssigneePopUpRow = ({ row, Event }) => {
+  const changeFilterTextEventHandler = (e) => {
+    e.preventDefault();
+    Event({ id: row.id, title: row.name });
+  };
   return (
-    <AssigneeRow>
-      <Avatar src={row.profile_url}></Avatar>
-      <AssigneeName>{row.name ? row.name : '-'}</AssigneeName>
+    <AssigneeRow
+      onClick={Event ? (e) => changeFilterTextEventHandler(e) : undefined}
+    >
       <AssigneeCheckbox>
         <CheckSvg checked={row.checked} />
       </AssigneeCheckbox>
+      <Avatar src={row.profile_url}></Avatar>
+      <AssigneeName>{row.name ? row.name : '-'}</AssigneeName>
     </AssigneeRow>
   );
 };

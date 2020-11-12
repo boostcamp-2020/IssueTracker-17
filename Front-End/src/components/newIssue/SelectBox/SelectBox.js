@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { GearSvg } from 'Style';
-import SelectBoxList from './SelectBoxList';
-import PopUpBox from './PopUpBox';
-import AssigneePopUpRow from './AssigneePopUpRow';
-import LabelPopUpRow from './LabelPopUpRow';
-import MilestonePopUpRow from './MilestonePopUpRow';
+import SelectBoxList from './SelectBoxList/SelectBoxList';
+import PopUpBox from './PopUpBox/PopUpBox';
+import AssigneePopUpRow from './PopUpBox/PopUpBoxRows/AssigneePopUpRow';
+import LabelPopUpRow from './PopUpBox/PopUpBoxRows/LabelPopUpRow';
+import MilestonePopUpRow from './PopUpBox/PopUpBoxRows/MilestonePopUpRow';
 
 const SelectBoxContainer = styled.div`
   padding-top: 16px;
@@ -103,7 +103,7 @@ const SelectBox = ({
         popup={popUp}
         rows={rows}
         setRows={setRows}
-      ></PopUpBox>
+      />
     </SelectBoxContainer>
   );
 };
