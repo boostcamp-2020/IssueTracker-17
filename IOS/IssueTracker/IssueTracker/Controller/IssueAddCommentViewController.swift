@@ -9,6 +9,7 @@ import UIKit
 
 class IssueAddCommentViewController: UIViewController {
     var issue: Issue = Issue()
+    private let commentRepository = CommentRepository()
     @IBOutlet var handleArea: UIView!
     @IBOutlet weak var assigneesScrollView: UIScrollView!
     @IBOutlet weak var labelScrollView: UIScrollView!
@@ -21,6 +22,7 @@ class IssueAddCommentViewController: UIViewController {
         let vc = board.instantiateViewController(identifier: "CommentAddViewController")
         self.present(vc, animated: true, completion: nil)
     }
+    
     @IBAction func scrollToUpButton(_ sender: UIButton) {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "scrollToUp"), object: self) 
     }
@@ -30,14 +32,28 @@ class IssueAddCommentViewController: UIViewController {
     }
     
     @IBAction func closeIssueButton(_ sender: UIButton) {
-        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "closeIssue"), object: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(addComment), name: NSNotification.Name(rawValue: "addComment"), object: nil)
         configLabelStackView()
         configAssigneesStackView()
         configMilestone()
+    }
+    @objc
+    func addComment(_ notification: Notification) {
+        if let contents = notification.object as? String{
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            do {
+                print("datetime:", formatter.string(from: Date()))
+                try commentRepository.insert(issueId: issue.id, contents: contents, created: formatter.string(from: Date()))
+            } catch (let error) {
+                print(error)
+            }
+        }
     }
     
     func configIssue(issue: Issue) {

@@ -18,6 +18,18 @@ class IssueHeaderCollectionViewCell: UICollectionReusableView {
         //cell reuse
     }
     
+    func setClose() {
+        let attributedString = NSMutableAttributedString(string: "")
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = UIImage(systemName: "exclamationmark.circle")
+        let iconAttachment = NSTextAttachment(image: (imageAttachment.image?.withTintColor(UIColor().colorWithHexString(hex: "#cb2431")))!)
+        attributedString.append(NSAttributedString(attachment: iconAttachment))
+        attributedString.append(NSAttributedString(string: "CLOSE"))
+        issueItemStatusLabel.attributedText = attributedString
+        issueItemStatusLabel.backgroundColor = UIColor().colorWithHexString(hex: "#f3c0c5")
+        issueItemStatusLabel.textColor = UIColor().colorWithHexString(hex: "#cb2431")
+    }
+    
     func setupHeaderSection(issue: Issue) {
         DispatchQueue.main.async {
             let url = URL(string: issue.profileUrl)

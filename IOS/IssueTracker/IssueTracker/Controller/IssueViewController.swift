@@ -160,6 +160,7 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        issueTableView.deselectRow(at: indexPath, animated: false)
         if issueTableView.isEditing {
             self.selectSelectCell(tableView: tableView, indexPath: indexPath)
             print("select", indexPath)

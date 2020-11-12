@@ -16,6 +16,7 @@ class IssueItemViewController: UIViewController {
     private let commentRepository = CommentRepository()
     var issue: Issue = Issue()
     var comments = [Comment]()
+    var issueHeader: IssueHeaderCollectionViewCell = IssueHeaderCollectionViewCell()
     var issueAddCommentViewController: IssueAddCommentViewController!
     var visualEffectView: UIVisualEffectView!
     var issueAddCommentViewHeight: Int = 0
@@ -40,8 +41,7 @@ class IssueItemViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         NotificationCenter.default.addObserver(self, selector: #selector(scrollToUp), name: NSNotification.Name(rawValue: "scrollToUp"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(scrollToDown), name: NSNotification.Name(rawValue: "scrollToDown"), object: nil)
-        getComment()
-        print("=======", issue)
+        NotificationCenter.default.addObserver(self, selector: #selector(closeIssue), name: NSNotification.Name(rawValue: "closeIssue"), object: nil)
         issueAddCommentViewHeight = Int(self.view.frame.height - 150)
         issueItemCollectionView.delegate = self
         issueItemCollectionView.dataSource = self
@@ -51,6 +51,7 @@ class IssueItemViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        getComment()
         self.visualEffectView.isUserInteractionEnabled = false
     }
     
@@ -62,6 +63,11 @@ class IssueItemViewController: UIViewController {
     @objc
     func scrollToDown() {
         issueItemCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+    }
+    
+    @objc
+    func closeIssue() {
+        issueHeader.setClose()
     }
     
     func getComment() {
@@ -192,6 +198,7 @@ extension IssueItemViewController: UICollectionViewDelegate, UICollectionViewDat
         guard let issueHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "IssueHeaderCollectionViewCell", for: indexPath) as? IssueHeaderCollectionViewCell else{
             return UICollectionReusableView()
         }
+        issueHeader = issueHeaderView
         issueHeaderView.setupHeaderSection(issue: issue)
         return issueHeaderView
     }
