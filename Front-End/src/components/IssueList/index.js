@@ -62,7 +62,7 @@ const ListContainer = styled.div`
 `;
 
 const AllSelectChkboxArea = styled.div`
-  width: 50%;
+  width: 400px;
 `;
 const CheckBox = styled.input`
   margin: 11px;
@@ -70,12 +70,32 @@ const CheckBox = styled.input`
 const FilterSelectArea = styled.div`
   display: flex;
   padding: 10px 5px 0px 5px;
-  width: 45%;
+  width: 500px;
   justify-content: space-between;
 `;
+
+const Caret = styled.span`
+  display: block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  content: '';
+  border-top-style: solid;
+  border-top-width: 4px;
+  border-right: 4px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-left: 4px solid transparent;
+`;
+
 const FilterColumn = styled.div`
   width: 100px;
-  margin: 0px 10px 0px 10px;
+  display: flex;
+  text-align: center;
+  & * {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 2px;
+  }
 `;
 
 const IssueListComponent = () => {
@@ -114,12 +134,25 @@ const IssueListComponent = () => {
           <CheckBox type="checkbox" />
         </AllSelectChkboxArea>
         <FilterSelectArea>
-          <FilterColumn>Author</FilterColumn>
-          <FilterColumn>Label</FilterColumn>
-          <FilterColumn>Projects</FilterColumn>
-          <FilterColumn>MileStones</FilterColumn>
-          <FilterColumn>Assignee</FilterColumn>
-          <FilterColumn>Sort</FilterColumn>
+          <FilterColumn>
+            Author
+            <Caret></Caret>
+          </FilterColumn>
+          <FilterColumn>
+            Label <Caret />
+          </FilterColumn>
+          <FilterColumn>
+            Projects <Caret />
+          </FilterColumn>
+          <FilterColumn>
+            MileStones <Caret />
+          </FilterColumn>
+          <FilterColumn>
+            Assignee <Caret />
+          </FilterColumn>
+          <FilterColumn>
+            Sort <Caret />
+          </FilterColumn>
         </FilterSelectArea>
       </ListHeader>
       <ListContainer>
