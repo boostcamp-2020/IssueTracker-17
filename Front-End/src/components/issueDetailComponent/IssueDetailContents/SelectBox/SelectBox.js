@@ -10,6 +10,12 @@ import AssigneePopUpRow from './PopUpBox/PopUpBoxRows/AssigneePopUpRow';
 import LabelPopUpRow from './PopUpBox/PopUpBoxRows/LabelPopUpRow';
 import MilestonePopUpRow from './PopUpBox/PopUpBoxRows/MilestonePopUpRow';
 import { IssueContext } from '../../IssueDetailComponent';
+import {
+  updateAssignee,
+  insertHasLabel,
+  deleteHasLabel,
+  updateIssue,
+} from 'Api';
 
 const SelectBoxContainer = styled.div`
   padding-top: 16px;
@@ -46,6 +52,10 @@ const SelectBox = ({ category }) => {
   const selectBoxHeaderElement = useRef(null);
   const [popUp, setPopUp] = useState('none');
   const { state, dispatch } = useContext(IssueContext);
+  // const [previousState, setPreviousState] = useState({
+  //   assignees: [...state.assignees],
+  //   labels: [...state.labels],
+  // });
 
   const getValues = (category) => {
     switch (category) {
@@ -81,12 +91,69 @@ const SelectBox = ({ category }) => {
     setPopUp('block');
   };
 
+  // const putAssignee = () => {
+  //   const data = state.assignees.reduce(
+  //     (prev, value, index) => {
+  //       if (value.checked && !previousState.assignees[index])
+  //         return {
+  //           ...prev,
+  //           insertAssignee: [...prev.insertAssignee, value.id],
+  //         };
+  //       else if (!value.checked && previousState.assignees[index])
+  //         return {
+  //           ...prev,
+  //           deleteAssignee: [...prev.deleteAssignee, value.id],
+  //         };
+  //       else return { ...prev };
+  //     },
+  //     { insertAssignee: [], deleteAssignee: [] }
+  //   );
+  //   data.issueId = state.id;
+  //   if (data.insertAssignee.length > 0 || data.deleteAssignee.length > 0)
+  //     updateAssignee(data);
+  // };
+
+  // const putLabels = () => {
+  //   const data = state.labels.reduce(
+  //     (prev, value, index) => {
+  //       if (value.checked && !previousState.labels[index])
+  //         return {
+  //           ...prev,
+  //           insertAssignee: [...prev.insertAssignee, value.id],
+  //         };
+  //       else if (!value.checked && previousState.labels[index])
+  //         return {
+  //           ...prev,
+  //           deleteAssignee: [...prev.deleteAssignee, value.id],
+  //         };
+  //       else return { ...prev };
+  //     },
+  //     { insert: [], delete: [] }
+  //   );
+  //   const insertData = { issueId: state.id, labelId: [...data.insert] };
+  //   const deleteData = { labelId: [...data.delete] };
+  //   insertHasLabel(insertData);
+  //   deleteHasLabel(deleteData);
+  // };
+
   const onClickOutsideHandler = (event) => {
     if (selectBoxHeaderElement.current.contains(event.target)) {
       return;
     }
     if (popUp === 'block' && !popupElement.current.contains(event.target)) {
       setPopUp('none');
+
+      // switch (category) {
+      //   case 'Assignees':
+      //     putAssignee();
+      //     break;
+      //   case 'Labels':
+      //     putLabels();
+      //     break;
+      //   case 'Milestone':
+      //     const milestoneId = state.milestones.filter((value) => value.checked);
+      //     updateIssue({ id: state.id, milestoneId: milestoneId });
+      // }
     }
   };
 

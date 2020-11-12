@@ -14,4 +14,5 @@ export const NavBar = styled.div`
   font-weight: border;
   color: white;
   text-align: center;
+  z-index: 100;
 `;

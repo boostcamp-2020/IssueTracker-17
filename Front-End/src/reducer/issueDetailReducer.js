@@ -44,17 +44,19 @@ export function issueDetailReducer(state, action) {
       return { ...state, status: 'closed' };
     case 'REOPEN_ISSUE':
       return { ...state, status: 'open' };
+    case 'UNCHECK_MILESTONE':
+      return { ...state, milestones: action.milestones };
     default:
       throw new Error();
   }
 
   switch (action.category) {
     case 'Assignees':
-      return Object.assign(state, { assignees: newRows });
+      return { ...state, assignees: newRows };
     case 'Labels':
-      return Object.assign(state, { labels: newRows });
+      return { ...state, labels: newRows };
     case 'Milestone':
-      return Object.assign(state, { milestones: newRows });
+      return { ...state, milestones: newRows };
     default:
       throw new Error();
   }
