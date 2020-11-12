@@ -34,10 +34,10 @@ export async function editNewMileStone(data) {
     return false;
   }
 }
-export async function deleteNewMileStone(data) {
+export async function deleteNewMileStone(id) {
   try {
-    const apiurl = host + `/milestone/`;
-    let res = await axios.delete(apiurl, data);
+    const apiurl = host + `/milestone/${id}`;
+    let res = await axios.delete(apiurl);
     return true;
   } catch (e) {
     return false;
