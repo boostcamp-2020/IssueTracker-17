@@ -4,10 +4,9 @@ import { CheckSvg } from 'Style';
 
 const LabelRow = styled.div`
   padding: 5px 0;
-  padding-left: 20px;
+  padding-left: 5px;
   border-bottom: 1px solid #dddddd;
   display: flex;
-  justify-content: space-between;
 `;
 const LabelRowContent = styled.div``;
 const LabelRowHead = styled.div`

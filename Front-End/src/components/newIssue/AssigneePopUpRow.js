@@ -11,7 +11,6 @@ const AssigneeRow = styled.div`
   height: 20px;
   padding: 5px 10px;
   display: flex;
-  justify-content: space-between;
   vertical-align: center;
   border-bottom: 1px solid #dddddd;
   position: relative;

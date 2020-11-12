@@ -4,10 +4,9 @@ import { CheckSvg } from 'Style';
 
 const MilestoneRow = styled.div`
   padding: 5px 0;
-  padding-left: 20px;
+  padding-left: 5px;
   border-bottom: 1px solid #dddddd;
   display: flex;
-  justify-content: space-between;
 `;
 const MilestoneRowContent = styled.div``;
 const MilestoneName = styled.div`
@@ -36,7 +35,7 @@ const MilestonePopUpRow = ({ row, Event }) => {
       onClick={Event ? (e) => changeFilterTextEventHandler(e) : undefined}
     >
       <MilestoneCheckbox>
-        <CheckSvg checked={row.checked}></CheckSvg>
+        <CheckSvg checked={row.checked}/>
       </MilestoneCheckbox>
       <MilestoneRowContent>
         <MilestoneName>{row.title}</MilestoneName>
