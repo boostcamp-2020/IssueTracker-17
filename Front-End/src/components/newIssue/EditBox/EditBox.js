@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import useDebounce from '../../util/useDebounce.js';
+import useDebounce from '@/util/useDebounce';
 import styled from 'styled-components';
-import {} from '../../style';
 import { postFile } from 'Api';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const EditBoxContainer = styled.div`
   width: 850px;
