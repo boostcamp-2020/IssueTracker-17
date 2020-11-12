@@ -131,4 +131,23 @@ const makeModifyData = ({ bodyObj }) => {
     return modifyData;
 };
 
+issueController.bulkUpdate = async (req, res, next) => {
+    const bodyObj = req.body;
+    const { id } = bodyObj;
+    console.log(bodyObj); //id:[]
+    const modifyData = bodyObj;
+    delete modifyData.id;
+    try {
+        const result = await issue.update(modifyData, {
+            where: {
+                id: id,
+            },
+        });
+        console.log(result);
+        res.status(200).json({ result: true });
+    } catch (e) {
+        next(e);
+    }
+};
+
 module.exports = issueController;

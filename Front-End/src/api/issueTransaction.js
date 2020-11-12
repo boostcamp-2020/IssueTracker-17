@@ -23,7 +23,14 @@ export const getIssueDetails = async (issueId) => {
 };
 
 export const updateIssue = async (data) => {
-  const apiurl = 'http://localhost:3000/issue/';
+  const apiurl = host + '/issue/';
+  const res = await axios.put(apiurl, data);
+  return res.data.result;
+};
+
+export const updateMultipleIssue = async (data) => {
+  // data :{id:[] ,status:?}
+  const apiurl = host + '/issue/bulk';
   const res = await axios.put(apiurl, data);
   return res.data.result;
 };
