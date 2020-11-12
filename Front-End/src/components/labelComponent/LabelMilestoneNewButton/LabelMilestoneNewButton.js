@@ -7,6 +7,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   width: 16%;
   margin-right: auto;
+  display: flex;
 `;
 
 const ButtonsWrapper = styled.div`
