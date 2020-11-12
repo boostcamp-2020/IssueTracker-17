@@ -24,6 +24,14 @@ export function filterReducer(state = filterInitialState, action) {
         milestone: { ...state.milestone, text: '', id: -1 },
         asignee: { ...state.asignee, text: '', id: -1 },
       };
+    case 'oneFilter':
+      return {
+        ...filterInitialState,
+        [action.filter]: {
+          text: 'sunkest',
+          id: action.data,
+        },
+      };
     default:
       throw new Error();
   }
