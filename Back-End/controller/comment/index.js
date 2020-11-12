@@ -52,7 +52,7 @@ commentController.update = async (req, res, next) => {
     }
 };
 commentController.delete = async (req, res, next) => {
-    const { id } = req.body;
+    const { id } = req.params;
     try {
         const sql = { where: { id } };
         const result = await comment.destroy(sql);
