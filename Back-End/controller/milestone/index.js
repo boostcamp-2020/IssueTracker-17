@@ -1,15 +1,23 @@
 require('dotenv').config();
 const { milestone } = require('@models/sequelize');
-
+const model = require('@models/sequelize');
 function milestoneController() {}
 
 milestoneController.get = async (req, res, next) => {
     const { id } = req.params;
-    const query = {};
+
+    const query = {
+        include: [
+            {
+                model: model.issue,
+            },
+        ],
+    };
+
     if (id) query.where = { id };
     try {
         const result = await milestone.findAll(query);
-        res.status(200).json({ result: result});
+        res.status(200).json({ result: result });
     } catch (e) {
         next(e);
     }
@@ -41,7 +49,8 @@ milestoneController.update = async (req, res, next) => {
     }
 };
 milestoneController.delete = async (req, res, next) => {
-    const { id } = req.body;
+    const { id } = req.params;
+
     const sql = { where: { id } };
     try {
         const result = await milestone.destroy(sql);

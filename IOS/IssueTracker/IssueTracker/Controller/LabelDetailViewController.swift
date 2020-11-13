@@ -10,13 +10,13 @@ import UIKit
 class LabelDetailViewController: UIViewController {
     var labelRepository = LabelRepository()
     var label = Label()
+    var activeTextFieldYPosition: CGFloat = 0.0
+    var picker = UIColorPickerViewController()
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var colorTextField: UITextField!
     @IBOutlet weak var colorPickerButton: UIButton!
     @IBAction func colorPickerButtonAction(_ sender: UIButton) {
-        let picker = UIColorPickerViewController()
-        picker.delegate = self
         present(picker, animated: true, completion: nil)
     }
     @IBOutlet weak var randomColorButton: UIButton!
@@ -29,14 +29,18 @@ class LabelDetailViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func saveButtonAction(_ sender: UIButton) {
-        label.name = nameTextField.text ?? ""
-        label.description = descriptionTextField.text ?? ""
+        label.title = nameTextField.text ?? ""
+        label.contents = descriptionTextField.text ?? ""
         label.color = colorTextField.text ?? "#000000"
         do {
             if(label.id == -1) {
                 try labelRepository.insert(item: label.model)
             } else {
-                try labelRepository.update(item: label.model)
+                if label.title == "", label.contents == "", label.color == "#000000" {
+                    try labelRepository.delete(item: label.model)
+                } else {
+                    try labelRepository.update(item: label.model)
+                }
             }
         } catch (let error) {
             print(error)
@@ -55,22 +59,51 @@ class LabelDetailViewController: UIViewController {
         colorPickerButton.layer.borderColor = UIColor.black.cgColor
         colorPickerButton.layer.borderWidth = 2
         setValue(label: label)
+        nameTextField.delegate = self
+        descriptionTextField.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        picker.delegate = self
+        picker.selectedColor = UIColor().colorWithHexString(hex: label.color)
+        picker.supportsAlpha = false
     }
     func setValue(label: Label) {
-        nameTextField.text = label.name
-        descriptionTextField.text = label.description
+        nameTextField.text = label.title
+        descriptionTextField.text = label.contents
         colorTextField.text = label.color
         colorPickerButton.backgroundColor = UIColor().colorWithHexString(hex: label.color)
+    }
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let distanceBetweenSelectedTextFieldAndKeyboard = self.view.frame.height - activeTextFieldYPosition - keyboardSize.height
+            if distanceBetweenSelectedTextFieldAndKeyboard < 0 {
+                UIView.animate(withDuration: 0.4) {
+                    self.view.transform = CGAffineTransform(translationX: 0.0, y: distanceBetweenSelectedTextFieldAndKeyboard)
+                }
+            }
+        }
+    }
+    @objc func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.4) {
+            self.view.transform = .identity
+        }
     }
 }
 @available(iOS 14.0, *)
 extension LabelDetailViewController: UIColorPickerViewControllerDelegate {
-    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-        dismiss(animated: true, completion: nil)
-    }
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         let color = viewController.selectedColor
         colorTextField.text = color.toHex()!
         colorPickerButton.backgroundColor = color
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+extension LabelDetailViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextFieldYPosition = textField.frame.origin.y + textField.frame.height
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

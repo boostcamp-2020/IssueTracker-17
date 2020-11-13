@@ -65,11 +65,11 @@ module.exports = (sequelize, Datatypes) => {
             include: [
                 {
                     model: model.user,
-                    attributes: ['name'],
+                    attributes: ['name', 'profile_url'],
                 },
                 {
                     model: model.milestone,
-                    // attributes: ['title'],
+                    attributes: ['title'],
                 },
                 {
                     model: model.has_label,
@@ -90,16 +90,37 @@ module.exports = (sequelize, Datatypes) => {
                     include: [
                         {
                             model: model.user,
+                            attributes: [
+                                'id',
+                                'type',
+                                'identifier',
+                                'name',
+                                ['profile_url', 'profileUrl'],
+                            ],
                         },
                     ],
                 },
                 {
                     model: model.comment,
-                    attributes: ['user_id'],
+                    // attributes: ['user_id'],
+                    include: [
+                        {
+                            model: model.user,
+                            attributes: ['name', 'profile_url'],
+                        },
+                    ],
                 },
             ],
             where: filterQuery,
-            attributes: ['id', 'title', 'status', 'contents', 'created'],
+            attributes: [
+                'id',
+                'title',
+                'status',
+                'contents',
+                'created',
+                'milestone_id',
+                'user_id',
+            ],
         };
         if (id) query.where = { id };
         const result = await issue.findAll(query);

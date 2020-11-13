@@ -26,6 +26,7 @@ class MilestoneViewController: UIViewController {
     func configure() {
         dateFormatter.dateFormat = "yyyy/MM/dd"
         NotificationCenter.default.addObserver(self, selector: #selector(saveMilestoneData), name: .saveMilestoneData, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setIssueCountOfMilestone), name: .setIssueCountOfMilestone, object: nil)
         saveMilestoneData()
     }
     func openDetailView(milestone: Milestone) {
@@ -48,6 +49,17 @@ class MilestoneViewController: UIViewController {
             self.collectionView.reloadData()
         }
     }
+    @objc func setIssueCountOfMilestone(_ notification: Notification) {
+        if let cnt = notification.object as? [Int]{
+            for i in 0..<milestones.count {
+                if milestones[i].id == cnt[0] {
+                    milestones[i].openIssueCount = cnt[1]
+                    milestones[i].closeIssueCount = cnt[2]
+                }
+            }
+        }
+        self.collectionView.reloadData()
+    }
 }
 extension MilestoneViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -57,10 +69,10 @@ extension MilestoneViewController: UICollectionViewDelegate, UICollectionViewDat
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MilestoneCollectionViewCell", for: indexPath) as? MilestoneCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.nameLabel.text = milestones[indexPath.row].name
-        let date = dateFormatter.string(from: milestones[indexPath.row].endDate).split(separator: "/")
+        cell.nameLabel.text = milestones[indexPath.row].title
+        let date = dateFormatter.string(from: milestones[indexPath.row].until).split(separator: "/")
         cell.endDateLabel.text = "\(date[0])년 \(date[1])월 \(date[2])일까지"
-        cell.descriptionLabel.text = milestones[indexPath.row].description
+        cell.descriptionLabel.text = milestones[indexPath.row].contents
         let sumIssue = milestones[indexPath.row].openIssueCount + milestones[indexPath.row].closeIssueCount
         if sumIssue != 0 {
             let percent = Int(round((Float(milestones[indexPath.row].closeIssueCount) / Float(sumIssue)) * 100))

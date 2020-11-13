@@ -140,12 +140,12 @@ button.refresh-button {
     background-color: #fef2c0;
 }
 
-input[type="text"] {
+/* input[type="text"] {
     border-radius: 5px;
     border: 1px solid darkgray;
     height: 21px;
     vertical-align: top;
-}
+} */
 
 .label-contents-text {
     margin-left: 5.5% !important;

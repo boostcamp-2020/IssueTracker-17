@@ -6,14 +6,24 @@ function issueController() {}
 
 issueController.get = async (req, res, next) => {
     const { issueId } = req.params;
-    const { status, mention, author, labels, milestone, asignee } = req.query;
-    const filterQuery = createFilterQuery({
-        status,
-        mention,
-        author,
-        milestone,
-        asignee,
-    });
+    const { status, mention, author, labels, milestone, asignee, version } = req.query;
+    let filterQuery = false;
+    if (version)
+        filterQuery = createContentFilterQuery({
+            status,
+            mention,
+            author,
+            milestone,
+            asignee,
+        });
+    else
+        filterQuery = createFilterQuery({
+            status,
+            mention,
+            author,
+            milestone,
+            asignee,
+        });
 
     try {
         const initResult = await issue.get({
@@ -24,17 +34,35 @@ issueController.get = async (req, res, next) => {
 
         let result = makeGetResult({ result: initResult });
 
-        if (labels) {
-            const filterLabelList = Array.isArray(labels)
-                ? labels.map((label) => parseInt(label))
-                : [parseInt(labels)];
-            result = getlabelFilteredList(result, filterLabelList);
+        if(version){
+            if (labels) {
+                const filterLabelList = Array.isArray(labels)
+                    ? labels.map((label) => label)
+                    : [labels];
+                result = getlabelContentFilteredList(result, filterLabelList);
+            }
+        } else {
+            if (labels) {
+                const filterLabelList = Array.isArray(labels)
+                    ? labels.map((label) => parseInt(label))
+                    : [parseInt(labels)];
+                result = getlabelFilteredList(result, filterLabelList);
+            }
         }
 
         res.status(200).json({ result: result });
     } catch (e) {
         next(e);
     }
+};
+
+const getlabelContentFilteredList = (issueList, filterLabelList) => {
+    return issueList.filter((issue) => {
+        const issueLabelList = issue.dataValues.labels.map(
+            (label) => label.dataValues.title
+        );
+        return filterLabelList.every((label) => issueLabelList.includes(label));
+    });
 };
 
 const getlabelFilteredList = (issueList, filterLabelList) => {
@@ -56,13 +84,24 @@ const createFilterQuery = ({ status, mention, author, milestone, asignee }) => {
     return filterQuery;
 };
 
+const createContentFilterQuery = ({ status, mention, author, milestone, asignee }) => {
+    const filterQuery = {};
+    if (status !== undefined) filterQuery['status'] = status;
+    if (mention !== undefined) filterQuery['$comments.user_id$'] = mention;
+    if (author !== undefined) filterQuery['$user.name$'] = author;
+    if (milestone !== undefined) filterQuery['$milestone.title$'] = milestone;
+    if (asignee !== undefined) filterQuery['$has_assignees.user.name$'] = asignee;
+    return filterQuery;
+};
+
 const makeGetResult = ({ result }) => {
     result.forEach((issueDataValue) => {
         let data = issueDataValue['dataValues'];
         data['userName'] = data['user']['name'];
-        data['milestoneTitle'] = data['milstone']
-            ? data['milstone']['title']
-            : data['milstone'];
+        data['profileUrl'] = data['user']['profile_url'];
+        data['milestoneTitle'] = data['milestone']
+            ? data['milestone']['title']
+            : data['milestone'];
         data['user'] = undefined;
         data['milestone'] = undefined;
         data['labels'] = [];
@@ -75,7 +114,11 @@ const makeGetResult = ({ result }) => {
             data['assignees'] = [...data['assignees'], user['user']];
         });
         data['has_assignees'] = undefined;
-        delete data['comments'];
+        data['comments'].forEach((comment) => {
+            comment['dataValues']['name'] = comment['dataValues']['user']['name'];
+            comment['dataValues']['profileUrl'] = comment['dataValues']['user']['profile_url'];
+            comment['dataValues']['user'] = undefined;
+        });
     });
     return result;
 };
@@ -129,6 +172,25 @@ const makeModifyData = ({ bodyObj }) => {
 
     modifyData = JSON.parse(JSON.stringify(modifyData));
     return modifyData;
+};
+
+issueController.bulkUpdate = async (req, res, next) => {
+    const bodyObj = req.body;
+    const { id } = bodyObj;
+    console.log(bodyObj); //id:[]
+    const modifyData = bodyObj;
+    delete modifyData.id;
+    try {
+        const result = await issue.update(modifyData, {
+            where: {
+                id: id,
+            },
+        });
+        console.log(result);
+        res.status(200).json({ result: true });
+    } catch (e) {
+        next(e);
+    }
 };
 
 module.exports = issueController;

@@ -19,17 +19,24 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     let toolbar = UIToolbar()
     private let searchController = UISearchController(searchResultsController: nil)
     var issues = [Issue]()
+    var tempIssues = [Issue]()
     private let issueRepository = IssueRepository()
     
     @IBAction func tabTableEditButton(_ sender: UIBarButtonItem) {
         if issueTableView.isEditing {
             issueTableView.setEditing(false, animated: true)
             self.navigationItem.leftBarButtonItem = issueFilterButton
-            self.tabBarController?.tabBar.isHidden = false
+            self.tabBarController?.tabBar.alpha = 1
+            toolbar.alpha = 0
         }else{
             let button = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(tabSelectAllButton))
             self.navigationItem.leftBarButtonItem = button
-            self.tabBarController?.tabBar.isHidden = true
+            self.tabBarController?.tabBar.alpha = 0
+            let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+            let buttonIssue = UIBarButtonItem(title: "선택 이슈 닫기", style: .plain, target: self, action: nil)
+            toolbar.setItems([flexibleSpace, buttonIssue], animated: true)
+            toolbar.topAnchor.constraint(equalTo: issueTableView.bottomAnchor, constant: -100).isActive = true
+            toolbar.alpha = 1
             issueTableView.setEditing(true, animated: true)
             issueTableView.allowsMultipleSelectionDuringEditing = true
         }
@@ -53,10 +60,69 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(addFilter), name: NSNotification.Name(rawValue: "addFilter"), object: nil)
+        self.tabBarController?.tabBar.isHidden = false
         configure()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+        getIssue()
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if issueTableView.isEditing {
+            return false
+        }else{
+            return true
+        }
+    }
+    
+    @objc
+    func addFilter(_ notification: Notification) {
+        if let filter = notification.object as? [Int]{
+            let filterString: String = makeFilterString(filter: filter)
+            do {
+                issueRepository.getByFilter(filter: filterString, finishedCallback: { [weak self] (arrayOfIssue) in
+                    self?.issues.removeAll()
+                    self?.tempIssues.removeAll()
+                    if (arrayOfIssue != nil) {
+                        for issue in arrayOfIssue! {
+                            self?.issues.append(issue.decode())
+                            self?.tempIssues.append(issue.decode())
+                        }
+                        self?.issueTableView.reloadData()
+                    }
+                    self?.issueTableView.reloadData()
+                })
+            } catch (let error) {
+                print(error)
+            }
+        }
+    }
+    
+    private func makeFilterString(filter: [Int]) -> String {
+        var str = "?"
+        if filter[0] == 1 {
+            str += "status=0&"
+        }else if filter[4] == 1 {
+            str += "status=1&"
+        }
+        if filter[1] == 1 {
+            str += "author=1&"//todo id
+        }
+        if filter[2] == 1 {
+            str += "asignee=1&"//todo id
+        }
+        if filter[3] == 1 {
+            str += "mention=1&"//todo id
+        }
+        return str
+    }
+    
     private func configure() {
         self.navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
         issueTableView.dataSource = self
         issueTableView.delegate = self
         issueTableView.allowsMultipleSelectionDuringEditing = true
@@ -64,6 +130,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         getIssue()
         configToolbar()
     }
+    
     func getIssue() {
         self.issues.removeAll()
         issueRepository.getAll {
@@ -71,12 +138,14 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
             if (arrayOfIssue != nil) {
                 for issue in arrayOfIssue! {
                     self.issues.append(issue.decode())
+                    self.tempIssues.append(issue.decode())
                 }
             }
             self.issueTableView.reloadData()
         }
         self.issueTableView.reloadData()
     }
+    
     func openDetailView(issue: Issue) {
         guard let vcName = self.storyboard?.instantiateViewController(withIdentifier: "IssueDetailViewController") as? IssueDetailViewController else {
             return
@@ -85,25 +154,30 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         vcName.issue = issue
         self.present(vcName, animated: true, completion: nil)
     }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        issues = tempIssues.filter({$0.title.lowercased().contains(searchText.lowercased()) })
+        if searchText == "" {
+            issues = tempIssues
+        }
+        issueTableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        issues = tempIssues
+        issueTableView.reloadData()
     }
     
     func configToolbar() {
         self.view.addSubview(toolbar)
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        let button = UIBarButtonItem(title: "tset", style: .plain, target: nil, action: nil)
-        
-        toolbar.setItems([flexibleSpace, button], animated: true)
         toolbar.translatesAutoresizingMaskIntoConstraints = false
-        toolbar.topAnchor.constraint(equalTo: issueTableView.bottomAnchor).isActive = true
+        //toolbar.topAnchor.constraint(equalTo: self.tabBarController?.tabBar.topAnchor!).isActive = true
         toolbar.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        //toolbar.bottomAnchor.constraint(equalToSystemSpacingBelow: self.view.bottomAnchor, multiplier: 0).isActive = true
         toolbar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         toolbar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
-        // toolbar.items = [flexibleSpace, button]
-        
+        toolbar.alpha = 0
     }
+    
     @objc func saveIssueData() {
         getIssue()
         issueTableView.reloadData()
@@ -119,28 +193,36 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "IssueViewCustomCell", for: indexPath) as? IssueViewCustomCell else {
             return UITableViewCell()
         }
-        cell.issueTitleLabel.text = issues[indexPath.row].title
-        cell.issueContentsLabel.text = issues[indexPath.row].contents
+        cell.configIssue(issue: issues[indexPath.row])
+        cell.selectionStyle = .default
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 80
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        openDetailView(issue: issues[indexPath.row])
-        //self.selectSelectCell(tableView: tableView, indexPath: indexPath)
-        //print("select", indexPath)
+        issueTableView.deselectRow(at: indexPath, animated: false)
+        if issueTableView.isEditing {
+            self.selectSelectCell(tableView: tableView, indexPath: indexPath)
+        }else{
+            let vc = self.storyboard?.instantiateViewController(identifier: "IssueItemViewController") as! IssueItemViewController
+            vc.issue = issues[indexPath.row]
+            present(vc, animated: true, completion: nil)
+        }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         self.selectSelectCell(tableView: tableView, indexPath: indexPath)
-        print("deselect", indexPath)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = deleteAction(at: indexPath)
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, completion in
+            self?.issues.remove(at: indexPath.row)
+            self?.issueTableView.deleteRows(at: [indexPath], with: .automatic)
+            completion(true)
+        }
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
@@ -150,7 +232,6 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
         })
         return action
     }
-    
 }
 
 extension IssueViewController {
@@ -161,6 +242,5 @@ extension IssueViewController {
                 selectData.append(issues[index.row])
             }
         }
-        print(selectData)
     }
 }

@@ -5,6 +5,6 @@ const hasLabelController = require('@controller/has_label');
 router.get('/:issueId?', hasLabelController.get);
 router.post('/', hasLabelController.insert);
 router.put('/', hasLabelController.update);
-router.delete('/', hasLabelController.delete);
+router.delete('/:data', hasLabelController.delete);
 
 module.exports = router;
