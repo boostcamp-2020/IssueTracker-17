@@ -205,7 +205,6 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
         issueTableView.deselectRow(at: indexPath, animated: false)
         if issueTableView.isEditing {
             self.selectSelectCell(tableView: tableView, indexPath: indexPath)
-            print("select", indexPath)
         }else{
             let vc = self.storyboard?.instantiateViewController(identifier: "IssueItemViewController") as! IssueItemViewController
             vc.issue = issues[indexPath.row]
@@ -215,11 +214,14 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         self.selectSelectCell(tableView: tableView, indexPath: indexPath)
-        print("deselect", indexPath)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = deleteAction(at: indexPath)
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, completion in
+            self?.issues.remove(at: indexPath.row)
+            self?.issueTableView.deleteRows(at: [indexPath], with: .automatic)
+            completion(true)
+        }
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
