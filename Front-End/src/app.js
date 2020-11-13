@@ -28,12 +28,12 @@ export default function App() {
       <Switch>
         <Route exac path="/label" component={Pages.LabelPage} />
         <Route exac path="/newIssue" component={Pages.NewIssuePage} />
-        <Route exac path="/login" component={Pages.LoginPage} />
         <Route exac path="/auth" component={Pages.Auth} />
         <Route path="/milestone/:mode" component={Pages.EditMileStonePage} />
         <Route exac path="/milestone" component={Pages.MileStoneListPage} />
         <Route exac path="/issue" component={Pages.IssueListPage} />
         <Route path="/detail/:issueId" component={Pages.IssueDetailPage} />
+        <Route exac path="/" component={Pages.LoginPage} />
       </Switch>
     </BrowserRouter>
   );

@@ -83,7 +83,7 @@ const LoginForm = () => {
         <LoginButton>로그인</LoginButton>
         <LoginButton>회원가입</LoginButton>
       </LoginButtonDiv>
-      <GithubLoginDiv href="http://localhost:3000/user/login">
+      <GithubLoginDiv href={`${HOST}/user/login`}>
         <GithubLoginText>Sign in with Github</GithubLoginText>
         <GithubLoginLogo
           xmlns="http://www.w3.org/2000/svg"

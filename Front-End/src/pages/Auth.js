@@ -17,7 +17,7 @@ function Auth(props) {
     const user = jwt.verify(query[1], JWT_SECRET);
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', query[1]);
-    return <Redirect to={{ pathname: '/newIssue' }}></Redirect>;
+    return <Redirect to={{ pathname: '/issue' }}></Redirect>;
   } catch (error) {
     return (
       <Redirect
