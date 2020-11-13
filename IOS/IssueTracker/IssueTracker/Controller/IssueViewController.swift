@@ -103,9 +103,9 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     private func makeFilterString(filter: [Int]) -> String {
         var str = "?"
         if filter[0] == 1 {
-            str += "status=1&"
-        }else if filter[4] == 1 {
             str += "status=0&"
+        }else if filter[4] == 1 {
+            str += "status=1&"
         }
         if filter[1] == 1 {
             str += "author=1&"//todo id
