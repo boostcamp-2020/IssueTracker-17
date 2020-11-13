@@ -18,13 +18,13 @@ const commentRouter = require('./routes/comment');
 const hasLabelRouter = require('./routes/has_label');
 const imgRouter = require('./routes/img');
 
-const corsOption = {
-    origin: 'http://localhost:8080', // 허락하는 요청 주소
-    credentials: true, // true로 하면 설정한 내용을 response 헤더에 추가 해줍니다.
-};
+// const corsOption = {
+//     origin: 'http://localhost:8080', // 허락하는 요청 주소
+//     credentials: true, // true로 하면 설정한 내용을 response 헤더에 추가 해줍니다.
+// };
 
 const app = express();
-app.use(cors(corsOption)); // CORS 미들웨어 추가
+app.use(cors()); // CORS 미들웨어 추가
 
 sequelize.sync();
 app.use(logger('dev'));
