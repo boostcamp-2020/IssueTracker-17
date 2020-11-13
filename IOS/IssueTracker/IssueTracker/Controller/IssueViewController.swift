@@ -35,7 +35,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
             let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
             let buttonIssue = UIBarButtonItem(title: "선택 이슈 닫기", style: .plain, target: self, action: nil)
             toolbar.setItems([flexibleSpace, buttonIssue], animated: true)
-            toolbar.topAnchor.constraint(equalTo: issueTableView.bottomAnchor).isActive = true
+            toolbar.topAnchor.constraint(equalTo: issueTableView.bottomAnchor, constant: -100).isActive = true
             toolbar.alpha = 1
             issueTableView.setEditing(true, animated: true)
             issueTableView.allowsMultipleSelectionDuringEditing = true
