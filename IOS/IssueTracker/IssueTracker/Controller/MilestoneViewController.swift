@@ -14,6 +14,7 @@ class MilestoneViewController: UIViewController {
     }
     var milestones = [Milestone]()
     let milestoneRepository = MilestoneRepository()
+    var openCount = [0,0,0]
     private var dateFormatter = DateFormatter()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class MilestoneViewController: UIViewController {
     func configure() {
         dateFormatter.dateFormat = "yyyy/MM/dd"
         NotificationCenter.default.addObserver(self, selector: #selector(saveMilestoneData), name: .saveMilestoneData, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setIssueCount), name: Notification.Name("setIssueCount"), object: openCount)
         saveMilestoneData()
     }
     func openDetailView(milestone: Milestone) {
@@ -47,6 +49,15 @@ class MilestoneViewController: UIViewController {
             }
             self.collectionView.reloadData()
         }
+    }
+    @objc func setIssueCount() {
+            for i in 0..<milestones.count {
+                if milestones[i].id == openCount[0] {
+                    milestones[i].openIssueCount = openCount[1]
+                    milestones[i].closeIssueCount = openCount[2]
+                }
+            }
+            self.collectionView.reloadData()
     }
 }
 extension MilestoneViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

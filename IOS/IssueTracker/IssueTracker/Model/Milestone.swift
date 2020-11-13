@@ -27,6 +27,21 @@ struct MilestoneVO : Codable {
 }
 extension MilestoneVO {
     func decode() -> Milestone {
-        return Milestone(title: title, contents: contents, until: until.getDate(), openIssueCount: 0, closeIssueCount: 0, id: id, status: status)
+        let issueReposiroty = IssueRepository()
+        var openCount = 0
+        var closeCount = 0
+        issueReposiroty.getByFilter(filter: "?milestone=\(self.id)", finishedCallback: { (arrayOfIssue) in
+            if (arrayOfIssue != nil) {
+                for issue in arrayOfIssue! {
+                    if issue.status == 0 {
+                        openCount += 1
+                    } else if issue.status == 1 {
+                        closeCount += 1
+                    }
+                }
+            }
+            NotificationCenter.default.post(name: Notification.Name("setIssueCount"), object : [id,openCount,closeCount])
+        })
+        return Milestone(title: title, contents: contents, until: until.getDate(), openIssueCount: openCount, closeIssueCount: closeCount, id: id, status: status)
     }
 }

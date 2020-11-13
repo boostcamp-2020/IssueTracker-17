@@ -67,6 +67,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
+        getIssue()
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {

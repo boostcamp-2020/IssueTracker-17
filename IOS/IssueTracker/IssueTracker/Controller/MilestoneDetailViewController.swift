@@ -24,7 +24,11 @@ class MilestoneDetailViewController: UIViewController {
             if milestone.id == -1 {
                 try milestoneRepository.insert(item: milestone.model)
             } else {
-                try milestoneRepository.update(item: milestone.model)
+                if milestone.title == "", milestone.contents == "" {
+                    try milestoneRepository.delete(item: milestone.model)
+                } else {
+                    try milestoneRepository.update(item: milestone.model)
+                }
             }
         } catch (let error) {
             print(error)

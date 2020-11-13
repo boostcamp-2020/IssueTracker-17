@@ -66,7 +66,7 @@ class IssueRepository: Repository {
                           "contentes": item.contents,
                           "created": item.created,
                           "status": item.status] as [String : Any]
-        AF.request(RestApiServerURL.issue, method: .post, parameters: parameters).responseString() {
+        AF.request(RestApiServerURL.issue, method: .put, parameters: parameters).responseString() {
             response in
             switch response.result {
             case .success:

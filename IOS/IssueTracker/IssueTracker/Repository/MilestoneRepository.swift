@@ -66,7 +66,7 @@ class MilestoneRepository: Repository {
     
     func delete(item: VO) throws {
         let parameters = ["id": item.id] as [String : Any]
-        AF.request(RestApiServerURL.milestone, method: .delete, parameters: parameters).responseString(){
+        AF.request(RestApiServerURL.milestone, method: .delete, parameters: parameters, encoding: URLEncoding.httpBody).responseString(){
             response in
             switch response.result {
             case .success:
