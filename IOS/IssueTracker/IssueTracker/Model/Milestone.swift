@@ -40,7 +40,7 @@ extension MilestoneVO {
                     }
                 }
             }
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "setIssueCount"), object : [id,openCount,closeCount])
+            NotificationCenter.default.post(name: .setIssueCountOfMilestone, object : [id,openCount,closeCount])
         })
         return Milestone(title: title, contents: contents, until: until.getDate(), openIssueCount: openCount, closeIssueCount: closeCount, id: id, status: status)
     }

@@ -26,7 +26,7 @@ class MilestoneViewController: UIViewController {
     func configure() {
         dateFormatter.dateFormat = "yyyy/MM/dd"
         NotificationCenter.default.addObserver(self, selector: #selector(saveMilestoneData), name: .saveMilestoneData, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(setIssueCount), name: Notification.Name(rawValue: "setIssueCount"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setIssueCountOfMilestone), name: .setIssueCountOfMilestone, object: nil)
         saveMilestoneData()
     }
     func openDetailView(milestone: Milestone) {
@@ -49,7 +49,7 @@ class MilestoneViewController: UIViewController {
             self.collectionView.reloadData()
         }
     }
-    @objc func setIssueCount(_ notification: Notification) {
+    @objc func setIssueCountOfMilestone(_ notification: Notification) {
         if let cnt = notification.object as? [Int]{
             for i in 0..<milestones.count {
                 if milestones[i].id == cnt[0] {
