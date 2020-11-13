@@ -216,7 +216,7 @@ const IssueListComponent = () => {
           <MenuHeaderArea>
             <LabelButton count={labelNumber} />
             <MilestoneButton count={milestoneNumber} />
-            <Link to="/NewIssue">
+            <Link to="/newIssue">
               <GreenButtonMargin>New Issue</GreenButtonMargin>
             </Link>
           </MenuHeaderArea>
