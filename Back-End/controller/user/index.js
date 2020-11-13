@@ -46,7 +46,7 @@ userController.iosLogin = async (req, res, next) => {
 userController.login = (req, res) => {
     const payload = req.user;
     jwt.sign(payload, config.jwtSecret, { expiresIn: 3600 }, (err, token) => {
-        res.redirect(`http://localhost:8080/auth?token=${token}`);
+        res.redirect(`${config.host}/auth?token=${token}`);
     });
 };
 
