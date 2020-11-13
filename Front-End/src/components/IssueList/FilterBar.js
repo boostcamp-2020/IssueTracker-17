@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
+import { getissueList } from '../../api/issueTransaction';
 import { FilterContext } from './index';
 
 const FilterBar = styled.div`
@@ -31,7 +32,7 @@ const InputForm = styled.input`
 `;
 
 export const FilterBarComponent = (props) => {
-  const { filterText, setFilterText, filterDispatch, setStatus } = useContext(FilterContext);
+  const { filterText, setFilterText, filterDispatch, setStatus, status, dispatch } = useContext(FilterContext);
   const [zero, setZero] = useState(0);
 
   const onChangeFilterEventHandler = (e) => {
@@ -56,6 +57,26 @@ export const FilterBarComponent = (props) => {
     }
     setZero(0);
   };
+
+  const enterEventHandler = async (e) => {
+    if (e.key !== 'Enter') return;
+    const str = e.target.value;
+    let query = '';
+    query += !status ? 'status=0' : 'status=1';
+    ['author', 'labels', 'milestone', 'asignee'].forEach((filter) => {
+      let start = str.indexOf(filter, 7);
+      let middle = str.indexOf(':', start);
+      let end = str.indexOf(' ', middle);
+      end = start !== -1 && end === -1 ? str.length : end;
+      query +=
+        start === -1 ? '' : '&' + filter + '=' + str.slice(middle + 1, end);
+    });
+    query = '?' + query + '&version=1';
+    const res = await getissueList(query);
+    dispatch({ type: 'pushIssues', data: res });
+    filterDispatch({ type: 'deleteAll' });
+  };
+
   return (
     <FilterBar>
       <FilterSelector
@@ -70,8 +91,10 @@ export const FilterBarComponent = (props) => {
         <option value={5}>closed issues</option>
       </FilterSelector>
       <InputForm
+        placeholder={'Search all issues'}
         value={filterText}
         onChange={(e) => setFilterText(e.target.value)}
+        onKeyPress={async (e) => await enterEventHandler(e)}
       />
     </FilterBar>
   );
