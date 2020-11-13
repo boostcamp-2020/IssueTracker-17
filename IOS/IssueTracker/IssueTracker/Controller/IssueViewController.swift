@@ -60,6 +60,7 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(addFilter), name: NSNotification.Name(rawValue: "addFilter"), object: nil)
         self.tabBarController?.tabBar.isHidden = false
         configure()
     }
@@ -74,6 +75,48 @@ class IssueViewController: UIViewController, UISearchBarDelegate {
         }else{
             return true
         }
+    }
+    
+    @objc
+    func addFilter(_ notification: Notification) {
+        if let filter = notification.object as? [Int]{
+            let filterString: String = makeFilterString(filter: filter)
+            do {
+                issueRepository.getByFilter(filter: filterString, finishedCallback: { [weak self] (arrayOfIssue) in
+                    self?.issues.removeAll()
+                    self?.tempIssues.removeAll()
+                    if (arrayOfIssue != nil) {
+                        for issue in arrayOfIssue! {
+                            self?.issues.append(issue.decode())
+                            self?.tempIssues.append(issue.decode())
+                        }
+                        self?.issueTableView.reloadData()
+                    }
+                    self?.issueTableView.reloadData()
+                })
+            } catch (let error) {
+                print(error)
+            }
+        }
+    }
+    
+    private func makeFilterString(filter: [Int]) -> String {
+        var str = "?"
+        if filter[0] == 1 {
+            str += "status=1&"
+        }else if filter[4] == 1 {
+            str += "status=0&"
+        }
+        if filter[1] == 1 {
+            str += "author=1&"//todo id
+        }
+        if filter[2] == 1 {
+            str += "asignee=1&"//todo id
+        }
+        if filter[3] == 1 {
+            str += "mention=1&"//todo id
+        }
+        return str
     }
     
     private func configure() {
@@ -149,8 +192,7 @@ extension IssueViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "IssueViewCustomCell", for: indexPath) as? IssueViewCustomCell else {
             return UITableViewCell()
         }
-        cell.issueTitleLabel.text = issues[indexPath.row].title
-        cell.issueContentsLabel.text = issues[indexPath.row].contents
+        cell.configIssue(issue: issues[indexPath.row])
         cell.selectionStyle = .default
         return cell
     }

@@ -23,9 +23,26 @@ class IssueRepository: Repository {
             }
         }
     }
+    
+    func getByFilter(filter: String, finishedCallback: @escaping (_ issue: [VO]?)->Void){
+        var issues = [VO]()
+        AF.request("\(RestApiServerURL.issue)\(filter)").responseData() {
+            response in
+            switch response.result {
+            case .success:
+                let decodeData = try! JSONDecoder().decode(ResultResponse<VO>.self, from: response.result.get())
+                issues = decodeData.result
+                finishedCallback(issues)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     func get(where id: Int) -> VO? {
         return nil
     }
+    
     func insert(item: VO) throws {
         let parameters = ["userId": 1, //TODO: Login 후 ID 넘겨주기
                           "title": item.title,
@@ -42,6 +59,7 @@ class IssueRepository: Repository {
             }
         }
     }
+    
     func update(item: VO) throws {
         let parameters = ["id": item.id,
                           "title": item.title,
@@ -59,6 +77,7 @@ class IssueRepository: Repository {
             }
         }
     }
+    
     func delete(item: VO) throws {
         let parameters = ["id": item.id] as [String : Any]
         AF.request(RestApiServerURL.issue, method: .delete, parameters: parameters).responseString(){

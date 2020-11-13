@@ -20,6 +20,16 @@ class IssueFilterViewController: UIViewController {
         filterTableView.delegate = self
         filterTableView.dataSource = self
     }
+    var filterCheck: [Int] = [0,0,0,0,0]
+    
+    @IBAction func cancelButton(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func addFilterButton(_ sender: UIBarButtonItem) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "addFilter"), object: filterCheck)
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 extension IssueFilterViewController: UITableViewDelegate {
@@ -27,8 +37,10 @@ extension IssueFilterViewController: UITableViewDelegate {
         filterTableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
             if filterTableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.checkmark {
+                filterCheck[indexPath.row] = 0
                 filterTableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.none
             }else {
+                filterCheck[indexPath.row] = 1
                 self.filterTableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.checkmark
             }
         }

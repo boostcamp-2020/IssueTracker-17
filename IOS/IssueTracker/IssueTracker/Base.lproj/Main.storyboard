@@ -373,8 +373,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                 <items>
                                     <navigationItem id="DaK-Tf-COD">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" style="plain" id="864-Ra-S09"/>
-                                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="sPW-k0-irb"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" style="plain" id="864-Ra-S09">
+                                            <connections>
+                                                <action selector="cancelButton:" destination="uuj-5h-uda" id="R8j-S3-XHU"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="sPW-k0-irb">
+                                            <connections>
+                                                <action selector="addFilterButton:" destination="uuj-5h-uda" id="pDH-Z0-JwT"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -446,57 +454,34 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="101"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="issue title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJ6-wE-rMp">
-                                                    <rect key="frame" x="20" y="11" width="250" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="issue title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJ6-wE-rMp">
+                                                    <rect key="frame" x="20" y="11" width="250" height="21.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="250" id="Jwu-8c-CYb"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4A-xI-wBK">
-                                                    <rect key="frame" x="20" y="35" width="250" height="50"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4A-xI-wBK">
+                                                    <rect key="frame" x="20" y="35.5" width="250" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="250" id="Wsw-JF-aId"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" systemColor="systemGrayColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zN1-iG-2k7">
-                                                    <rect key="frame" x="303" y="11" width="80" height="21"/>
-                                                    <accessibility key="accessibilityConfiguration">
-                                                        <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                    </accessibility>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
-                                                    <state key="normal" title="스프린트">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHx-JX-F6d">
-                                                    <rect key="frame" x="322" y="35" width="61" height="21"/>
-                                                    <color key="backgroundColor" red="0.51809165575869587" green="0.99041412479698843" blue="1" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <accessibility key="accessibilityConfiguration">
-                                                        <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                    </accessibility>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                    <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
-                                                    <state key="normal" title="feature">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="e4A-xI-wBK" firstAttribute="top" secondItem="DJ6-wE-rMp" secondAttribute="bottom" constant="3" id="BD6-mv-RxH"/>
                                                 <constraint firstItem="DJ6-wE-rMp" firstAttribute="leading" secondItem="P8t-kc-EmN" secondAttribute="leading" constant="20" symbolic="YES" id="Bdp-Pu-sfy"/>
-                                                <constraint firstItem="zN1-iG-2k7" firstAttribute="top" secondItem="P8t-kc-EmN" secondAttribute="top" constant="11" id="F0V-b0-Dva"/>
-                                                <constraint firstAttribute="trailing" secondItem="wHx-JX-F6d" secondAttribute="trailing" constant="11" id="U6M-pU-06F"/>
                                                 <constraint firstItem="DJ6-wE-rMp" firstAttribute="top" secondItem="P8t-kc-EmN" secondAttribute="top" constant="11" id="cy5-PP-rMo"/>
                                                 <constraint firstItem="e4A-xI-wBK" firstAttribute="leading" secondItem="P8t-kc-EmN" secondAttribute="leading" constant="20" symbolic="YES" id="fJn-kh-evT"/>
-                                                <constraint firstItem="wHx-JX-F6d" firstAttribute="top" secondItem="zN1-iG-2k7" secondAttribute="bottom" constant="6" id="mSu-Ji-lKk"/>
-                                                <constraint firstAttribute="trailing" secondItem="zN1-iG-2k7" secondAttribute="trailing" constant="11" id="whz-8f-ihK"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="issueContentsLabel" destination="e4A-xI-wBK" id="ImA-x3-oie"/>
-                                            <outlet property="issueLabelLabel" destination="wHx-JX-F6d" id="wXP-hR-acC"/>
-                                            <outlet property="issueMilestoneLabel" destination="zN1-iG-2k7" id="qYB-5R-jM9"/>
                                             <outlet property="issueTitleLabel" destination="DJ6-wE-rMp" id="zOd-Yf-Jkp"/>
                                         </connections>
                                     </tableViewCell>
@@ -930,6 +915,9 @@
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
